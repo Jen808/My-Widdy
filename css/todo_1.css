@@ -1,0 +1,9 @@
+.tasks-container {
+    color: black;
+    background-color: white;
+}
+
+.red-set .tasks-container {
+    color: red;
+    background-color: pink;
+}

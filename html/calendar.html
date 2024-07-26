@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="../css/calendar.css">
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <!-- <a href="#" target="_blank"> -->
+      <img src="../src/logo.png" alt="Logo Image" class="logo-image">
+      </a>
+      <a href="#" id="logo-word">Widdy</a>
+    </div>
+    <div class="sidebar-menu">
+      <nav>
+        <ul>
+          <li class="myWiddy-page"><a href="#" id="myWiddy-page">My Widdy</a></li>
+          <li class="clock-page"><a href="#" id="clock-page">Clock</a></li>
+          <li class="calendar-page"><a href="#" id="calendar-page">Calendar</a></li>
+          <li class="toDoList-page"><a href="#" id="toDoList-page">To Do List</a></li>
+          <li class="weather-page"><a href="#" id="weather-page">Weather</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="content-header">
+      <h2 id="content-title">Calendar</h2>
+    </div>
+    <div class="content-body">
+      <a href="#">
+        <button class="cal1button">
+          <img src="../src/calendar/cal1.png" alt="Calendar Image" class="cal1-image">
+        </button>
+        <button class="cal2button">
+          <img src="../src/calendar/cal2.png" alt="Calendar Image" class="cal2-image">
+        </button>
+        <button class="cal3button">
+          <img src="../src/calendar/cal3.png" alt="Calendar Image" class="cal3-image">
+        </button>
+        <button class="cal4button">
+          <img src="../src/calendar/cal4.png" alt="Calendar Image" class="cal4-image">
+        </button>
+
+
+      </a>
+    </div>
+  </div>
+  </div>
+
+
+  <!-- <button id="back-button">Go Back</button> -->
+
+
+  <script>
+
+    const { ipcRenderer } = require('electron');
+
+
+
+    document.getElementById('myWiddy-page').addEventListener('click', () => {
+      window.location.href = 'my-widdy.html';
+    });
+
+    document.getElementById('logo-word').addEventListener('click', () => {
+      window.location.href = 'my-widdy.html';
+    });
+
+    document.querySelector('.logo-image').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'my-widdy.html';
+    });
+
+
+    document.getElementById('clock-page').addEventListener('click', () => {
+      window.location.href = 'clock.html';
+    });
+
+    document.getElementById('calendar-page').addEventListener('click', () => {
+      window.location.href = 'calendar.html';
+    });
+
+    document.getElementById('toDoList-page').addEventListener('click', () => {
+      window.location.href = 'toDoList.html';
+    });
+
+    document.getElementById('weather-page').addEventListener('click', () => {
+      window.location.href = 'weather.html';
+    });
+
+
+    // document.getElementById('back-button').addEventListener('click', () => {
+    //   window.history.back();
+    // });
+
+    // document.getElementById('calendar-first-design-button').addEventListener('click', () => {
+    //   window.location.href = 'calendar1.html';
+    // });
+
+    document.querySelector('.cal1-image').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'calendar1.html';
+    });
+    document.querySelector('.cal1button').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'calendar1.html';
+    });
+
+    document.querySelector('.cal2-image').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'calendar2.html';
+    });
+    document.querySelector('.cal2button').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'calendar2.html';
+    });
+
+    document.querySelector('.cal3-image').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'calendar3.html';
+    });
+    document.querySelector('.cal3button').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'calendar3.html';
+    });
+
+    document.querySelector('.cal4-image').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'calendar4.html';
+    });
+
+    document.querySelector('.cal4button').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'calendar4.html';
+
+    });
+
+  </script>
+</body>
+
+</html>

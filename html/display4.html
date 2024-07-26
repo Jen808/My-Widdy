@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Tasks Display</title>
+  <link rel="stylesheet" href="style4.css">
+  <link rel="stylesheet" href="todo_1.css">
+</head>
+
+<body>
+  <div class="default-set"></div>
+  <div class="tasks-container">
+    <a href="https://tasksboard.com/app" class="top-right-button" target="_blank">Go to Tasks Board</a>
+    <div class="week-range" id="week-range"></div>
+    <div class="week-columns" id="week-columns">
+      <!-- Columns for each day of the week will be dynamically generated here -->
+    </div>
+  </div>
+
+  <div class="navigation-buttons">
+    <button id="prev-week">-</button>
+    <button id="next-week">+</button>
+  </div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    let currentDate = new Date(); // Initialize the currentDate variable
+
+    function formatDate(date) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return date.toLocaleDateString('en-US', options);
+    }
+
+    function getWeekRange(date) {
+      const firstDayOfWeek = new Date(date.setDate(date.getDate() - date.getDay()));
+      const lastDayOfWeek = new Date(date.setDate(firstDayOfWeek.getDate() + 6));
+      return {
+        firstDay: firstDayOfWeek,
+        lastDay: lastDayOfWeek,
+        rangeString: `${firstDayOfWeek.toLocaleDateString('en-US')} - ${lastDayOfWeek.toLocaleDateString('en-US')}`
+      };
+    }
+
+    function formatDateToUTCString(date) {
+      return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())).toISOString().split('T')[0];
+    }
+
+    function updateTasksForWeek(date) {
+      const weekRange = getWeekRange(new Date(date));
+      document.getElementById('week-range').textContent = `Week: ${weekRange.rangeString}`;
+
+      // Clear current tasks
+      const weekColumns = document.getElementById('week-columns');
+      weekColumns.innerHTML = '';
+
+      // Create columns for each day of the week
+      const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      for (let i = 0; i < 7; i++) {
+        const dayColumn = document.createElement('div');
+        dayColumn.classList.add('day-column');
+        const date = new Date(weekRange.firstDay);
+        date.setDate(date.getDate() + i);
+
+        const columnHeader = document.createElement('div');
+        columnHeader.classList.add('column-header');
+        columnHeader.textContent = `${daysOfWeek[i]} (${date.toLocaleDateString('en-US')})`;
+
+        dayColumn.appendChild(columnHeader);
+        weekColumns.appendChild(dayColumn);
+
+        const formattedDate = formatDateToUTCString(date);
+        ipcRenderer.send('request-tasks', formattedDate); // Send a request to the main process to get tasks for the date
+      }
+    }
+
+    function renderTask(task, dayColumn) {
+      const taskItem = document.createElement('li');
+      taskItem.classList.add('task');
+      taskItem.dataset.id = task.id;
+
+      const bulletPoint = document.createElement('span');
+      bulletPoint.classList.add('bullet-point');
+      bulletPoint.textContent = '•';
+      bulletPoint.addEventListener('click', () => {
+        taskItem.classList.toggle('done');
+      });
+
+      const titleSpan = document.createElement('span');
+      titleSpan.classList.add('title');
+      titleSpan.textContent = task.title;
+
+      const notesSpan = document.createElement('span');
+      notesSpan.classList.add('notes');
+      notesSpan.textContent = task.notes || '';
+
+      taskItem.appendChild(bulletPoint);
+      taskItem.appendChild(titleSpan);
+      if (task.notes) {
+        taskItem.appendChild(document.createElement('br'));
+        taskItem.appendChild(notesSpan);
+      }
+
+      dayColumn.appendChild(taskItem);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('prev-week').addEventListener('click', () => {
+        currentDate.setDate(currentDate.getDate() - 7);
+        updateTasksForWeek(currentDate);
+      });
+
+      document.getElementById('next-week').addEventListener('click', () => {
+        currentDate.setDate(currentDate.getDate() + 7);
+        updateTasksForWeek(currentDate);
+      });
+
+      updateTasksForWeek(currentDate);
+    });
+
+    ipcRenderer.on('clear-tasks', () => {
+      console.log('Clearing tasks');
+      const weekColumns = document.getElementById('week-columns');
+      weekColumns.innerHTML = '';
+    });
+
+    ipcRenderer.on('tasks-list', (event, tasks) => {
+      console.log('Received tasks list:', tasks);
+      tasks.forEach(task => {
+        const taskDate = new Date(task.due);
+        const formattedTaskDate = formatDateToUTCString(taskDate);
+
+        // Find the appropriate day column
+        const weekColumns = document.getElementById('week-columns').children;
+        for (let dayColumn of weekColumns) {
+          if (dayColumn.querySelector('.column-header').textContent.includes(taskDate.toLocaleDateString('en-US'))) {
+            renderTask(task, dayColumn);
+            break;
+          }
+        }
+      });
+    });
+
+    ipcRenderer.on('change-todo-color', (event, colorSet) => {
+      document.body.className = colorSet;
+    });
+
+    
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,998 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+
+html {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+
+}
+
+#iii {
+  width: 100%;
+  height: 100%;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+  /* Align calendar to the left */
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: transparent;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  -webkit-app-region: drag;
+  /* Make the entire window draggable */
+  font-size: 1rem;
+}
+
+
+.section {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border-radius: 2.06rem;
+
+
+}
+
+.horizontal-line {
+  position: absolute;
+  top: 4.44rem;
+  left: 1.63rem;
+  height: 0.13rem;
+  width: 24.4rem;
+  background-color: #D9D9D9;
+}
+
+.calendar-container {
+  display: column;
+  position: relative;
+  width: 50%;
+  height: 100%;
+  border-top-left-radius: 2.06rem;
+  border-bottom-left-radius: 2.06rem;
+  background-color: white;
+  z-index: 10;
+
+}
+
+
+.headers {
+  height: 5.44rem;
+  width: 100%;
+  position: relative;
+
+
+
+}
+
+
+.months {
+  position: absolute;
+  top: 1.19rem;
+  left: 12.13rem;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 1.875rem;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+.years {
+  position: absolute;
+  top: 2.06rem;
+  left: 1.69rem;
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+/* .divider {
+  display: absolute;
+  top: 4.5rem;
+  justify-content: center;
+  height: 1rem;
+  width: 24.3125rem;
+  height: 50px;
+  width: 150px;
+  color: black;
+
+} */
+
+.calendar {
+  user-select: none;
+  /* Prevent text selection */
+  -webkit-user-select: none;
+  /* For Safari */
+  -moz-user-select: none;
+  /* For Firefox */
+  -ms-user-select: none;
+  /* For Internet Explorer/Edge */
+  display: absolute;
+  margin-top: 0px;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  /* Adjust to leave space for event details */
+  height: 100%;
+  text-align: center;
+
+
+}
+
+
+
+
+.days-row {
+  display: absolute;
+  justify-content: center;
+
+  margin-bottom: 0.72rem;
+
+}
+
+/* Styling for individual day names */
+.day-name {
+  width: 3.625rem;
+  padding: 0;
+  margin: 0;
+
+
+  text-align: center;
+
+  font-family: 'Inter', sans-serif;
+  /* Font family for day names */
+  font-size: 1.25rem;
+  /* Font size for the days */
+  font-weight: 600;
+  /* Font weight for day names */
+}
+
+.calendar-grid {
+  display: grid;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+/* .empty-cell {
+  width: 3.625rem;
+  display: absolute;
+  height: 3.31rem;
+  padding-right: 0;
+
+  cursor: pointer;
+
+}
+
+.day-cell.date {
+  width: 3.625rem;
+  display: absolute;
+  height: 3.31rem;
+  padding: 0;
+
+  cursor: pointer;
+  text-align: center;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 26px; 
+  font-weight: 400;
+
+} */
+
+
+.empty-cell,
+.day-cell.date {
+  width: 3.625rem;
+  height: 3.31rem;
+  display: flex;
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
+  cursor: pointer;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  /* Font family for days */
+  font-size: 1.625rem;
+  /* Font size for dates */
+  font-weight: 400;
+  /* Font weight for dates */
+
+}
+
+.day-cell.date span {
+
+  text-align: center;
+  align-items: center;
+  -webkit-app-region: no-drag;
+  cursor: pointer;
+}
+
+
+.event-details {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  display: relative;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  z-index: 3;
+
+
+
+}
+
+
+
+
+
+.event-details {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* padding-top: 1.38rem; */
+  padding-left: 1.69rem;
+  box-sizing: border-box;
+  background-color: #ebebeb;
+  overflow: hidden;
+  /* -webkit-app-region: no-drag; */
+  /* overflow-x: hidden; */
+  word-wrap: break-word;
+  border-bottom-right-radius: 2.06rem;
+  border-top-right-radius: 2.06rem;
+}
+
+
+
+/* Adjusting the h2 margin and text size */
+
+/* Adjusting the event-list margin and text size */
+#event-list {
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 1.125rem;
+  
+  /* Responsive text size */
+}
+
+
+/* Additional styles for individual event items if needed */
+.event-item {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1.875rem;
+  display: block;
+  top: 0;
+
+}
+
+.event-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+.event-description {
+  font-size: 1.125rem;
+  /* Responsive text size for descriptions */
+  width: 100%;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+
+}
+
+
+
+.event-time {
+  font-size: 1.125rem;
+  /* Responsive text size for time */
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  margin-top: 0.625rem;
+
+}
+
+/* .event-link {
+  -webkit-app-region: no-drag; 
+  font-size: 2vw; 
+}
+
+.event-link a {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+ */
+
+.days-row,
+.calendar-grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+}
+
+
+.day-cell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.today {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.today span {
+  z-index: 30;
+  font-weight: 600;
+}
+
+.today-circle {
+  position: absolute;
+  width: 3rem;
+  /* Adjust the size as needed */
+  height: 3rem;
+  /* Adjust the size as needed */
+  border-radius: 50%;
+  background-color: #d9d9d9;
+  z-index: 5;
+  /* Ensure the circle is behind the text */
+}
+
+.event-dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 0.28rem;
+  left: 1.8rem;
+  transform: translateX(-50%);
+  z-index: 15;
+
+}
+
+.event-name {
+  display: block;
+  color: red;
+  font-size: 1em;
+  margin-top: 0.5vw;
+}
+
+
+.more-calendar {
+  position: absolute;
+  background-image: url('../src/calendar/cal1-white-m.png');
+  top: 1.37rem;
+  left: 23.94rem;
+  outline: none;
+  -webkit-app-region: no-drag;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  height: 1.875rem;
+  width: 1.875rem;
+  border: none;
+  cursor: pointer;
+  background-size: contain;
+  /* Make the background image cover the entire container */
+  background-position: center;
+  /* Center the background image */
+  padding: 0;
+  margin: 0;
+
+
+}
+
+/* 
+.dropdown-menu {
+  position: fixed;
+  bottom: 0;
+  left: 28.125rem;
+  height: 85%;
+  overflow-y: auto;
+  background-color: white; 
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  padding: 1.25rem;
+  z-index: 1000; 
+  -webkit-app-region: no-drag;
+
+} */
+
+/* .hidden {
+  display: none;
+} */
+
+#calendar-dropdown {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  display: column;
+  height: 25.4375rem;
+  width: 18.75rem;
+  top: 1.38rem;
+  left: 28.12rem;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  box-shadow: inset 4px 0px 10px 0px rgba(0, 0, 0, 0.05);
+  max-height: 25.4375rem;
+  overflow-y: auto;
+  background-color: white;
+  max-width: 18.75rem;
+  transition: transform 0.2s ease-in-out;
+  z-index: 5;
+
+
+}
+
+#calendar-dropdown h3 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+#calendar-dropdown label {
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+}
+
+/* #calendar-dropdown::-webkit-scrollbar {
+  width: 0.69rem;
+}
+
+#calendar-dropdown::-webkit-scrollbar-track {
+  background: #d9d9d9;
+  border-radius: 1.44rem;
+
+}
+
+#calendar-dropdown::-webkit-scrollbar-thumb {
+  background: #BDBDBD;
+  border-radius: 1.44rem;
+}
+
+#calendar-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #A1A1A1;
+} */
+
+/* #calendar-selector  {
+  display: block;
+  margin-bottom: 0.3125rem;
+  height: 100%;
+  width: 100%;
+
+  
+} */
+
+#apply-selection {
+  margin-top: 0.625rem;
+  color: white;
+}
+
+.dropdown-menu label {
+  display: block;
+  margin: 0.625rem 0;
+}
+
+
+
+#pre-month {
+  -webkit-app-region: no-drag;
+  background-image: url('../src/calendar/cal1-white-l.png');
+  position: absolute;
+  top: 1.69rem;
+  left: 9.19rem;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-repeat: no-repeat;
+  width: 0.6875rem;
+  height: 1.25rem;
+  background-color: transparent;
+  background-size: contain;
+  /* Make the background image cover the entire container */
+  background-position: center;
+  padding: 0;
+  margin: 0;
+
+}
+
+#nxt-month {
+  -webkit-app-region: no-drag;
+  background-image: url('../src/calendar/cal1-white-r.png');
+  position: absolute;
+  top: 1.69rem;
+  left: 18.19rem;
+  border: none;
+  outline: none;
+  background-repeat: no-repeat;
+  width: 0.6875rem;
+  height: 1.25rem;
+  background-color: transparent;
+  cursor: pointer;
+  background-size: contain;
+  /* Make the background image cover the entire container */
+  background-position: center;
+  padding: 0;
+  margin: 0;
+
+}
+
+.event-content {
+  margin-right: 1rem;
+  margin-top: 4.4375rem;
+  overflow-y: auto;
+  height: 22.8125rem;
+  top: 0;
+  max-height: 100%;
+  -webkit-app-region: no-drag;
+  user-select: text;
+
+
+
+}
+
+.event-content::-webkit-scrollbar {
+  width: 0.69rem;
+  margin-right: 3.125rem;
+  position: relative;
+
+}
+
+.event-content::-webkit-scrollbar-track {
+  background: #d9d9d9;
+  border-radius: 1.44rem;
+  border-left: 0.25rem solid transparent;
+  border-right: 0.25rem solid transparent;
+  background-clip: padding-box;
+}
+
+.event-content::-webkit-scrollbar-thumb {
+  background: #BDBDBD;
+  border-radius: 1.44rem;
+
+
+}
+
+.event-content::-webkit-scrollbar-thumb:hover {
+  background: #A1A1A1;
+  cursor: pointer;
+}
+
+/* Additional styling for a specific element, e.g., event-description */
+.event-box {
+  max-height: 9.375rem;
+  /* Maximum height to ensure scrolling */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+  margin-right: 1rem;
+  -webkit-app-region: no-drag;
+
+}
+
+/* Customize scrollbar for .event-box specifically */
+.event-box::-webkit-scrollbar {
+  width: 0.69rem;
+  /* Custom width for this element */
+}
+
+.event-box::-webkit-scrollbar-track {
+  background: #d9d9d9;
+  /* Custom track background for this element */
+  border-radius: 1.44rem;
+  border-left: 0.25rem solid transparent;
+  border-right: 0.25rem solid transparent;
+  background-clip: padding-box;
+  /* border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  background-clip: padding-box; */
+}
+
+.event-box::-webkit-scrollbar-thumb {
+  background: #BDBDBD;
+  /* Custom thumb color for this element */
+  border-radius: 1.44rem;
+
+}
+
+.event-box::-webkit-scrollbar-thumb:hover {
+  background: #A1A1A1;
+  cursor: pointer;
+
+
+  /* Custom hover color for this element */
+}
+
+
+.detail-header {
+
+  margin: 0;
+  display: column;
+  position: fixed;
+  width: 24.745rem;
+  height: 4.38rem;
+  background-color: #ebebeb;
+  align-items: center;
+
+
+
+}
+
+#today-date {
+  position: absolute;
+  left: 0;
+  top: 1.31rem;
+  font-weight: bold;
+  font-size: 1.5rem; 
+
+
+
+}
+
+#calendar-selector {
+  height: 17.25rem;
+  width: 17.75rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  -webkit-app-region: no-drag;
+
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  /* height: 1.9375rem;  */
+}
+
+.custom-checkbox input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.125rem;
+  /* Set the width */
+  height: 1.125rem;
+  /* Set the height */
+  border-radius: 50%;
+  /* Make it a circle */
+  background-color: #D9D9D9;
+  /* Grey color for unchecked state */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 1rem;
+  padding: 0.4375rem;
+  /* 7px padding */
+
+}
+
+.custom-checkbox input[type="checkbox"]:checked {
+  background-color: transparent;
+  /* Make background transparent when checked */
+  background-image: url('../src/calendar/checked-box.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  /* Remove the border */
+}
+
+.custom-checkbox .checked-box {
+  display: none;
+  /* Ensure this element is hidden as it's not used */
+}
+
+.text-box {
+  white-space: normal;
+  /* Allow text to wrap */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* Handle overflowing text */
+  max-width: calc(100% - 1.125rem - 1rem);
+  padding-top: 0.375rem;
+  /* 6px top padding */
+  padding-bottom: 0.375rem;
+  /* 6px bottom padding */
+}
+
+
+
+/* Style the scrollbar */
+#calendar-selector::-webkit-scrollbar {
+  width: 0.69rem;
+  /* Width of the scrollbar */
+  margin-right: 3.125rem;
+  /* Create space for the scrollbar on the right */
+  position: relative;
+  border-right: 0.25rem solid transparent;
+
+
+}
+
+#calendar-selector::-webkit-scrollbar-track {
+  background: #ebebeb;
+  /* Custom track background for this element */
+  border-radius: 1.44rem;
+  border-left: 0.25rem solid transparent;
+  border-right: 0.25rem solid transparent;
+  background-clip: padding-box;
+}
+
+#calendar-selector::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  /* Color of the thumb */
+  border-radius: 1.44rem;
+  border-right: 0.25rem solid transparent;
+
+
+
+}
+
+#calendar-selector::-webkit-scrollbar-thumb:hover {
+  background: #bdbdbd;
+  cursor: pointer;
+
+
+  /* Color when hovering */
+}
+
+
+#apply-selection {
+  width: 4.625rem;
+  height: 1.75rem;
+  border-radius: 2rem;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background-color: #d9d9d9;
+  position: absolute;
+  right: 1.19rem;
+  bottom: 1.19rem;
+  cursor: pointer;
+
+}
+
+#apply-selection:hover {
+  background-color: #A1A1A1;
+}
+
+
+
+.dropdown-menu-hidden {
+  display: none;
+  transform: translateX(-100%);
+}
+.dropdown-menu-visible {
+  display: block;
+  transform: translateX(0);
+}
+
+#close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color:#BDBDBD;
+  cursor: pointer;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  -webkit-app-region: no-drag;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.event-description a,
+.external-link,
+.email-link {
+  color: #0057FF;
+  font-weight: 600;
+  text-decoration: underline;
+  -webkit-app-region: no-drag;
+  cursor: pointer;
+}
+
+
+/* .sort-dropdown {
+
+  margin: 0;
+  display: column;
+  position: absolute;
+  right: 0;
+  padding-top: 0.5rem;
+  -webkit-app-region: no-drag;
+
+
+}  */
+
+/* .sort-dropdown {
+  position: relative;
+  display: inline-block;
+  -webkit-app-region: no-drag;
+
+} */
+
+.sort-dropdown-content {
+  /* display: none; */
+  visibility: hidden;
+  position: absolute;
+  background-color: white;
+  /* min-width: 160px; */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  transition: visibility 0.3s, opacity 0.3s;
+  border-radius: 0.56rem;
+  right: 0;
+  width: 8.4375rem;
+  height: 4.8125rem;
+
+}
+
+.sort-dropdown:hover .sort-dropdown-content,
+.sort-dropdown-content:hover {
+  visibility: visible;
+  opacity: 1;
+  -webkit-app-region: no-drag;
+
+}
+
+.sort-dropdown-content a {
+  color: black;
+  text-decoration: none;
+  display: block;
+  margin-left: 0.75rem;
+  margin-top: 0.5rem;
+  font-size: 1.125rem;
+
+}
+.sort-dropdown-content a:hover {
+  font-weight: 600;
+
+}
+
+/* .sort-dropdown .dropbtn {
+  background-image: url('../src/calendar/cal1-sort.png');
+  outline: none;
+  -webkit-app-region: no-drag;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  color: white;
+  padding: 10px 16px; 
+  padding: 0;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  height: 1.88rem;
+  width: 1.88rem;
+  right: 0;
+  
+} */
+
+.sort-dropdown {
+  padding: 0;
+  height: 1.88rem;
+  width: 1.88rem;
+  right: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  outline: none;
+  position: absolute;
+  top: 1.25rem;
+  -webkit-app-region: no-drag;
+}
+
+.dropbtn {
+  background-image: url('../src/calendar/cal1-sort.png');
+  height: 1.88rem;
+  width: 1.88rem;
+  right: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  outline: none;
+  background-size: contain;
+  -webkit-app-region: no-drag;
+}
+
+/* .dropbtn {
+  position: absolute;
+  top: 1.25rem;
+} */
+
+
+/* .sort-dropdown .dropbtn:hover {
+  background-color: #a1a1a1;
+} */
+
+
+#sort-time,
+#sort-name {
+  width: 7.6875rem;
+  height: 1.875rem;
+  padding: 0px;
+  margin: 0px;
+  padding-left: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+#sort-time:hover{
+  border-top-left-radius: 0.56rem;
+  border-top-right-radius: 0.56rem;
+}
+
+
+#sort-name:hover{
+  border-bottom-left-radius: 0.56rem;
+  border-bottom-right-radius: 0.56rem;
+}
+
+
+/* 
+#sort-name {
+  width: 8.4375rem;
+  height: 2.375rem;
+  padding: 0px;
+  margin: 0px; 
+} */
+
+.dropdown-divider {
+  height: 0.0625rem;
+  width: 7.4375rem;
+  background-color: black;
+  margin: 0.5rem auto;
+  padding: 0;
+  margin:0;
+  margin-left:0.5rem;
+
+
+}
+
+
+
+#calendar-select-button {
+  transition: transform 0.3s ease;
+}
+
+.rotate-45 {
+  transform: rotate(45deg);
+}

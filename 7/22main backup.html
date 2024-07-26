@@ -1,0 +1,2702 @@
+const { app, BrowserWindow, ipcMain, Menu, globalShortcut, shell } = require('electron');
+const path = require('path');
+const express = require('express');
+const { google } = require('googleapis');
+const open = require('open');
+const fs = require('fs');
+const axios = require('axios');
+
+require('electron-reload')(__dirname, {
+  electron: require(`${__dirname}/node_modules/electron`)
+});
+
+console.log("Electron app module loaded: ", !!app);
+
+const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly', 'https://www.googleapis.com/auth/tasks.readonly'];
+const TOKEN_PATH = 'token.json';
+
+const client_id = '721718670827-tgovpmanoh9lft4e5rpnvdm3nqu9ufcs.apps.googleusercontent.com';
+const client_secret = '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';
+const redirect_uri = 'http://localhost:8000/oauth2callback';
+
+let mainWindow;
+let displayWindows = {};
+let server;
+let oAuth2Client;
+let isLoggedIn;
+let cachedEvents = [];
+let availableCalendars = [];
+let selectedCalendars = [];
+let cachedTasks = [];
+
+
+
+const fetchAllCalendars = async (auth) => {
+  const calendar = google.calendar({ version: 'v3', auth });
+
+  try {
+    const calendarList = await calendar.calendarList.list();
+    availableCalendars = calendarList.data.items;
+    selectedCalendars = availableCalendars; // Default to all calendars selected
+    // console.log('Fetched calendars:', availableCalendars);
+
+    if (displayWindows['cal1-display']) {
+      displayWindows['cal1-display'].webContents.send('available-calendars', availableCalendars, selectedCalendars.map(cal => cal.id));
+    }
+    if (displayWindows['cal2-display']) {
+      displayWindows['cal2-display'].webContents.send('available-calendars', availableCalendars, selectedCalendars.map(cal => cal.id));
+    }
+    if (displayWindows['cal3-display']) {
+      displayWindows['cal3-display'].webContents.send('available-calendars', availableCalendars, selectedCalendars.map(cal => cal.id));
+    }
+    if (displayWindows['cal4-display']) {
+      displayWindows['cal4-display'].webContents.send('available-calendars', availableCalendars, selectedCalendars.map(cal => cal.id));
+    }
+  } catch (error) {
+    console.error('Error fetching calendars:', error);
+  }
+};
+
+
+const fetchSelectedEvents = async (auth) => {
+  clearEvents();
+  const calendar = google.calendar({ version: 'v3', auth });
+  let allEvents = [];
+
+  try {
+    console.log('Fetching selected events...');
+    const startDate = new Date();
+    startDate.setFullYear(startDate.getFullYear() - 3);
+    const endDate = new Date();
+    endDate.setFullYear(endDate.getFullYear() + 3);
+
+    for (const cal of selectedCalendars) {
+      let pageToken = null;
+      do {
+        const eventsRes = await calendar.events.list({
+          calendarId: cal.id,
+          timeMin: startDate.toISOString(),
+          timeMax: endDate.toISOString(),
+          singleEvents: true,
+          orderBy: 'startTime',
+          pageToken: pageToken,
+        });
+
+        eventsRes.data.items.forEach(event => {
+          const start = event.start.dateTime || event.start.date;
+          const end = event.end.dateTime || event.end.date;
+          const time = event.start.dateTime ? `${new Date(start).toLocaleTimeString()} - ${new Date(end).toLocaleTimeString()}` : 'All Day';
+          // console.log(`\nCalendar Name: ${cal.summary}\nDate: ${new Date(start).toLocaleDateString()}\nName: ${event.summary}\nTime: ${time}\n`);
+        });
+
+        allEvents = allEvents.concat(eventsRes.data.items);
+        pageToken = eventsRes.data.nextPageToken;
+      } while (pageToken);
+    }
+
+    // console.log('Fetched selected events:', allEvents);
+    cachedEvents = allEvents;
+    checkAndSendEvents();
+  } catch (error) {
+    console.error('Error fetching events:', error);
+  }
+};
+
+
+
+
+
+
+
+
+const fetchTasks = async (auth) => {
+  const tasks = google.tasks({ version: 'v1', auth });
+  let allTasks = [];
+
+  try {
+    const taskLists = await tasks.tasklists.list();
+    for (const taskList of taskLists.data.items) {
+      const tasksRes = await tasks.tasks.list({
+        tasklist: taskList.id,
+      });
+
+      allTasks = allTasks.concat(tasksRes.data.items);
+    }
+
+    cachedTasks = allTasks;
+    if (displayWindows['display3']) {
+      sendTasksToDisplay3();
+    }
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+  }
+};
+
+const sendTasksToDisplay3 = () => {
+  if (displayWindows['display3']) {
+    displayWindows['display3'].webContents.send('clear-tasks');
+    cachedTasks.forEach(task => {
+      // console.log('Sending task:', task);
+      displayWindows['display3'].webContents.send('task', {
+        id: task.id,
+        title: task.title,
+        notes: task.notes,
+        due: task.due,
+        status: task.status
+      });
+    });
+  }
+};
+
+
+ipcMain.on('get-calendars', (event) => {
+  fetchAllCalendars(oAuth2Client);
+});
+
+ipcMain.on('set-selected-calendars', (event, calendarIds) => {
+  selectedCalendars = availableCalendars.filter(cal => calendarIds.includes(cal.id));
+  fetchSelectedEvents(oAuth2Client);
+});
+
+ipcMain.on('request-tasks', async (event, date) => {
+  // console.log(`Tasks requested for date: ${date}`);
+  await fetchTasks(oAuth2Client);
+  const filteredTasks = cachedTasks.filter(task => {
+    const taskDate = new Date(task.due);
+    const taskDateUTC = new Date(Date.UTC(taskDate.getUTCFullYear(), taskDate.getUTCMonth(), taskDate.getUTCDate()));
+    const requestedDateUTC = new Date(date);
+    requestedDateUTC.setUTCHours(0, 0, 0, 0); // Normalize to start of the day in UTC
+    return taskDateUTC.getTime() === requestedDateUTC.getTime();
+  });
+  // console.log(`Sending filtered tasks: ${JSON.stringify(filteredTasks)}`);
+  event.sender.send('tasks-list', filteredTasks);
+});
+
+const createMainWindow = () => {
+  mainWindow = new BrowserWindow({
+    width: 1422,
+    height: 800,
+    minWidth: 646,
+    minHeight: 363,
+    useContentSize: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+    icon: path.join(__dirname, 'src/logo.png'),
+  });
+  mainWindow.loadFile('html/my-widdy.html');
+  // Menu.setApplicationMenu(null);
+
+
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (url.startsWith('https://mail.google.com/')) {
+      shell.openExternal(url);
+    } else if (url.startsWith('mailto:')) {
+      const email = url.substring(7);
+      const mailtoUrl = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${email}`;
+      shell.openExternal(mailtoUrl);
+    } else {
+      shell.openExternal(url);
+    }
+    return { action: 'deny' };
+  });
+};
+
+// const createDisplayWindow = (id, title, width, height) => {
+//   console.log(`Toggling window: ${id}`);
+//   if (displayWindows[id]) {
+//     displayWindows[id].close();
+//     delete displayWindows[id];
+//   } else {
+//     displayWindows[id] = new BrowserWindow({
+//       width: parseInt(width),
+//       height: parseInt(height),
+//       title: title,
+//       frame: false,
+//       transparent: true,
+//       resizable: true,
+//       webPreferences: {
+//         nodeIntegration: true,
+//         contextIsolation: false,
+//         autoplayPolicy: 'no-user-gesture-required'
+//       },
+//       icon: path.join(__dirname, 'src/logo.png'),
+//     });
+
+//     displayWindows[id].loadFile(path.join(__dirname, `html/${id}.html`)).then(() => {
+//       console.log(`${id} window loaded`);
+//       if (['cal1-display', 'cal2-display', 'cal3-display', 'cal4-display'].includes(id)) {
+//         if (isLoggedIn) {
+//           sendEventsToCals();
+//         }
+//       } else if (id === 'display3') {
+//         if (isLoggedIn) {
+//           sendTasksToDisplay3();
+//         }
+//       }
+//     }).catch((err) => {
+//       console.error(`Failed to load ${id} window:`, err);
+//     });
+
+//     displayWindows[id].on('closed', () => {
+//       delete displayWindows[id];
+//     });
+//   }
+// };
+
+
+const createDisplayWindow = (id, title, width, height) => {
+  console.log(`Toggling window: ${id}`);
+  if (displayWindows[id]) {
+    displayWindows[id].close();
+    delete displayWindows[id];
+  } else {
+    displayWindows[id] = new BrowserWindow({
+      width: parseInt(width),
+      height: parseInt(height),
+      title: title,
+      frame: false,
+      transparent: true,
+      resizable: true,
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+        autoplayPolicy: 'no-user-gesture-required'
+      },
+      icon: path.join(__dirname, 'src/logo.png'),
+    });
+
+    displayWindows[id].loadFile(path.join(__dirname, `html/${id}.html`)).then(() => {
+      console.log(`${id} window loaded`);
+      // Add additional initialization logic here if needed
+    }).catch((err) => {
+      console.error(`Failed to load ${id} window:`, err);
+    });
+
+    displayWindows[id].on('closed', () => {
+      delete displayWindows[id];
+    });
+  }
+};
+
+
+function openClock1Display() {
+  if (!displayWindows['clock1-display']) {
+    createDisplayWindow('clock1-display', 'Clock1 Display', 800, 300);
+  } else {
+    displayWindows['clock1-display'].show();
+  }
+}
+
+function closeClock1Display() {
+  if (displayWindows['clock1-display']) {
+    displayWindows['clock1-display'].hide();
+  }
+}
+
+ipcMain.on('clock1-status', (event, data) => {
+  if (data.id === 'clock1-display' && data.status) {
+    openClock1Display();
+  } else if (data.id === 'clock1-display' && !data.status) {
+    closeClock1Display();
+  }
+});
+
+ipcMain.on('adjust-clock-size', (event, { id, size }) => {
+  if (id === 'clock1-display' && displayWindows[id]) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 800; // Maintain aspect ratio
+    const newHeight = (newSize / 50) * 300;
+    displayWindows[id].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows[id].webContents.send('resize-clock', { newWidth, newHeight });
+  }
+});
+
+ipcMain.on('change-clock1-color', (event, colorSet) => {
+  if (displayWindows['clock1-display']) {
+    displayWindows['clock1-display'].webContents.send('change-clock1-color', colorSet);
+  }
+});
+
+app.on('ready', openClock1Display);
+
+
+
+
+function openClock2Display() {
+  if (!displayWindows['clock2-display']) {
+    createDisplayWindow('clock2-display', 'Clock2 Display', 800, 300);
+  } else {
+    displayWindows['clock2-display'].show();
+  }
+}
+
+function closeClock2Display() {
+  if (displayWindows['clock2-display']) {
+    displayWindows['clock2-display'].hide();
+  }
+}
+
+ipcMain.on('clock2-status', (event, data) => {
+  if (data.id === 'clock2-display' && data.status) {
+    openClock2Display();
+  } else if (data.id === 'clock2-display' && !data.status) {
+    closeClock2Display();
+  }
+});
+
+ipcMain.on('adjust-clock-size', (event, { id, size }) => {
+  if (id === 'clock2-display' && displayWindows[id]) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 800; // Maintain aspect ratio
+    const newHeight = (newSize / 50) * 300;
+    displayWindows[id].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows[id].webContents.send('resize-clock', { newWidth, newHeight });
+  }
+});
+
+ipcMain.on('change-clock2-color', (event, colorSet) => {
+  if (displayWindows['clock2-display']) {
+    displayWindows['clock2-display'].webContents.send('change-clock2-color', colorSet);
+  }
+});
+
+app.on('ready', openClock2Display);
+
+
+
+
+
+
+const toggleClockDisplay = (id, status, height, width) => {
+  if (status) {
+    createDisplayWindow(id, 'Clock Display', width, height);
+  } else {
+    if (displayWindows[id]) {
+      displayWindows[id].close();
+      delete displayWindows[id];
+    }
+  }
+};
+
+const authorize = (callback) => {
+  fs.readFile('credentials.json', (err, content) => {
+    if (err) return console.log('Error loading client secret file:', err);
+    const credentials = JSON.parse(content);
+    const { client_secret, client_id, redirect_uris } = credentials.installed;
+    oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+
+    fs.readFile(TOKEN_PATH, (err, token) => {
+      if (err) return getAccessToken(oAuth2Client, callback);
+      oAuth2Client.setCredentials(JSON.parse(token));
+      isLoggedIn = true;
+      callback(oAuth2Client);
+      mainWindow.webContents.send('auth-status', 'linked');
+      fetchAllEvents(oAuth2Client);
+      fetchTasks(oAuth2Client);
+    });
+  });
+};
+
+const getAccessToken = (oAuth2Client, callback) => {
+  const authUrl = oAuth2Client.generateAuthUrl({
+    access_type: 'offline',
+    scope: SCOPES,
+  });
+  open(authUrl);
+
+  const app = express();
+  server = app.listen(8000, () => {
+    console.log('Server is listening on port 8000');
+  });
+
+  app.get('/oauth2callback', (req, res) => {
+    const code = req.query.code;
+    oAuth2Client.getToken(code, (err, token) => {
+      if (err) return console.error('Error retrieving access token', err);
+      oAuth2Client.setCredentials(token);
+      fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
+        if (err) return console.error(err);
+        console.log('Token stored to', TOKEN_PATH);
+      });
+      res.send('Authentication successful! You can close this window.');
+      isLoggedIn = true;
+      callback(oAuth2Client);
+      mainWindow.webContents.send('auth-status', 'linked');
+      server.close(() => {
+        console.log('Server closed');
+      });
+      fetchAllEvents(oAuth2Client);
+      fetchTasks(oAuth2Client);
+    });
+  });
+};
+
+
+
+
+
+const fetchAllEvents = async (auth) => {
+  const calendar = google.calendar({ version: 'v3', auth });
+
+  try {
+    console.log('Fetching all events...');
+    const calendarList = await calendar.calendarList.list();
+    let allEvents = [];
+
+    const startDate = new Date();
+    startDate.setFullYear(startDate.getFullYear() - 3);
+    const endDate = new Date();
+    endDate.setFullYear(endDate.getFullYear() + 3);
+
+    for (const cal of calendarList.data.items) {
+      let pageToken = null;
+      do {
+        const eventsRes = await calendar.events.list({
+          calendarId: cal.id,
+          timeMin: startDate.toISOString(),
+          timeMax: endDate.toISOString(),
+          singleEvents: true,
+          orderBy: 'startTime',
+          pageToken: pageToken,
+        });
+
+        eventsRes.data.items.forEach(event => {
+          const start = event.start.dateTime || event.start.date;
+          const end = event.end.dateTime || event.end.date;
+          const time = event.start.dateTime ? `${new Date(start).toLocaleTimeString()} - ${new Date(end).toLocaleTimeString()}` : 'All Day';
+          console.log(`\nCalendar Name: ${cal.summary}\nDate: ${new Date(start).toLocaleDateString()}\nName: ${event.summary}\nTime: ${time}\n`);
+        });
+
+        allEvents = allEvents.concat(eventsRes.data.items);
+        pageToken = eventsRes.data.nextPageToken;
+      } while (pageToken);
+    }
+
+    console.log('Fetched all events:', allEvents);
+    cachedEvents = allEvents;
+    if (displayWindows['cal1-display']) {
+      sendEventsToCals();
+    }
+    if (displayWindows['cal2-display']) {
+      sendEventsToCals();
+    }
+    if (displayWindows['cal3-display']) {
+      sendEventsToCals();
+    }
+    if (displayWindows['cal4-display']) {
+      sendEventsToCals();
+    }
+  } catch (error) {
+    console.error('Error fetching events:', error);
+  }
+};
+
+
+
+const checkAndSendEvents = () => {
+  const calDisplayIds = ['cal1-display', 'cal2-display', 'cal3-display', 'cal4-display'];
+  let anyDisplayOpen = false;
+  calDisplayIds.forEach(displayId => {
+    if (displayWindows[displayId]) {
+      anyDisplayOpen = true;
+    }
+  });
+  if (anyDisplayOpen) {
+    sendEventsToCals();
+  }
+};
+
+const sendEventsToCals = () => {
+  if (displayWindows['cal1-display']) {
+    cachedEvents.forEach(event => {
+      const start = event.start.dateTime || event.start.date;
+      const end = event.end.dateTime || event.end.date;
+
+      let meetingLink = null;
+      if (event.conferenceData && event.conferenceData.entryPoints && event.conferenceData.entryPoints.length > 0) {
+        meetingLink = event.conferenceData.entryPoints[0].uri;
+      }
+      // console.log(`Event: ${event.summary}, Meeting Link: ${meetingLink}`);
+      displayWindows['cal1-display'].webContents.send('event', {
+        date: start,
+        summary: event.summary,
+        description: event.description,
+        start: event.start.dateTime || event.start.date,
+        end: event.end.dateTime || event.end.date,
+        allDay: !event.start.dateTime,
+        meetingLink: meetingLink
+      });
+    });
+  }
+  if (displayWindows['cal2-display']) {
+    cachedEvents.forEach(event => {
+      const start = event.start.dateTime || event.start.date;
+      const end = event.end.dateTime || event.end.date;
+
+      let meetingLink = null;
+      if (event.conferenceData && event.conferenceData.entryPoints && event.conferenceData.entryPoints.length > 0) {
+        meetingLink = event.conferenceData.entryPoints[0].uri;
+      }
+      // console.log(`Event: ${event.summary}, Meeting Link: ${meetingLink}`);
+      displayWindows['cal2-display'].webContents.send('event', {
+        date: start,
+        summary: event.summary,
+        description: event.description,
+        start: event.start.dateTime || event.start.date,
+        end: event.end.dateTime || event.end.date,
+        allDay: !event.start.dateTime,
+        meetingLink: meetingLink
+      });
+    });
+  }
+  if (displayWindows['cal3-display']) {
+    cachedEvents.forEach(event => {
+      const start = event.start.dateTime || event.start.date;
+      const end = event.end.dateTime || event.end.date;
+
+      let meetingLink = null;
+      if (event.conferenceData && event.conferenceData.entryPoints && event.conferenceData.entryPoints.length > 0) {
+        meetingLink = event.conferenceData.entryPoints[0].uri;
+      }
+      // console.log(`Event: ${event.summary}, Meeting Link: ${meetingLink}`);
+      displayWindows['cal3-display'].webContents.send('event', {
+        date: start,
+        summary: event.summary,
+        description: event.description,
+        start: event.start.dateTime || event.start.date,
+        end: event.end.dateTime || event.end.date,
+        allDay: !event.start.dateTime,
+        meetingLink: meetingLink
+      });
+    });
+  }
+  if (displayWindows['cal4-display']) {
+    cachedEvents.forEach(event => {
+      const start = event.start.dateTime || event.start.date;
+      const end = event.end.dateTime || event.end.date;
+
+      let meetingLink = null;
+      if (event.conferenceData && event.conferenceData.entryPoints && event.conferenceData.entryPoints.length > 0) {
+        meetingLink = event.conferenceData.entryPoints[0].uri;
+      }
+      // console.log(`Event: ${event.summary}, Meeting Link: ${meetingLink}`);
+      displayWindows['cal4-display'].webContents.send('event', {
+        date: start,
+        summary: event.summary,
+        description: event.description,
+        start: event.start.dateTime || event.start.date,
+        end: event.end.dateTime || event.end.date,
+        allDay: !event.start.dateTime,
+        meetingLink: meetingLink
+      });
+    });
+  }
+
+};
+
+
+
+const clearEvents = () => {
+  cachedEvents = [];
+  if (displayWindows['cal1-display']) {
+    displayWindows['cal1-display'].webContents.send('clear-events');
+  }
+  if (displayWindows['cal2-display']) {
+    displayWindows['cal2-display'].webContents.send('clear-events');
+  }
+  if (displayWindows['cal3-display']) {
+    displayWindows['cal3-display'].webContents.send('clear-events');
+  }
+  if (displayWindows['cal4-display']) {
+    displayWindows['cal4-display'].webContents.send('clear-events');
+  }
+
+};
+
+
+app.on('ready', () => {
+  createMainWindow();
+
+  // Register a 'CommandOrControl+R' shortcut listener that reloads the window
+  globalShortcut.register('CommandOrControl+R', () => {
+    if (mainWindow) {
+      mainWindow.reload();
+    }
+  });
+
+  const server = express();
+  server.get('/auth', (req, res) => {
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/drive&access_type=offline&include_granted_scopes=true&response_type=code&client_id=${client_id}&redirect_uri=${redirect_uri}`;
+    res.redirect(authUrl);
+  });
+
+  server.get('/oauth2callback', async (req, res) => {
+    const auth_code = req.query.code;
+    try {
+      const tokenResponse = await axios.post('https://oauth2.googleapis.com/token', null, {
+        params: {
+          code: auth_code,
+          client_id: client_id,
+          client_secret: client_secret,
+          redirect_uri: redirect_uri,
+          grant_type: 'authorization_code',
+        },
+      });
+      const { access_token, refresh_token } = tokenResponse.data;
+      res.send(`Access Token: ${access_token}<br>Refresh Token: ${refresh_token}`);
+    } catch (error) {
+      res.send('Error exchanging authorization code for tokens');
+    }
+  });
+
+  server.listen(3000, () => {
+    console.log('Server started on http://localhost:3000');
+  });
+});
+
+
+
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createMainWindow();
+  }
+});
+
+
+// function createDisplayWindow(id, title, width, height) {
+//   console.log(`Toggling window: ${id}`);
+//   if (displayWindows[id]) {
+//     displayWindows[id].close();
+//     delete displayWindows[id];
+//   } else {
+//     displayWindows[id] = new BrowserWindow({
+//       width: parseInt(width),
+//       height: parseInt(height),
+//       title: title,
+//       frame: false,
+//       transparent: true,
+//       resizable: true,
+//       webPreferences: {
+//         nodeIntegration: true,
+//         contextIsolation: false,
+//         autoplayPolicy: 'no-user-gesture-required' // Add this setting
+
+//       },
+//       icon: path.join(__dirname, 'src/logo.png'),
+//     });
+
+//     displayWindows[id].loadFile(path.join(__dirname, `html/${id}.html`)).then(() => {
+//       console.log(`${id} window loaded`);
+//       if (['cal1-display', 'cal2-display', 'cal3-display', 'cal4-display'].includes(id)) {
+//         if (isLoggedIn) {
+//           sendEventsToCals();
+//         }
+//       } else if (id === 'display3') {
+//         if (isLoggedIn) {
+//           sendTasksToDisplay3();
+//         }
+//       }
+//     }).catch((err) => {
+//       console.error(`Failed to load ${id} window:`, err);
+//     });
+
+//     displayWindows[id].on('closed', () => {
+//       delete displayWindows[id];
+//     });
+//   }
+// }
+
+ipcMain.on('auth-google', () => {
+  authorize(() => {
+    console.log('Authorized successfully');
+  });
+});
+
+ipcMain.on('logout-google', () => {
+  fs.unlink(TOKEN_PATH, (err) => {
+    if (err) return console.error(err);
+    console.log('Token removed');
+    isLoggedIn = false;
+    mainWindow.webContents.send('auth-status', 'unlinked');
+    clearEvents();
+  });
+});
+
+ipcMain.on('check-auth-status', () => {
+  fs.readFile(TOKEN_PATH, (err) => {
+    if (err) {
+      mainWindow.webContents.send('auth-status', 'unlinked');
+      isLoggedIn = false;
+    } else {
+      mainWindow.webContents.send('auth-status', 'linked');
+      isLoggedIn = true;
+      authorize(() => { });
+    }
+  });
+});
+
+ipcMain.on('toggle-display', (event, { id, status, height, width }) => {
+  toggleClockDisplay(id, status, height, width);
+});
+
+
+
+
+
+ipcMain.on('adjust-clock-size', (event, { id, size }) => {
+  if (displayWindows[id]) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 800;
+    const newHeight = (newSize / 50) * 300;
+    displayWindows[id].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows[id].webContents.send('resize-clock', { newWidth, newHeight });
+  }
+});
+
+
+
+
+
+ipcMain.on('adjust-cal1-size', (event, { size }) => {
+  if (displayWindows['cal1-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 900;
+    const newHeight = (newSize / 50) * 453;
+    displayWindows['cal1-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['cal1-display'].webContents.send('resize-cal1', { newWidth, newHeight });
+  }
+});
+
+
+ipcMain.on('adjust-cal2-size', (event, { size }) => {
+  if (displayWindows['cal2-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 645;
+    const newHeight = (newSize / 50) * 380;
+    displayWindows['cal2-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['cal2-display'].webContents.send('resize-cal2', { newWidth, newHeight });
+    console.log(`Resized cal2-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
+
+ipcMain.on('adjust-cal3-size', (event, { size }) => {
+  if (displayWindows['cal3-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 1000;
+    const newHeight = (newSize / 50) * 453;
+    displayWindows['cal3-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['cal3-display'].webContents.send('resize-cal3', { newWidth, newHeight });
+    console.log(`Resized cal3-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
+
+ipcMain.on('adjust-cal4-size', (event, { size }) => {
+  if (displayWindows['cal4-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 450;
+    const newHeight = (newSize / 50) * 700;
+    displayWindows['cal4-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['cal4-display'].webContents.send('resize-cal4', { newWidth, newHeight });
+    console.log(`Resized cal4-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
+
+
+
+ipcMain.on('change-clock1-color', (event, colorSet) => {
+  if (displayWindows['clock1-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock1-display'].webContents.send('change-clock1-color', colorSet);
+  }
+});
+
+ipcMain.on('change-clock2-color', (event, colorSet) => {
+  if (displayWindows['clock2-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock2-display'].webContents.send('change-clock2-color', colorSet);
+  }
+});
+
+ipcMain.on('change-clock3-color', (event, colorSet) => {
+  if (displayWindows['clock3-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock3-display'].webContents.send('change-clock3-color', colorSet);
+  }
+});
+
+ipcMain.on('change-clock4-color', (event, colorSet) => {
+  if (displayWindows['clock4-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock4-display'].webContents.send('change-clock4-color', colorSet);
+  }
+});
+
+ipcMain.on('change-clock5-color', (event, colorSet) => {
+  if (displayWindows['clock5-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock5-display'].webContents.send('change-clock5-color', colorSet);
+  }
+});
+
+ipcMain.on('change-clock6-color', (event, colorSet) => {
+  if (displayWindows['clock6-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock6-display'].webContents.send('change-clock6-color', colorSet);
+  }
+});
+
+
+
+ipcMain.on('set-clock-format', (event, { format }) => {
+  console.log(`Received set-clock-format with format: ${format}`);
+  if (displayWindows['clock1-display']) {
+    displayWindows['clock1-display'].webContents.send('set-clock-format', { format });
+  }
+  if (displayWindows['clock2-display']) {
+    displayWindows['clock2-display'].webContents.send('set-clock-format', { format });
+  }
+  if (displayWindows['clock3-display']) {
+    displayWindows['clock3-display'].webContents.send('set-clock-format', { format });
+  }
+  if (displayWindows['clock4-display']) {
+    displayWindows['clock4-display'].webContents.send('set-clock-format', { format });
+  }
+  if (displayWindows['clock5-display']) {
+    displayWindows['clock5-display'].webContents.send('set-clock-format', { format });
+  }
+  if (displayWindows['clock6-display']) {
+    displayWindows['clock6-display'].webContents.send('set-clock-format', { format });
+  }
+
+});
+
+
+
+
+ipcMain.on('change-cal1-color', (event, colorSet) => {
+  if (displayWindows['cal1-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['cal1-display'].webContents.send('change-cal1-color', colorSet);
+  }
+});
+
+ipcMain.on('change-cal2-color', (event, colorSet) => {
+  if (displayWindows['cal2-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['cal2-display'].webContents.send('change-cal2-color', colorSet);
+  }
+});
+
+ipcMain.on('change-cal3-color', (event, colorSet) => {
+  if (displayWindows['cal3-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['cal3-display'].webContents.send('change-cal3-color', colorSet);
+  }
+});
+
+ipcMain.on('change-cal4-color', (event, colorSet) => {
+  if (displayWindows['cal4-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['cal4-display'].webContents.send('change-cal4-color', colorSet);
+  }
+});
+
+
+
+
+ipcMain.on('change-clock2-color', (event, colorSet) => {
+  if (displayWindows['clock2-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock2-display'].webContents.send('change-clock2-color', colorSet);
+  }
+});
+
+ipcMain.on('change-clock3-color', (event, colorSet) => {
+  if (displayWindows['clock3-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock3-display'].webContents.send('change-clock3-color', colorSet);
+  }
+});
+
+ipcMain.on('change-clock4-color', (event, colorSet) => {
+  if (displayWindows['clock4-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock4-display'].webContents.send('change-clock4-color', colorSet);
+  }
+});
+
+
+
+ipcMain.on('change-todo-color', (event, colorSet) => {
+  if (displayWindows['display3']) {
+    displayWindows['display3'].webContents.send('change-todo-color', colorSet);
+  } else if (displayWindows['display4']) {
+    displayWindows['display4'].webContents.send('change-todo-color', colorSet);
+  }
+});
+
+
+ipcMain.on('change-weather-color', (event, colorSet) => {
+  if (displayWindows['display5']) {
+    displayWindows['display5'].webContents.send('change-weather-color', colorSet);
+  } else if (displayWindows['display6']) {
+    displayWindows['display6'].webContents.send('change-weather-color', colorSet);
+  }
+});
+
+
+
+function openCal1Display() {
+  if (!displayWindows['cal1-display']) {
+    createDisplayWindow('cal1-display', 'Cal1 Display', 900, 453);
+  }
+}
+
+function closeCal1Display() {
+  if (displayWindows['cal1-display']) {
+    displayWindows['cal1-display'].close();
+  }
+}
+
+function openCal2Display() {
+  if (!displayWindows['cal2-display']) {
+    createDisplayWindow('cal2-display', 'Cal2 Display', 645, 380);
+  }
+}
+
+function closeCal2Display() {
+  if (displayWindows['cal2-display']) {
+    displayWindows['cal2-display'].close();
+  }
+}
+
+
+function openCal3Display() {
+  if (!displayWindows['cal3-display']) {
+    createDisplayWindow('cal3-display', 'Cal3 Display', 1000, 453);
+  }
+}
+
+function closeCal3Display() {
+  if (displayWindows['cal3-display']) {
+    displayWindows['cal3-display'].close();
+  }
+}
+
+
+function openCal4Display() {
+  if (!displayWindows['cal4-display']) {
+    createDisplayWindow('cal4-display', 'Cal4 Display', 450, 700);
+  }
+}
+
+function closeCal4Display() {
+  if (displayWindows['cal4-display']) {
+    displayWindows['cal4-display'].close();
+  }
+}
+
+
+
+
+
+
+ipcMain.on('open-cal1-display', () => {
+  openCal1Display();
+});
+
+ipcMain.on('close-cal1-display', () => {
+  closeCal1Display();
+});
+
+ipcMain.on('open-cal2-display', () => {
+  openCal2Display();
+});
+
+ipcMain.on('close-cal2-display', () => {
+  closeCal2Display();
+});
+
+ipcMain.on('open-cal3-display', () => {
+  openCal3Display();
+});
+
+ipcMain.on('close-cal3-display', () => {
+  closeCal3Display();
+});
+
+
+ipcMain.on('open-cal4-display', () => {
+  openCal4Display();
+});
+
+ipcMain.on('close-cal4-display', () => {
+  closeCal4Display();
+});
+
+
+ipcMain.on('cal1-status', (event, arg) => {
+  if (arg.status) {
+    openCal1Display();
+  } else {
+    closeCal1Display();
+  }
+});
+
+ipcMain.on('cal2-status', (event, arg) => {
+  if (arg.status) {
+    openCal2Display();
+  } else {
+    closeCal2Display();
+  }
+});
+
+ipcMain.on('cal3-status', (event, arg) => {
+  if (arg.status) {
+    openCal3Display();
+  } else {
+    closeCal3Display();
+  }
+});
+
+
+ipcMain.on('cal4-status', (event, arg) => {
+  if (arg.status) {
+    openCal4Display();
+  } else {
+    closeCal4Display();
+  }
+});
+
+// let clock1Window;
+
+// function openClock1Display() {
+//   if (!clock1Window) {
+//     clock1Window = new BrowserWindow({
+//       width: 800,
+//       height: 300,
+//       frame: false,
+//       transparent: true,
+//       alwaysOnTop: true,
+//       webPreferences: {
+//         nodeIntegration: true,
+//         contextIsolation: false,
+//       },
+//     });
+
+//     clock1Window.loadFile('html/clock1-display.html');
+
+//     clock1Window.on('closed', () => {
+//       clock1Window = null;
+//     });
+//   } else {
+//     clock1Window.show();
+//   }
+// }
+
+// ipcMain.on('clock1-status', (event, data) => {
+//   if (data.id === 'clock1-display' && data.status) {
+//     openClock1Display();
+//   } else if (data.id === 'clock1-display' && !data.status) {
+//     if (clock1Window) {
+//       clock1Window.hide();
+//     }
+//   }
+// });
+
+// ipcMain.on('adjust-clock-size', (event, { id, size }) => {
+//   if (id === 'clock1-display' && clock1Window) {
+//     const newSize = parseInt(size);
+//     const newWidth = (newSize / 50) * 800; // Maintain aspect ratio
+//     const newHeight = (newSize / 50) * 300;
+//     clock1Window.setSize(Math.round(newWidth), Math.round(newHeight));
+//     clock1Window.webContents.send('resize-clock', { newWidth, newHeight });
+//   }
+// });
+
+// app.on('ready', openClock1Display);
+
+
+ipcMain.handle('get-weather', async (event, city, unit) => {
+  const apiKey = '6461774d1ed46f31edb9cf271eb2477b'; // Replace with your OpenWeather API key
+  try {
+    const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`);
+    const { coord } = response.data;
+
+    const response_air = await axios.get(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${coord.lat}&lon=${coord.lon}&appid=${apiKey}`);
+    const response_fivedays = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${unit}`);
+
+    const now = new Date();
+    const next24h = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+    const filteredForecast = response_fivedays.data.list.filter(forecast => {
+      const forecastTime = new Date(forecast.dt * 1000);
+      return forecastTime >= now && forecastTime <= next24h;
+    });
+
+    const weatherData = { weather: response.data, air: response_air.data, forecast: filteredForecast };
+
+    return weatherData;
+  } catch (error) {
+    return { error: error.message };
+  }
+});
+
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
+});
+
+
+
+
+
+--------------------------------------------
+
+
+
+const { app, BrowserWindow, ipcMain, Menu, globalShortcut, shell } = require('electron');
+const path = require('path');
+const express = require('express');
+const { google } = require('googleapis');
+const open = require('open');
+const fs = require('fs');
+const axios = require('axios');
+
+require('electron-reload')(__dirname, {
+  electron: require(`${__dirname}/node_modules/electron`)
+});
+
+console.log("Electron app module loaded: ", !!app);
+
+const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly', 'https://www.googleapis.com/auth/tasks.readonly'];
+const TOKEN_PATH = 'token.json';
+
+
+
+const client_id = '721718670827-tgovpmanoh9lft4e5rpnvdm3nqu9ufcs.apps.googleusercontent.com';
+const client_secret = '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';
+const redirect_uri = 'http://localhost:8000/oauth2callback';
+
+
+let mainWindow;
+let displayWindows = {};
+let server;
+let oAuth2Client;
+let isLoggedIn;
+let cachedEvents = [];
+let availableCalendars = [];
+let selectedCalendars = [];
+let cachedTasks = [];
+
+
+
+const fetchAllCalendars = async (auth) => {
+  const calendar = google.calendar({ version: 'v3', auth });
+
+  try {
+    const calendarList = await calendar.calendarList.list();
+    availableCalendars = calendarList.data.items;
+    selectedCalendars = availableCalendars; // Default to all calendars selected
+    // console.log('Fetched calendars:', availableCalendars);
+
+    if (displayWindows['cal1-display']) {
+      displayWindows['cal1-display'].webContents.send('available-calendars', availableCalendars, selectedCalendars.map(cal => cal.id));
+    }
+    if (displayWindows['cal2-display']) {
+      displayWindows['cal2-display'].webContents.send('available-calendars', availableCalendars, selectedCalendars.map(cal => cal.id));
+    }
+    if (displayWindows['cal3-display']) {
+      displayWindows['cal3-display'].webContents.send('available-calendars', availableCalendars, selectedCalendars.map(cal => cal.id));
+    }
+    if (displayWindows['cal4-display']) {
+      displayWindows['cal4-display'].webContents.send('available-calendars', availableCalendars, selectedCalendars.map(cal => cal.id));
+    }
+  } catch (error) {
+    console.error('Error fetching calendars:', error);
+  }
+};
+
+
+const fetchSelectedEvents = async (auth) => {
+  clearEvents();
+  const calendar = google.calendar({ version: 'v3', auth });
+  let allEvents = [];
+
+  try {
+    console.log('Fetching selected events...');
+    const startDate = new Date();
+    startDate.setFullYear(startDate.getFullYear() - 3);
+    const endDate = new Date();
+    endDate.setFullYear(endDate.getFullYear() + 3);
+
+    for (const cal of selectedCalendars) {
+      let pageToken = null;
+      do {
+        const eventsRes = await calendar.events.list({
+          calendarId: cal.id,
+          timeMin: startDate.toISOString(),
+          timeMax: endDate.toISOString(),
+          singleEvents: true,
+          orderBy: 'startTime',
+          pageToken: pageToken,
+        });
+
+        eventsRes.data.items.forEach(event => {
+          const start = event.start.dateTime || event.start.date;
+          const end = event.end.dateTime || event.end.date;
+          const time = event.start.dateTime ? `${new Date(start).toLocaleTimeString()} - ${new Date(end).toLocaleTimeString()}` : 'All Day';
+          // console.log(`\nCalendar Name: ${cal.summary}\nDate: ${new Date(start).toLocaleDateString()}\nName: ${event.summary}\nTime: ${time}\n`);
+        });
+
+        allEvents = allEvents.concat(eventsRes.data.items);
+        pageToken = eventsRes.data.nextPageToken;
+      } while (pageToken);
+    }
+
+    // console.log('Fetched selected events:', allEvents);
+    cachedEvents = allEvents;
+    checkAndSendEvents();
+  } catch (error) {
+    console.error('Error fetching events:', error);
+  }
+};
+
+
+
+
+
+
+
+
+const fetchTasks = async (auth) => {
+  const tasks = google.tasks({ version: 'v1', auth });
+  let allTasks = [];
+
+  try {
+    const taskLists = await tasks.tasklists.list();
+    for (const taskList of taskLists.data.items) {
+      const tasksRes = await tasks.tasks.list({
+        tasklist: taskList.id,
+      });
+
+      allTasks = allTasks.concat(tasksRes.data.items);
+    }
+
+    cachedTasks = allTasks;
+    if (displayWindows['display3']) {
+      sendTasksToDisplay3();
+    }
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+  }
+};
+
+const sendTasksToDisplay3 = () => {
+  if (displayWindows['display3']) {
+    displayWindows['display3'].webContents.send('clear-tasks');
+    cachedTasks.forEach(task => {
+      // console.log('Sending task:', task);
+      displayWindows['display3'].webContents.send('task', {
+        id: task.id,
+        title: task.title,
+        notes: task.notes,
+        due: task.due,
+        status: task.status
+      });
+    });
+  }
+};
+
+
+ipcMain.on('get-calendars', (event) => {
+  fetchAllCalendars(oAuth2Client);
+});
+
+ipcMain.on('set-selected-calendars', (event, calendarIds) => {
+  selectedCalendars = availableCalendars.filter(cal => calendarIds.includes(cal.id));
+  fetchSelectedEvents(oAuth2Client);
+});
+
+ipcMain.on('request-tasks', async (event, date) => {
+  // console.log(`Tasks requested for date: ${date}`);
+  await fetchTasks(oAuth2Client);
+  const filteredTasks = cachedTasks.filter(task => {
+    const taskDate = new Date(task.due);
+    const taskDateUTC = new Date(Date.UTC(taskDate.getUTCFullYear(), taskDate.getUTCMonth(), taskDate.getUTCDate()));
+    const requestedDateUTC = new Date(date);
+    requestedDateUTC.setUTCHours(0, 0, 0, 0); // Normalize to start of the day in UTC
+    return taskDateUTC.getTime() === requestedDateUTC.getTime();
+  });
+  // console.log(`Sending filtered tasks: ${JSON.stringify(filteredTasks)}`);
+  event.sender.send('tasks-list', filteredTasks);
+});
+
+const createMainWindow = () => {
+  mainWindow = new BrowserWindow({
+    width: 1422,
+    height: 800,
+    minWidth: 646,
+    minHeight: 363,
+    useContentSize: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+    icon: path.join(__dirname, 'src/logo.png'),
+  });
+  mainWindow.loadFile('html/my-widdy.html');
+  // Menu.setApplicationMenu(null);
+
+
+
+
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (url.startsWith('https://mail.google.com/')) {
+      // Handle Gmail links
+      shell.openExternal(url);
+    } else if (url.startsWith('mailto:')) {
+      // Open mailto links in Gmail
+      const email = url.substring(7);
+      const mailtoUrl = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${email}`;
+      shell.openExternal(mailtoUrl);
+    } else {
+      // Open other URLs in the default browser
+      shell.openExternal(url);
+    }
+    return { action: 'deny' };
+  });
+};
+
+
+
+
+
+
+
+app.on('ready', () => {
+  createMainWindow();
+
+  // Register a 'CommandOrControl+R' shortcut listener that reloads the window
+  globalShortcut.register('CommandOrControl+R', () => {
+    if (mainWindow) {
+      mainWindow.reload();
+    }
+  });
+
+  const server = express();
+
+  server.get('/auth', (req, res) => {
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/drive&access_type=offline&include_granted_scopes=true&response_type=code&client_id=${client_id}&redirect_uri=${redirect_uri}`;
+    res.redirect(authUrl);
+  });
+
+  server.get('/oauth2callback', async (req, res) => {
+    const auth_code = req.query.code;
+
+    try {
+      const tokenResponse = await axios.post('https://oauth2.googleapis.com/token', null, {
+        params: {
+          code: auth_code,
+          client_id: client_id,
+          client_secret: client_secret,
+          redirect_uri: redirect_uri,
+          grant_type: 'authorization_code',
+        },
+      });
+
+      const { access_token, refresh_token } = tokenResponse.data;
+      res.send(`Access Token: ${access_token}<br>Refresh Token: ${refresh_token}`);
+    } catch (error) {
+      res.send('Error exchanging authorization code for tokens');
+    }
+  });
+
+  server.listen(3000, () => {
+    console.log('Server started on http://localhost:3000');
+  });
+});
+
+const authorize = (callback) => {
+  fs.readFile('credentials.json', (err, content) => {
+    if (err) return console.log('Error loading client secret file:', err);
+    const credentials = JSON.parse(content);
+    const { client_secret, client_id, redirect_uris } = credentials.installed;
+    oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+
+    fs.readFile(TOKEN_PATH, (err, token) => {
+      if (err) return getAccessToken(oAuth2Client, callback);
+      oAuth2Client.setCredentials(JSON.parse(token));
+      isLoggedIn = true;
+      callback(oAuth2Client);
+      mainWindow.webContents.send('auth-status', 'linked');
+      fetchAllEvents(oAuth2Client); 
+      fetchTasks(oAuth2Client);
+    });
+  });
+};
+
+const getAccessToken = (oAuth2Client, callback) => {
+  const authUrl = oAuth2Client.generateAuthUrl({
+    access_type: 'offline',
+    scope: SCOPES,
+  });
+  open(authUrl);
+
+  const app = express();
+  server = app.listen(8000, () => {
+    console.log('Server is listening on port 8000');
+  });
+
+  app.get('/oauth2callback', (req, res) => {
+    const code = req.query.code;
+    oAuth2Client.getToken(code, (err, token) => {
+      if (err) return console.error('Error retrieving access token', err);
+      oAuth2Client.setCredentials(token);
+      fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
+        if (err) return console.error(err);
+        console.log('Token stored to', TOKEN_PATH);
+      });
+      res.send('Authentication successful! You can close this window.');
+      isLoggedIn = true;
+      callback(oAuth2Client);
+      mainWindow.webContents.send('auth-status', 'linked');
+      server.close(() => {
+        console.log('Server closed');
+      });
+      fetchAllEvents(oAuth2Client);
+      fetchTasks(oAuth2Client);
+    });
+  });
+};
+
+
+
+
+
+const fetchAllEvents = async (auth) => {
+  const calendar = google.calendar({ version: 'v3', auth });
+
+  try {
+    console.log('Fetching all events...');
+    const calendarList = await calendar.calendarList.list();
+    let allEvents = [];
+
+    const startDate = new Date();
+    startDate.setFullYear(startDate.getFullYear() - 3);
+    const endDate = new Date();
+    endDate.setFullYear(endDate.getFullYear() + 3);
+
+    for (const cal of calendarList.data.items) {
+      let pageToken = null;
+      do {
+        const eventsRes = await calendar.events.list({
+          calendarId: cal.id,
+          timeMin: startDate.toISOString(),
+          timeMax: endDate.toISOString(),
+          singleEvents: true,
+          orderBy: 'startTime',
+          pageToken: pageToken,
+        });
+
+        eventsRes.data.items.forEach(event => {
+          const start = event.start.dateTime || event.start.date;
+          const end = event.end.dateTime || event.end.date;
+          const time = event.start.dateTime ? `${new Date(start).toLocaleTimeString()} - ${new Date(end).toLocaleTimeString()}` : 'All Day';
+          console.log(`\nCalendar Name: ${cal.summary}\nDate: ${new Date(start).toLocaleDateString()}\nName: ${event.summary}\nTime: ${time}\n`);
+        });
+
+        allEvents = allEvents.concat(eventsRes.data.items);
+        pageToken = eventsRes.data.nextPageToken;
+      } while (pageToken);
+    }
+
+    console.log('Fetched all events:', allEvents);
+    cachedEvents = allEvents;
+    if (displayWindows['cal1-display']) {
+      sendEventsToCals();
+    }
+    if (displayWindows['cal2-display']) {
+      sendEventsToCals();
+    }
+    if (displayWindows['cal3-display']) {
+      sendEventsToCals();
+    }
+    if (displayWindows['cal4-display']) {
+      sendEventsToCals();
+    }
+  } catch (error) {
+    console.error('Error fetching events:', error);
+  }
+};
+
+
+// console.log(`Fetched ${eventsRes.data.items.length} events for calendar: ${cal.id}`);
+
+// allEvents = allEvents.concat(eventsRes.data.items);
+//     }
+
+// console.log('Fetched all events:', allEvents);
+
+
+// console.log('Fetched events:', allEvents);
+// cachedEvents = allEvents;
+// if (displayWindows['cal1-display']) {
+//   sendEventsToCals();
+// }
+//   } catch (error) {
+//   console.error('Error fetching events:', error);
+// }
+// };
+
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+
+// const checkAndSendEvents = () => {
+//   const calDisplayIds = ['cal1-display', 'cal2-display', 'cal3-display', 'cal4-display']; // List of cal IDs
+//   let anyDisplayOpen = false;
+
+//   calDisplayIds.forEach(displayId => {
+//     if (displayWindows[displayId]) {
+//       anyDisplayOpen = true;
+//     }
+//   });
+
+//   if (anyDisplayOpen) {
+//     sendEventsTocalDisplays();
+//   }
+// };
+
+
+// const sendEventsTocalDisplays = () => {
+//   const calDisplayIds = ['cal1-display', 'cal2-display', 'cal3-display', 'cal4-display']; // List of cal IDs
+
+//   calDisplayIds.forEach(displayId => {
+//     if (displayWindows[displayId]) {
+//       console.log(`Sending cached events to ${displayId}:`, cachedEvents);
+//       cachedEvents.forEach(event => {
+//         const start = event.start.dateTime || event.start.date;
+//         const end = event.end.dateTime || event.end.date;
+//         let meetingLink = null;
+//         if (event.conferenceData && event.conferenceData.entryPoints && event.conferenceData.entryPoints.length > 0) {
+//           meetingLink = event.conferenceData.entryPoints[0].uri;
+//         }
+//         console.log(`Event: ${event.summary}, Meeting Link: ${meetingLink}`); // Debug log
+
+//         displayWindows[displayId].webContents.send('event', {
+//           date: start,
+//           summary: event.summary,
+//           description: event.description,
+//           start: event.start.dateTime || event.start.date,
+//           end: event.end.dateTime || event.end.date,
+//           allDay: !event.start.dateTime,
+//           meetingLink: meetingLink
+//         });
+//       });
+//     }
+//   });
+// };
+
+const checkAndSendEvents = () => {
+  const calDisplayIds = ['cal1-display', 'cal2-display', 'cal3-display', 'cal4-display'];
+  let anyDisplayOpen = false;
+  calDisplayIds.forEach(displayId => {
+    if (displayWindows[displayId]) {
+      anyDisplayOpen = true;
+    }
+  });
+  if (anyDisplayOpen) {
+    sendEventsToCals();
+  }
+};
+
+const sendEventsToCals = () => {
+  if (displayWindows['cal1-display']) {
+    cachedEvents.forEach(event => {
+      const start = event.start.dateTime || event.start.date;
+      const end = event.end.dateTime || event.end.date;
+
+      let meetingLink = null;
+      if (event.conferenceData && event.conferenceData.entryPoints && event.conferenceData.entryPoints.length > 0) {
+        meetingLink = event.conferenceData.entryPoints[0].uri;
+      }
+      // console.log(`Event: ${event.summary}, Meeting Link: ${meetingLink}`);
+      displayWindows['cal1-display'].webContents.send('event', {
+        date: start,
+        summary: event.summary,
+        description: event.description,
+        start: event.start.dateTime || event.start.date,
+        end: event.end.dateTime || event.end.date,
+        allDay: !event.start.dateTime,
+        meetingLink: meetingLink
+      });
+    });
+  }
+  if (displayWindows['cal2-display']) {
+    cachedEvents.forEach(event => {
+      const start = event.start.dateTime || event.start.date;
+      const end = event.end.dateTime || event.end.date;
+
+      let meetingLink = null;
+      if (event.conferenceData && event.conferenceData.entryPoints && event.conferenceData.entryPoints.length > 0) {
+        meetingLink = event.conferenceData.entryPoints[0].uri;
+      }
+      // console.log(`Event: ${event.summary}, Meeting Link: ${meetingLink}`);
+      displayWindows['cal2-display'].webContents.send('event', {
+        date: start,
+        summary: event.summary,
+        description: event.description,
+        start: event.start.dateTime || event.start.date,
+        end: event.end.dateTime || event.end.date,
+        allDay: !event.start.dateTime,
+        meetingLink: meetingLink
+      });
+    });
+  }
+  if (displayWindows['cal3-display']) {
+    cachedEvents.forEach(event => {
+      const start = event.start.dateTime || event.start.date;
+      const end = event.end.dateTime || event.end.date;
+
+      let meetingLink = null;
+      if (event.conferenceData && event.conferenceData.entryPoints && event.conferenceData.entryPoints.length > 0) {
+        meetingLink = event.conferenceData.entryPoints[0].uri;
+      }
+      // console.log(`Event: ${event.summary}, Meeting Link: ${meetingLink}`);
+      displayWindows['cal3-display'].webContents.send('event', {
+        date: start,
+        summary: event.summary,
+        description: event.description,
+        start: event.start.dateTime || event.start.date,
+        end: event.end.dateTime || event.end.date,
+        allDay: !event.start.dateTime,
+        meetingLink: meetingLink
+      });
+    });
+  }
+  if (displayWindows['cal4-display']) {
+    cachedEvents.forEach(event => {
+      const start = event.start.dateTime || event.start.date;
+      const end = event.end.dateTime || event.end.date;
+
+      let meetingLink = null;
+      if (event.conferenceData && event.conferenceData.entryPoints && event.conferenceData.entryPoints.length > 0) {
+        meetingLink = event.conferenceData.entryPoints[0].uri;
+      }
+      // console.log(`Event: ${event.summary}, Meeting Link: ${meetingLink}`);
+      displayWindows['cal4-display'].webContents.send('event', {
+        date: start,
+        summary: event.summary,
+        description: event.description,
+        start: event.start.dateTime || event.start.date,
+        end: event.end.dateTime || event.end.date,
+        allDay: !event.start.dateTime,
+        meetingLink: meetingLink
+      });
+    });
+  }
+
+};
+
+
+
+const clearEvents = () => {
+  cachedEvents = [];
+  if (displayWindows['cal1-display']) {
+    displayWindows['cal1-display'].webContents.send('clear-events');
+  }
+  if (displayWindows['cal2-display']) {
+    displayWindows['cal2-display'].webContents.send('clear-events');
+  }
+  if (displayWindows['cal3-display']) {
+    displayWindows['cal3-display'].webContents.send('clear-events');
+  }
+  if (displayWindows['cal4-display']) {
+    displayWindows['cal4-display'].webContents.send('clear-events');
+  }
+
+};
+
+function createDisplayWindow(id, title, width, height) {
+  console.log(`Toggling window: ${id}`);
+  if (displayWindows[id]) {
+    displayWindows[id].close();
+    delete displayWindows[id];
+  } else {
+    displayWindows[id] = new BrowserWindow({
+      width: parseInt(width),
+      height: parseInt(height),
+      title: title,
+      frame: false,
+      transparent: true,
+      resizable: true,
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+        autoplayPolicy: 'no-user-gesture-required' // Add this setting
+
+      },
+      icon: path.join(__dirname, 'src/logo.png'),
+    });
+
+    displayWindows[id].loadFile(path.join(__dirname, `html/${id}.html`)).then(() => {
+      console.log(`${id} window loaded`);
+      if (['cal1-display', 'cal2-display', 'cal3-display', 'cal4-display'].includes(id)) {
+        if (isLoggedIn) {
+          sendEventsToCals();
+        }
+      } else if (id === 'display3') {
+        if (isLoggedIn) {
+          sendTasksToDisplay3();
+        }
+      }
+    }).catch((err) => {
+      console.error(`Failed to load ${id} window:`, err);
+    });
+
+    displayWindows[id].on('closed', () => {
+      delete displayWindows[id];
+    });
+  }
+}
+
+ipcMain.on('auth-google', () => {
+  authorize(() => {
+    console.log('Authorized successfully');
+  });
+});
+
+ipcMain.on('logout-google', () => {
+  fs.unlink(TOKEN_PATH, (err) => {
+    if (err) return console.error(err);
+    console.log('Token removed');
+    isLoggedIn = false;
+    mainWindow.webContents.send('auth-status', 'unlinked');
+    clearEvents();
+  });
+});
+
+ipcMain.on('check-auth-status', () => {
+  fs.readFile(TOKEN_PATH, (err) => {
+    if (err) {
+      mainWindow.webContents.send('auth-status', 'unlinked');
+      isLoggedIn = false;
+    } else {
+      mainWindow.webContents.send('auth-status', 'linked');
+      isLoggedIn = true;
+      authorize(() => { });
+    }
+  });
+});
+
+ipcMain.on('toggle-display', (event, { id, height, width }) => {
+  createDisplayWindow(id, id, width, height);
+});
+
+
+// ipcMain.on('resize-display', (event, { id, height, width }) => {
+//   if (displayWindows[id]) {
+//     const newWidth = parseInt(width);
+//     const newHeight = parseInt(height);
+//     displayWindows[id].setResizable(true);
+//     displayWindows[id].setSize(newWidth, newHeight);
+//     displayWindows[id].setResizable(id !== 'cal1-display');
+//   }
+// });
+
+ipcMain.on('adjust-clock-size', (event, { id, size }) => {
+  if (displayWindows[id]) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 800; // Maintain aspect ratio
+    const newHeight = (newSize / 50) * 300;
+    displayWindows[id].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows[id].webContents.send('resize-clock', { newWidth, newHeight });
+  }
+});
+
+
+// ipcMain.on('adjust-cal1-size', (event, { id, size }) => {
+//   if (displayWindows[id]) {
+//     const newSize = parseInt(size);
+//     const newWidth = (newSize / 50) * 900; // Maintain aspect ratio
+//     const newHeight = (newSize / 50) * 453;
+//     displayWindows[id].setSize(Math.round(newWidth), Math.round(newHeight));
+//     displayWindows[id].webContents.send('resize-cal1', { newWidth, newHeight });
+//   }
+// });
+
+
+ipcMain.on('adjust-cal1-size', (event, { size }) => {
+  if (displayWindows['cal1-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 900; // Maintain aspect ratio
+    const newHeight = (newSize / 50) * 453;
+    displayWindows['cal1-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['cal1-display'].webContents.send('resize-cal1', { newWidth, newHeight });
+    // console.log(`Resized cal1-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
+
+ipcMain.on('adjust-cal2-size', (event, { size }) => {
+  if (displayWindows['cal2-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 645; // Maintain aspect ratio
+    const newHeight = (newSize / 50) * 380;
+    displayWindows['cal2-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['cal2-display'].webContents.send('resize-cal2', { newWidth, newHeight });
+    console.log(`Resized cal2-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
+
+ipcMain.on('adjust-cal3-size', (event, { size }) => {
+  if (displayWindows['cal3-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 1000; // Maintain aspect ratio
+    const newHeight = (newSize / 50) * 453;
+    displayWindows['cal3-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['cal3-display'].webContents.send('resize-cal3', { newWidth, newHeight });
+    console.log(`Resized cal3-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
+
+ipcMain.on('adjust-cal4-size', (event, { size }) => {
+  if (displayWindows['cal4-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 450; // Maintain aspect ratio
+    const newHeight = (newSize / 50) * 700;
+    displayWindows['cal4-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['cal4-display'].webContents.send('resize-cal4', { newWidth, newHeight });
+    console.log(`Resized cal4-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
+
+
+
+ipcMain.on('change-clock1-color', (event, colorSet) => {
+  if (displayWindows['clock1-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock1-display'].webContents.send('change-clock1-color', colorSet);
+  }
+});
+
+ipcMain.on('change-clock2-color', (event, colorSet) => {
+  if (displayWindows['clock2-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock2-display'].webContents.send('change-clock2-color', colorSet);
+  }
+});
+
+ipcMain.on('change-clock3-color', (event, colorSet) => {
+  if (displayWindows['clock3-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock3-display'].webContents.send('change-clock3-color', colorSet);
+  }
+});
+
+ipcMain.on('change-clock4-color', (event, colorSet) => {
+  if (displayWindows['clock4-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock4-display'].webContents.send('change-clock4-color', colorSet);
+  }
+});
+
+ipcMain.on('change-clock5-color', (event, colorSet) => {
+  if (displayWindows['clock5-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock5-display'].webContents.send('change-clock5-color', colorSet);
+  }
+});
+
+ipcMain.on('change-clock6-color', (event, colorSet) => {
+  if (displayWindows['clock6-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock6-display'].webContents.send('change-clock6-color', colorSet);
+  }
+});
+
+
+
+ipcMain.on('set-clock-format', (event, { format }) => {
+  console.log(`Received set-clock-format with format: ${format}`);
+  if (displayWindows['clock1-display']) {
+    displayWindows['clock1-display'].webContents.send('set-clock-format', { format });
+  }
+  if (displayWindows['clock2-display']) {
+    displayWindows['clock2-display'].webContents.send('set-clock-format', { format });
+  }
+  if (displayWindows['clock3-display']) {
+    displayWindows['clock3-display'].webContents.send('set-clock-format', { format });
+  }
+  if (displayWindows['clock4-display']) {
+    displayWindows['clock4-display'].webContents.send('set-clock-format', { format });
+  }
+  if (displayWindows['clock5-display']) {
+    displayWindows['clock5-display'].webContents.send('set-clock-format', { format });
+  }
+  if (displayWindows['clock6-display']) {
+    displayWindows['clock6-display'].webContents.send('set-clock-format', { format });
+  }
+
+});
+
+
+
+
+ipcMain.on('change-cal1-color', (event, colorSet) => {
+  if (displayWindows['cal1-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['cal1-display'].webContents.send('change-cal1-color', colorSet);
+  }
+});
+
+ipcMain.on('change-cal2-color', (event, colorSet) => {
+  if (displayWindows['cal2-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['cal2-display'].webContents.send('change-cal2-color', colorSet);
+  }
+});
+
+ipcMain.on('change-cal3-color', (event, colorSet) => {
+  if (displayWindows['cal3-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['cal3-display'].webContents.send('change-cal3-color', colorSet);
+  }
+});
+
+ipcMain.on('change-cal4-color', (event, colorSet) => {
+  if (displayWindows['cal4-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['cal4-display'].webContents.send('change-cal4-color', colorSet);
+  }
+});
+
+
+
+
+ipcMain.on('change-clock2-color', (event, colorSet) => {
+  if (displayWindows['clock2-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock2-display'].webContents.send('change-clock2-color', colorSet);
+  }
+});
+
+ipcMain.on('change-clock3-color', (event, colorSet) => {
+  if (displayWindows['clock3-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock3-display'].webContents.send('change-clock3-color', colorSet);
+  }
+});
+
+ipcMain.on('change-clock4-color', (event, colorSet) => {
+  if (displayWindows['clock4-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['clock4-display'].webContents.send('change-clock4-color', colorSet);
+  }
+});
+
+
+
+ipcMain.on('change-todo-color', (event, colorSet) => {
+  if (displayWindows['display3']) {
+    displayWindows['display3'].webContents.send('change-todo-color', colorSet);
+  } else if (displayWindows['display4']) {
+    displayWindows['display4'].webContents.send('change-todo-color', colorSet);
+  }
+});
+
+
+ipcMain.on('change-weather-color', (event, colorSet) => {
+  if (displayWindows['display5']) {
+    displayWindows['display5'].webContents.send('change-weather-color', colorSet);
+  } else if (displayWindows['display6']) {
+    displayWindows['display6'].webContents.send('change-weather-color', colorSet);
+  }
+});
+
+
+
+function openCal1Display() {
+  if (!displayWindows['cal1-display']) {
+    createDisplayWindow('cal1-display', 'Cal1 Display', 900, 453);
+  }
+}
+
+function closeCal1Display() {
+  if (displayWindows['cal1-display']) {
+    displayWindows['cal1-display'].close();
+  }
+}
+
+function openCal2Display() {
+  if (!displayWindows['cal2-display']) {
+    createDisplayWindow('cal2-display', 'Cal2 Display', 645, 380);
+  }
+}
+
+function closeCal2Display() {
+  if (displayWindows['cal2-display']) {
+    displayWindows['cal2-display'].close();
+  }
+}
+
+
+function openCal3Display() {
+  if (!displayWindows['cal3-display']) {
+    createDisplayWindow('cal3-display', 'Cal3 Display', 1000, 453);
+  }
+}
+
+function closeCal3Display() {
+  if (displayWindows['cal3-display']) {
+    displayWindows['cal3-display'].close();
+  }
+}
+
+
+function openCal4Display() {
+  if (!displayWindows['cal4-display']) {
+    createDisplayWindow('cal4-display', 'Cal4 Display', 450, 700);
+  }
+}
+
+function closeCal4Display() {
+  if (displayWindows['cal4-display']) {
+    displayWindows['cal4-display'].close();
+  }
+}
+
+
+
+
+
+
+ipcMain.on('open-cal1-display', () => {
+  openCal1Display();
+});
+
+ipcMain.on('close-cal1-display', () => {
+  closeCal1Display();
+});
+
+ipcMain.on('open-cal2-display', () => {
+  openCal2Display();
+});
+
+ipcMain.on('close-cal2-display', () => {
+  closeCal2Display();
+});
+
+ipcMain.on('open-cal3-display', () => {
+  openCal3Display();
+});
+
+ipcMain.on('close-cal3-display', () => {
+  closeCal3Display();
+});
+
+
+ipcMain.on('open-cal4-display', () => {
+  openCal4Display();
+});
+
+ipcMain.on('close-cal4-display', () => {
+  closeCal4Display();
+});
+
+
+ipcMain.on('cal1-status', (event, arg) => {
+  if (arg.status) {
+    openCal1Display();
+  } else {
+    closeCal1Display();
+  }
+});
+
+ipcMain.on('cal2-status', (event, arg) => {
+  if (arg.status) {
+    openCal2Display();
+  } else {
+    closeCal2Display();
+  }
+});
+
+ipcMain.on('cal3-status', (event, arg) => {
+  if (arg.status) {
+    openCal3Display();
+  } else {
+    closeCal3Display();
+  }
+});
+
+
+ipcMain.on('cal4-status', (event, arg) => {
+  if (arg.status) {
+    openCal4Display();
+  } else {
+    closeCal4Display();
+  }
+});
+
+
+ipcMain.handle('get-weather', async (event, city, unit) => {
+  const apiKey = '6461774d1ed46f31edb9cf271eb2477b'; // Replace with your OpenWeather API key
+  try {
+    const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`);
+    const { coord } = response.data;
+
+    const response_air = await axios.get(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${coord.lat}&lon=${coord.lon}&appid=${apiKey}`);
+    const response_fivedays = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${unit}`);
+
+    const now = new Date();
+    const next24h = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+    const filteredForecast = response_fivedays.data.list.filter(forecast => {
+      const forecastTime = new Date(forecast.dt * 1000);
+      return forecastTime >= now && forecastTime <= next24h;
+    });
+
+    const weatherData = { weather: response.data, air: response_air.data, forecast: filteredForecast };
+
+    return weatherData;
+  } catch (error) {
+    return { error: error.message };
+  }
+});
+
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
+});
+
+
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Widdy</title>
+  <link rel="stylesheet" href="../css/my-widdy.css">
+  <!-- <link rel="stylesheet" href="../css/clock1.css"> -->
+  <!-- <link rel="stylesheet" href="../css/clock2.css"> -->
+  <link rel="stylesheet" href="../css/clock-color.css">
+  <!-- <link rel="stylesheet" href="../css/clock2-color.css"> -->
+
+  <style>
+    .myWiddy-page {
+      background-color: #404040;
+    }
+
+
+
+    #myWiddy-page {
+      color: #FF8D3A;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <a href="#" target="_blank">
+        <img src="../src/logo.png" alt="Logo Image" class="logo-image">
+      </a>
+      <a href="#" id="logo-word">Widdy</a>
+    </div>
+    <div class="sidebar-menu">
+      <nav>
+        <ul>
+          <li class="myWiddy-page"><a href="#" id="myWiddy-page">My Widdy</a></li>
+          <li class="clock-page"><a href="#" id="clock-page">Clock</a></li>
+          <li class="calendar-page"><a href="#" id="calendar-page">Calendar</a></li>
+          <li class="toDoList-page"><a href="#" id="toDoList-page">To Do List</a></li>
+          <li class="weather-page"><a href="#" id="weather-page">Weather</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="content-header">
+      <h2 id="content-title">My Widdy</h2>
+    </div>
+    <div class="content-body">
+      <div class="myWiddy-main-container">
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container2" id="components-container2"></div>
+        <div class="myWiddy-individual-container3" id="components-container3"></div>
+        <!-- <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div>
+        <div class="myWiddy-individual-container1" id="components-container1"></div> -->
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    document.getElementById('myWiddy-page').addEventListener('click', () => {
+      window.location.href = 'my-widdy.html';
+    });
+
+    document.getElementById('logo-word').addEventListener('click', () => {
+      window.location.href = 'my-widdy.html';
+    });
+
+    document.querySelector('.logo-image').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'my-widdy.html';
+    });
+
+    document.getElementById('clock-page').addEventListener('click', () => {
+      window.location.href = 'clock.html';
+    });
+
+    document.getElementById('calendar-page').addEventListener('click', () => {
+      window.location.href = 'calendar.html';
+    });
+
+    document.getElementById('toDoList-page').addEventListener('click', () => {
+      window.location.href = 'toDoList.html';
+    });
+
+    document.getElementById('weather-page').addEventListener('click', () => {
+      window.location.href = 'weather.html';
+    });
+
+
+    function updateComponents() {
+      const container1 = document.getElementById('components-container1');
+      container1.innerHTML = '';
+
+      if (localStorage.getItem('showClock1') === 'true') {
+        const clockComponent1 = document.createElement('div');
+        clockComponent1.classList.add('clock1-component'); // Add a class for styling
+        clockComponent1.innerHTML = `
+          <div class="home-header1">Clock: Default</div>
+          <div class="main-container1">
+            <button id="clock1-design-button">00:00</button>
+            <div class="setting">
+              <div class="switch-container1">
+                <a class="off">Off</a>
+                <label class="switch">
+                  <input type="checkbox" id="toggleSwitchClock1">
+                  <span class="slider"></span>
+                </label>
+                <a class="on">On</a>
+              </div>
+              <div class="time-setting">
+                <div class="time-header">Time Setting</div>
+                <div class="time-click">
+                  <button id="typeaClock1">12 h</button>
+                  <div class="btwbutton"></div>
+                  <button id="typebClock1">24 h</button>
+                </div>
+              </div>
+              <div class="color-setting">
+                <div class="color-header">Color Setting</div>
+                <div class="color-tiles">
+                  <div class="color-buttons-white">
+                    <button class="clock-color-button" data-color-set="black">
+                      <img src="../src/clock/c-black.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="clock-color-button" data-color-set="grey">
+                      <img src="../src/clock/c-grey.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="clock-color-button" data-color-set="pink">
+                      <img src="../src/clock/c-pink.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="clock-color-button" data-color-set="orange">
+                      <img src="../src/clock/c-orange.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="clock-color-button" data-color-set="green">
+                      <img src="../src/clock/c-green.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="clock-color-button" data-color-set="mint">
+                      <img src="../src/clock/c-mint.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="clock-color-button" data-color-set="blue">
+                      <img src="../src/clock/c-blue.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="clock-color-button" data-color-set="purple">
+                      <img src="../src/clock/c-purple.png" alt="Black" width="30px" height="30px">
+                    </button>
+                  </div>
+                  <div class="color-buttons-white">
+                    <button class="clock-color-button" data-color-set="white">
+                      <img src="../src/clock/c-white.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="clock-color-button" data-color-set="li-grey">
+                      <img src="../src/clock/c-li-grey.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="clock-color-button" data-color-set="li-pink">
+                      <img src="../src/clock/c-li-pink.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="clock-color-button" data-color-set="li-orange">
+                      <img src="../src/clock/c-li-orange.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="clock-color-button" data-color-set="li-green">
+                      <img src="../src/clock/c-li-green.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="clock-color-button" data-color-set="li-mint">
+                      <img src="../src/clock/c-li-mint.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="clock-color-button" data-color-set="li-blue">
+                      <img src="../src/clock/c-li-blue.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="clock-color-button" data-color-set="li-purple">
+                      <img src="../src/clock/c-li-purple.png" alt="Black" width="30px" height="30px">
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="clock1-size-setting">
+                <a>Size</a>
+                <div class="slider-container1">
+                  <input type="range" id="sizeSliderClock1" min="1" max="100" value="50" class="custom-slider">
+                  <span id="sliderValue">50</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        container1.appendChild(clockComponent1);
+
+        // Set the toggle switch state based on localStorage
+        const toggleSwitchClock1 = document.getElementById('toggleSwitchClock1');
+        const isClock1Open = localStorage.getItem('showClock1') === 'true';
+        toggleSwitchClock1.checked = isClock1Open;
+
+        setButtonState(['typeaClock1', 'typebClock1'], localStorage.getItem('clock1Format') || 'typebClock1');
+
+        // Set the size slider based on localStorage
+        const sizeSlider1 = document.getElementById('sizeSlider1');
+        const sliderValue = document.getElementById('sliderValue');
+        const clock1Size = localStorage.getItem('clock1Size') || 50;
+        sizeSlider1.value = clock1Size;
+        sliderValue.innerText = clock1Size;
+
+        const currentColorSet = localStorage.getItem('clock1ColorSet') || 'black';
+        document.body.className = currentColorSet;
+
+        toggleSwitchClock1.addEventListener('change', () => {
+          const isChecked = toggleSwitchClock1.checked;
+          localStorage.setItem('showClock1', isChecked);
+          ipcRenderer.send('clock1-status', { id: 'clock1-display', status: isChecked });
+          if (!isChecked) {
+            container1.innerHTML = '';
+          }
+        });
+
+        document.getElementById('typeaClock1').addEventListener('click', () => {
+          setButtonState(['typeaClock1', 'typebClock1'], 'typeaClock1');
+          localStorage.setItem('clock1Format', 'typeaClock1');
+          ipcRenderer.send('set-clock-format', { id: `clock1-display`, format: '12h' });
+        });
+
+        document.getElementById('typebClock1').addEventListener('click', () => {
+          setButtonState(['typeaClock1', 'typebClock1'], 'typebClock1');
+          localStorage.setItem('clock1Format', 'typebClock1');
+          ipcRenderer.send('set-clock-format', { id: `clock1-display`, format: '24h' });
+        });
+
+
+        // document.getElementById(`typea${clockId}`).addEventListener('click', () => {
+        //   setButtonState([`typea${clockId}`, `typeb${clockId}`], `typea${clockId}`);
+        //   localStorage.setItem(`${clockId}Format`, `typea${clockId}`);
+        //   ipcRenderer.send('set-clock-format', { id: `${clockId}-display`, format: '12h' });
+        // });
+
+        // document.getElementById(`typeb${clockId}`).addEventListener('click', () => {
+        //   setButtonState([`typea${clockId}`, `typeb${clockId}`], `typeb${clockId}`);
+        //   localStorage.setItem(`${clockId}Format`, `typeb${clockId}`);
+        //   ipcRenderer.send('set-clock-format', { id: `${clockId}-display`, format: '24h' });
+        // });
+
+
+
+        sizeSlider1.addEventListener('input', () => {
+          const newSize = sizeSlider1.value;
+          sliderValue.innerText = newSize;
+          ipcRenderer.send('adjust-clock-size', { id: 'clock1-display', size: newSize });
+          localStorage.setItem('clock1Size', newSize);
+        });
+
+
+        document.querySelectorAll('.clock-color-button').forEach(button => {
+          button.addEventListener('click', () => {
+            const colorSet = button.getAttribute('data-color-set');
+            ipcRenderer.send('change-clock1-color', colorSet);
+            localStorage.setItem('clock1ColorSet', colorSet);
+            document.body.className = colorSet;
+          });
+        });
+
+        window.addEventListener('storage', (event) => {
+          if (event.key === 'clock1Size') {
+            const newSize = localStorage.getItem('clock1Size');
+            sizeSlider1.value = newSize;
+            sliderValue.innerText = newSize;
+          } else if (event.key === 'clock1ColorSet') {
+            const newColorSet = localStorage.getItem('clock1ColorSet');
+            document.body.className = newColorSet;
+          }
+        });
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const container2 = document.getElementById('components-container2');
+    container2.innerHTML = '';
+
+    if (localStorage.getItem('showClock2') === 'true') {
+      const clockComponent2 = document.createElement('div');
+      clockComponent2.classList.add('clock2-component'); // Add a class for styling
+      clockComponent2.innerHTML = `
+          <div class="home-header2">Clock: Bold</div>
+          <div class="main-container2">
+            <button id="clock-second-design-button">00:00</button>
+            <div class="setting">
+              <div class="switch-container2">
+                <a class="off">Off</a>
+                <label class="switch">
+                  <input type="checkbox" id="toggleSwitchClock2">
+                  <span class="slider"></span>
+                </label>
+                <a class="on">On</a>
+              </div>
+              <div class="time-setting">
+                <div class="time-header">Time Setting</div>
+                <div class="time-click">
+                  <button id="typeaClock2">12 h</button>
+                  <div class="btwbutton"></div>
+                  <button id="typebClock2">24 h</button>
+                </div>
+              </div>
+                <div class="color-setting">
+                    <div class="color-header">Color Setting</div>
+                    <div class="color-tiles">
+                        <div class="color-buttons-white">
+                            <button class="clock2-color-button" data-color-set="black">
+                                <img src="../src/clock/c-black.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock2-color-button" data-color-set="grey">
+                                <img src="../src/clock/c-grey.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock2-color-button" data-color-set="pink">
+                                <img src="../src/clock/c-pink.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock2-color-button" data-color-set="orange">
+                                <img src="../src/clock/c-orange.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock2-color-button" data-color-set="green">
+                                <img src="../src/clock/c-green.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock2-color-button" data-color-set="mint">
+                                <img src="../src/clock/c-mint.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock2-color-button" data-color-set="blue">
+                                <img src="../src/clock/c-blue.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock2-color-button" data-color-set="purple">
+                                <img src="../src/clock/c-purple.png" alt="Black" width="30px" height="30px">
+                            </button>
+                        </div>
+                        <div class="color-buttons-white">
+                            <button class="clock2-color-button" data-color-set="white">
+                                <img src="../src/clock/c-white.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock2-color-button" data-color-set="li-grey">
+                                <img src="../src/clock/c-li-grey.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock2-color-button" data-color-set="li-pink">
+                                <img src="../src/clock/c-li-pink.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock2-color-button" data-color-set="li-orange">
+                                <img src="../src/clock/c-li-orange.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock2-color-button" data-color-set="li-green">
+                                <img src="../src/clock/c-li-green.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock2-color-button" data-color-set="li-mint">
+                                <img src="../src/clock/c-li-mint.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock2-color-button" data-color-set="li-blue">
+                                <img src="../src/clock/c-li-blue.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock2-color-button" data-color-set="li-purple">
+                                <img src="../src/clock/c-li-purple.png" alt="Black" width="30px" height="30px">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clock2-size-setting">
+                    <a>Size</a>
+                    <div class="slider-container">
+                        <input type="range" id="sizeSlider2" min="1" max="100" value="50" class="custom-slider">
+                        <span id="sliderValue">50</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+            `;
+      container2.appendChild(clockComponent2);
+
+      // Set the toggle switch state based on localStorage
+      const toggleSwitchClock2 = document.getElementById('toggleSwitchClock2');
+      const isClock2Open = localStorage.getItem('showClock2') === 'true';
+      toggleSwitchClock2.checked = isClock2Open;
+
+      setButtonState(['typeaClock2', 'typebClock2'], localStorage.getItem('clock2Format') || 'typebClock2');
+
+      // Set the size slider based on localStorage
+      const sizeSlider2 = document.getElementById('sizeSlider2');
+      const sliderValue = document.getElementById('sliderValue');
+      const clock2Size = localStorage.getItem('clock2Size') || 50;
+      sizeSlider2.value = clock2Size;
+      sliderValue.innerText = clock2Size;
+
+      const currentColorSet = localStorage.getItem('clock2ColorSet') || 'black';
+      document.body.className = currentColorSet;
+
+      toggleSwitchClock2.addEventListener('change', () => {
+        const isChecked = toggleSwitchClock2.checked;
+        localStorage.setItem('showClock2', isChecked);
+        ipcRenderer.send('clock2-status', { id: 'clock2-display', status: isChecked });
+        if (!isChecked) {
+          container2.innerHTML = '';
+        }
+      });
+
+      document.getElementById('typeaClock2').addEventListener('click', () => {
+        setButtonState(['typeaClock2', 'typebClock2'], 'typeaClock2');
+        localStorage.setItem('clock2Format', 'typeaClock2');
+        ipcRenderer.send('set-clock-format', { id: `clock2-display`, format: '12h' });
+      });
+
+      document.getElementById('typebClock2').addEventListener('click', () => {
+        setButtonState(['typeaClock2', 'typebClock2'], 'typebClock2');
+        localStorage.setItem('clock2Format', 'typebClock2');
+        ipcRenderer.send('set-clock-format', { id: `clock2-display`, format: '24h' });
+      });
+
+      sizeSlider2.addEventListener('input', () => {
+        const newSize = sizeSlider2.value;
+        sliderValue.innerText = newSize;
+        ipcRenderer.send('adjust-clock-size', { id: 'clock2-display', size: newSize });
+        localStorage.setItem('clock2Size', newSize);
+      });
+
+
+      document.querySelectorAll('.clock2-color-button').forEach(button => {
+        button.addEventListener('click', () => {
+          const colorSet = button.getAttribute('data-color-set');
+          ipcRenderer.send('change-clock2-color', colorSet);
+          localStorage.setItem('clock2ColorSet', colorSet);
+          document.body.className = colorSet;
+        });
+      });
+
+      window.addEventListener('storage', (event) => {
+        if (event.key === 'clock2Size') {
+          const newSize = localStorage.getItem('clock2Size');
+          sizeSlider2.value = newSize;
+          sliderValue.innerText = newSize;
+        } else if (event.key === 'clock2ColorSet') {
+          const newColorSet = localStorage.getItem('clock2ColorSet');
+          document.body.className = newColorSet;
+        }
+      });
+    }
+
+
+
+    window.addEventListener('storage', updateComponents);
+    updateComponents();
+
+    function setButtonState(buttonIds, enabledButtonId) {
+      buttonIds.forEach(id => {
+        const button = document.getElementById(id);
+        if (id === enabledButtonId) {
+          button.classList.add('enabled');
+          button.classList.remove('disabled');
+        } else {
+          button.classList.remove('enabled');
+          button.classList.add('disabled');
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

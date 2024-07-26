@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Clock: Default</title>
+  <link rel="stylesheet" href="../css/my-widdy.css">
+
+  <!-- <link rel="stylesheet" href="../css/clock1.css"> -->
+  <link rel="stylesheet" href="../css/clock-color.css">
+  <style>
+    .clock-page {
+      background-color: #404040;
+    }
+
+
+
+    #clock-page {
+      color: #FF8D3A;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <a href="#" target="_blank">
+        <img src="../src/logo.png" alt="Logo Image" class="logo-image">
+      </a>
+      <a href="#" id="logo-word">Widdy</a>
+    </div>
+    <div class="sidebar-menu">
+      <nav>
+        <ul>
+          <li class="myWiddy-page"><a href="#" id="myWiddy-page">My Widdy</a></li>
+          <li class="clock-page"><a href="#" id="clock-page">Clock</a></li>
+          <li class="calendar-page"><a href="#" id="calendar-page">Calendar</a></li>
+          <li class="toDoList-page"><a href="#" id="toDoList-page">To Do List</a></li>
+          <li class="weather-page"><a href="#" id="weather-page">Weather</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="head-container">
+      <img src="../src/go-back-button.png" alt="Go Back" class="back-button">
+      <div class="name">
+        <a>Default</a>
+      </div>
+    </div>
+    <div class="main-container">
+      <div class="clock-img">
+        <button id="clock-first-design-button">00:00</button>
+      </div>
+      <div class="setting">
+        <div class="switch-container">
+          <a class="off">Off</a>
+          <label class="switch">
+            <input type="checkbox" id="toggleSwitchClock1">
+            <span class="slider"></span>
+          </label>
+          <a class="on">On</a>
+        </div>
+        <!-- <button class="heart disabled" id="heartButton"></button> -->
+        <div class="time-setting">
+          <div class="time-header">Time Setting</div>
+          <div class="time-click">
+            <button id="typeaClock1">12 h</button>
+            <div class="btwbutton"></div>
+            <button id="typebClock1">24 h</button>
+          </div>
+        </div>
+        <div class="color-setting">
+          <div class="color-header">Colors</div>
+          <div class="color-tiles">
+            <div class="color-buttons-white">
+              <button class="clock1-color-button" data-color-set="white">
+                <img src="../src/clock/c-white.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="clock1-color-button" data-color-set="li-grey">
+                <img src="../src/clock/c-li-grey.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="clock1-color-button" data-color-set="li-pink">
+                <img src="../src/clock/c-li-pink.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="clock1-color-button" data-color-set="li-orange">
+                <img src="../src/clock/c-li-orange.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="clock1-color-button" data-color-set="li-green">
+                <img src="../src/clock/c-li-green.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="clock1-color-button" data-color-set="li-mint">
+                <img src="../src/clock/c-li-mint.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="clock1-color-button" data-color-set="li-blue">
+                <img src="../src/clock/c-li-blue.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="clock1-color-button" data-color-set="li-purple">
+                <img src="../src/clock/c-li-purple.png" alt="Black" width="30px" height="30px">
+              </button>
+            </div>
+            <div class="color-buttons-black">
+              <button class="clock1-color-button" data-color-set="black">
+                <img src="../src/clock/c-black.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="clock1-color-button" data-color-set="grey">
+                <img src="../src/clock/c-grey.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="clock1-color-button" data-color-set="pink">
+                <img src="../src/clock/c-pink.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="clock1-color-button" data-color-set="orange">
+                <img src="../src/clock/c-orange.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="clock1-color-button" data-color-set="green">
+                <img src="../src/clock/c-green.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="clock1-color-button" data-color-set="mint">
+                <img src="../src/clock/c-mint.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="clock1-color-button" data-color-set="blue">
+                <img src="../src/clock/c-blue.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="clock1-color-button" data-color-set="purple">
+                <img src="../src/clock/c-purple.png" alt="Black" width="30px" height="30px">
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="clock1-size-setting">
+          <div class="sizeheader">Size</div>
+          <div class="slider-container">
+            <input type="range" id="sizeSliderClock1" min="1" max="100" value="50" class="custom-slider">
+            <span id="sliderValueClock1">50</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    document.getElementById('myWiddy-page').addEventListener('click', () => {
+      window.location.href = 'my-widdy.html';
+    });
+
+    document.getElementById('logo-word').addEventListener('click', () => {
+      window.location.href = 'my-widdy.html';
+    });
+
+    document.querySelector('.logo-image').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'my-widdy.html';
+    });
+
+    document.querySelector('.back-button').addEventListener('click', () => {
+      window.history.back();
+    });
+
+    document.getElementById('clock-page').addEventListener('click', () => {
+      window.location.href = 'clock.html';
+    });
+
+    document.getElementById('calendar-page').addEventListener('click', () => {
+      window.location.href = 'calendar.html';
+    });
+
+    document.getElementById('toDoList-page').addEventListener('click', () => {
+      window.location.href = 'toDoList.html';
+    });
+
+    document.getElementById('weather-page').addEventListener('click', () => {
+      window.location.href = 'weather.html';
+    });
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // const clock1Container = document.getElementById('clock1-container');
+      const toggleSwitchClock1 = document.getElementById('toggleSwitchClock1');
+      const isClock1Open = localStorage.getItem('showClock1') === 'true';
+
+      toggleSwitchClock1.checked = isClock1Open;
+
+
+
+      // if (isClock1Open) {
+      //   setButtonState(['typeaClock1', 'typebClock1'], 'typebClock1'); // Default to 24h
+      //   markSelectedColor('clock1', 'li-grey'); // Default color
+      //   const clock1Size = 50; // Default size
+      //   document.getElementById('sizeSliderClock1').value = clock1Size;
+      //   document.getElementById('sliderValueClock1').innerText = clock1Size;
+      //   ipcRenderer.send('adjust-clock-size', { id: 'clock1-display', size: clock1Size });
+      // } else {
+      //   clearSelectedColor('clock1');
+      // }
+
+      if (isClock1Open) {
+        const savedColor = localStorage.getItem('clockColorSet') || 'li-grey';
+        document.body.className = savedColor;
+        setButtonState(['typeaClock1', 'typebClock1'], localStorage.getItem('clock1Format') === '12h' ? 'typeaClock1' : 'typebClock1');
+        markSelectedColor('clock1', localStorage.getItem('clock1ColorSet') || 'li-grey');
+        const clock1Size = localStorage.getItem('clock1Size') || 50;
+        document.getElementById('sizeSliderClock1').value = clock1Size;
+        document.getElementById('sliderValueClock1').innerText = clock1Size;
+        ipcRenderer.send('adjust-clock-size', { id: 'clock1-display', size: clock1Size });
+      }
+
+      // else {
+      //   clearSelectedColor('clock1');
+      // }
+
+
+
+      toggleSwitchClock1.addEventListener('change', () => {
+        const isChecked = toggleSwitchClock1.checked;
+        localStorage.setItem('showClock1', isChecked);
+        ipcRenderer.send('clock1-status', { id: 'clock1-display', status: isChecked });
+
+        if (isChecked) {
+          // Set default settings when turned on
+          localStorage.setItem('clock1Format', '24h');
+          setButtonState(['typeaClock1', 'typebClock1'], 'typebClock1'); // Enable 24h button
+          localStorage.setItem('clock1ColorSet', 'li-grey');
+          markSelectedColor('clock1', 'li-grey');
+          document.body.className = 'li-grey';
+
+          const clock1Size = 50;
+          localStorage.setItem('clock1Size', clock1Size);
+          document.getElementById('sizeSliderClock1').value = clock1Size;
+          document.getElementById('sliderValueClock1').innerText = clock1Size;
+          ipcRenderer.send('adjust-clock-size', { id: 'clock1-display', size: clock1Size });
+        } else {
+          // Reset settings when turned off
+          // clearSelectedColor('clock1');
+          // setButtonState(['typeaClock1', 'typebClock1'], null); 
+          // const clock1Size = 50; 
+          // document.getElementById('sizeSliderClock1').value = clock1Size;
+          // document.getElementById('sliderValueClock1').innerText = clock1Size;
+          // ipcRenderer.send('adjust-clock-size', { id: 'clock1-display', size: clock1Size });
+
+          clearSelectedColor('clock1');
+          setButtonState(['typeaClock1', 'typebClock1'], null);
+
+        }
+      });
+    });
+
+
+
+    // setButtonState(['typeaClock1', 'typebClock1'], localStorage.getItem('clock1Format') === '12h' ? 'typeaClock1' : 'typebClock1');
+
+    // if (localStorage.getItem('showClock1') === 'true') {
+    //   markSelectedColor('clock1', localStorage.getItem('clock1ColorSet') || 'li-grey');
+    // }
+
+    // const toggleSwitchClock1 = document.getElementById('toggleSwitchClock1');
+    // const isClock1Open = localStorage.getItem('showClock1') === 'true';
+
+    //   if (!isClock1Open) {
+    //     clearSelectedColor('clock1');
+    //   }
+
+    //   const clock1Size = localStorage.getItem('clock1Size') || 50;
+    //   document.getElementById('sizeSliderClock1').value = clock1Size;
+    //   document.getElementById('sliderValueClock1').innerText = clock1Size;
+
+
+    //   ipcRenderer.send('adjust-clock-size', { id: 'clock1-display', size: clock1Size });
+    // });
+
+
+
+    function enableButtons(buttonIds) {
+      buttonIds.forEach(id => {
+        const button = document.getElementById(id);
+        button.disabled = false;
+      });
+    }
+
+    function disableButtons(buttonIds) {
+      buttonIds.forEach(id => {
+        const button = document.getElementById(id);
+        button.classList.remove('enabled');
+        button.classList.add('disabled');
+        button.disabled = true;
+      });
+    }
+
+    function setButtonState(buttonIds, enabledButtonId) {
+      buttonIds.forEach(id => {
+        const button = document.getElementById(id);
+        if (id === enabledButtonId) {
+          button.classList.add('enabled');
+          button.classList.remove('disabled');
+        } else {
+          button.classList.remove('enabled');
+          button.classList.add('disabled');
+        }
+      });
+    }
+
+    function markSelectedColor(clockId, colorSet) {
+      document.querySelectorAll(`.${clockId}-color-button`).forEach(button => {
+        if (button.getAttribute('data-color-set') === colorSet) {
+          button.classList.add('selected');
+        } else {
+          button.classList.remove('selected');
+        }
+      });
+    }
+
+    function clearSelectedColor(clockId) {
+      document.querySelectorAll(`.${clockId}-color-button`).forEach(button => {
+        button.classList.remove('selected');
+      });
+    }
+
+    document.getElementById('typeaClock1').addEventListener('click', () => {
+      ipcRenderer.send('set-clock-format', { id: 'clock1-display', format: '12h' });
+      setButtonState(['typeaClock1', 'typebClock1'], 'typeaClock1');
+      localStorage.setItem('clock1Format', '12h');
+      console.log('Clock 1 set to 12h format');
+    });
+
+
+
+    document.getElementById('typebClock1').addEventListener('click', () => {
+      ipcRenderer.send('set-clock-format', { id: 'clock1-display', format: '24h' });
+      setButtonState(['typeaClock1', 'typebClock1'], 'typebClock1');
+      localStorage.setItem('clock1Format', '24h');
+      console.log('Clock 1 set to 24h format');
+    });
+
+    document.querySelectorAll('.clock1-color-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const colorSet = button.getAttribute('data-color-set');
+        console.log(`Changing color for clock1 to: ${colorSet}`); // Debug log
+        ipcRenderer.send('change-clock1-color', colorSet);
+        localStorage.setItem('clock1ColorSet', colorSet);
+        document.body.className = colorSet;
+        markSelectedColor('clock1', colorSet);
+      });
+    });
+
+
+    function setButtonState(buttonIds, enabledButtonId) {
+      buttonIds.forEach(id => {
+        const button = document.getElementById(id);
+        if (id === enabledButtonId) {
+          button.classList.add('enabled');
+          button.classList.remove('disabled');
+        } else {
+          button.classList.remove('enabled');
+          button.classList.add('disabled');
+        }
+      });
+    }
+
+    document.getElementById('sizeSliderClock1').addEventListener('input', () => {
+      const newSize = document.getElementById('sizeSliderClock1').value;
+      document.getElementById('sliderValueClock1').innerText = newSize;
+      ipcRenderer.send('adjust-clock-size', { id: 'clock1-display', size: newSize });
+      localStorage.setItem('clock1Size', newSize);
+    });
+
+    // const toggleSwitchClock1 = document.getElementById('toggleSwitchClock1');
+    // toggleSwitchClock1.addEventListener('change', () => {
+    //   const isChecked = toggleSwitchClock1.checked;
+    //   localStorage.setItem('showClock1', isChecked);
+    //   ipcRenderer.send('clock1-status', { id: 'clock1-display', status: isChecked });
+    //   if (isChecked) {
+    //     markSelectedColor('clock1', localStorage.getItem('clock1ColorSet') || 'li-grey');
+    //   } else {
+    //     clearSelectedColor('clock1');
+    //   }
+    // });
+
+    // window.addEventListener('storage', (event) => {
+    //   if (event.key === 'clock1Size') {
+    //     const newSize = localStorage.getItem('clock1Size');
+    //     document.getElementById('sizeSliderClock1').value = newSize;
+    //     document.getElementById('sliderValueClock1').innerText = newSize;
+    //   } else if (event.key === 'clock1ColorSet') {
+    //     const newColorSet = localStorage.getItem('clock1ColorSet');
+    //     document.body.className = newColorSet;
+    //     markSelectedColor('clock1', newColorSet);
+    //   }
+    // });
+
+
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'clock1Size') {
+        const newSize = localStorage.getItem('clock1Size');
+        document.getElementById('sizeSliderClock1').value = newSize;
+        document.getElementById('sliderValueClock1').innerText = newSize;
+      } else if (event.key === 'clock1ColorSet') {
+        const newColorSet = localStorage.getItem('clock1ColorSet');
+        document.body.className = newColorSet;
+        markSelectedColor('clock1', newColorSet);
+      }
+    });
+
+    // window.addEventListener('storage', (event) => {
+    //   if (event.key === 'showClock1') {
+    //     const isClock1Open = localStorage.getItem('showClock1') === 'true';
+    //     document.getElementById('toggleSwitchClock1').checked = isClock1Open;
+    //     if (isClock1Open) {
+    //       document.body.className = savedColor;
+    //       setButtonState(['typeaClock1', 'typebClock1'], localStorage.getItem('clock1Format') === '12h' ? 'typeaClock1' : 'typebClock1');
+    //       markSelectedColor('clock1', localStorage.getItem('clock1ColorSet') || 'li-grey');
+    //       const clock1Size = localStorage.getItem('clock1Size') || 50;
+    //       document.getElementById('sizeSliderClock1').value = clock1Size;
+    //       document.getElementById('sliderValueClock1').innerText = clock1Size;
+    //       ipcRenderer.send('adjust-clock-size', { id: 'clock1-display', size: clock1Size });
+    //     } else {
+    //       clearSelectedColor('clock1');
+    //       setButtonState(['typeaClock1', 'typebClock1'], null);
+    //     }
+    //   } else if (event.key === 'clock1Format') {
+    //     setButtonState(['typeaClock1', 'typebClock1'], localStorage.getItem('clock1Format') === '12h' ? 'typeaClock1' : 'typebClock1');
+    //   } else if (event.key === 'clock1ColorSet') {
+    //     markSelectedColor('clock1', localStorage.getItem('clock1ColorSet') || 'li-grey');
+    //   } else if (event.key === 'clock1Size') {
+    //     const newSize = localStorage.getItem('clock1Size');
+    //     document.getElementById('sizeSliderClock1').value = newSize;
+    //     document.getElementById('sliderValueClock1').innerText = newSize;
+    //   }
+    // });
+
+
+
+
+
+  </script>
+</body>
+
+</html>

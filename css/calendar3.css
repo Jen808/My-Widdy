@@ -1,0 +1,412 @@
+html,body {
+    background-color: #404040;
+    font-family: Inter, sans-serif;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.sidebar {
+    background-color: #272727;
+    width: 14.5rem;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+}
+
+
+.sidebar-header {
+    width: 10.5625rem;
+    height: 2.5rem;
+    padding: 1.87rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logo-image {
+    height: 2.5rem;
+    width: 2.5rem;
+    cursor: pointer;
+}
+
+
+#logo-word {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #ffffff;
+    padding-left: 0.56rem; 
+
+}
+
+
+
+nav {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 8.125rem;
+    left: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    height: 3.75rem;
+    width: 14.5rem;
+    display: flex;
+    align-items: center;
+
+
+}
+
+nav ul li a {
+    color: #BDBDBD;
+    font-weight: medium;
+    font-size: 1.25rem;
+    text-decoration: none;
+    position: absolute;
+    left: 2rem;
+}
+
+
+.main-content {
+    left: 14.5rem;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 14.5rem;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+
+.main-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:  7.9375rem;
+    padding-left: 4.54rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.myWiddy-page :hover {
+    color: #ff8d3a;
+}
+
+.myWiddy-page :active {
+    background-color: #404040;
+}
+
+
+.clock-page :hover {
+    color: #FF8D3A;
+}
+
+.toDoList-page :hover {
+    color: #ff8d3a;
+}
+
+.weather-page :hover {
+    color: #ff8d3a;
+}
+
+.calendar-page {
+    background-color: #404040;
+}
+
+#calendar-page {
+    color: #FF8D3A;
+    font-weight: bold;
+}
+
+
+.cal-headcontainer {
+    position: absolute;
+    width: 100%;
+    height: 7.9375rem;
+}
+
+
+.back-button {
+    position: absolute;
+    left: 2.0625rem;
+    top: 2.625rem;
+    -webkit-app-region: drag;
+}
+
+
+.name {
+    position: absolute;
+    left: 4.5625rem;
+    top: 2.3125rem;
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #ff8d3a;
+    padding: 0;
+    margin: 0;
+}
+
+
+.time-setting {
+    color: white;
+}
+
+.on,
+.off {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.color-setting {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0;
+    padding-top: 2.25rem;
+    margin: 0;
+    color: white;
+}
+
+.color-buttons-white,
+.color-buttons-black {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    top: 0.625rem;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+
+}
+
+.cal-color-button {
+    height: 1.875rem;
+    width: 1.875rem;
+    border: none;
+    padding: 0;
+    margin-right: 0.625rem;
+    margin-bottom: 0.625rem;
+    background: none;
+    cursor: pointer;
+
+}
+
+
+.switch-container {
+    width: 8.375rem;
+    height: 1.6875rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 2.125rem;
+    width: 3rem;
+    height: 1.6875rem;
+}
+
+
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1.3125rem;
+    width: 1.3125rem;
+    left: 0.1875rem;
+    bottom: 0.1875rem;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:checked+.slider:before {
+    transform: translateX(1.625rem);
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+}
+
+
+#toggleSwitchCal3 {
+    margin: 0;
+}
+
+
+.switch {
+    display: flex;
+    display: inline-block;
+    width: 3rem;
+    height: 1.6875rem;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: #5E5E5E;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+
+input:checked+.slider {
+    background-color: #FF8D3A
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 0.0625 #FF8D3A;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(1.3125rem);
+    -ms-transform: translateX(1.3125rem);
+    transform: translateX(1.3125rem);
+}
+
+.back-button{
+    cursor: pointer;
+}
+
+.cal3-size-setting {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: 600;
+    padding-top: 2.25rem;
+
+}
+
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    padding-left: 0.8125rem;
+}
+
+.custom-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 13.3125rem;
+    height: 0.3125rem;
+    background: #5e5e5e;
+    outline: none;
+    transition: opacity .2s;
+    border-radius: 2.8125rem;
+    margin: 0 0 0 0.125rem;
+  }
+  
+
+  
+.custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: #FF8D3A;
+    cursor: pointer;
+    border-radius: 2.8125rem;
+  }
+  
+
+
+#sliderValue {
+    font-size: 1rem;
+    margin-left: 1.375rem;
+    color: white;
+    font-weight: 400;
+  }
+  
+
+
+.logout {
+    margin-top: 2.25rem;
+    height: 2rem;
+    width: 13.6875rem;
+    border-radius: 2.8125rem;
+    border: none;
+    color: #272727;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #D9D9D9;
+    cursor: pointer;
+
+}
+
+
+.link {
+    margin-top: 2.25rem;
+    height: 2rem;
+    width: 13.6875rem;
+    border-radius: 2.8125rem;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color:#FF8D3A;
+    color: #272727;
+    cursor: pointer;
+
+}
+
+
+.setting {
+    width: 30rem;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+    padding-left: 2rem;
+}
+
+
+.cal3-image {
+    width: 27.0625rem;
+    height: 12.38031rem;
+}
+
+
+@media (min-width: 646px) and (max-width: 1100px) {
+    .main-container {
+        width: 27.0625rem;
+        flex-direction: column;
+        
+    }
+
+    .setting {
+        padding-left: 0;
+        padding-top: 2rem;
+
+    }
+}

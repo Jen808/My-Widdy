@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Frameless Window</title>
+  <link rel="stylesheet" href="style2.css">
+  <link rel="stylesheet" href="style_cal_1.css">
+</head>
+
+<body>
+  <div class="default-set"></div>
+    <div class="calendar-container">
+      <div class="calendar" id="calendar"></div>
+      <div class="event-details" id="event-details">
+        <div id="event-list"></div>
+      </div>
+    </div>
+
+  <button id="calendar-select-button" class="blue-circle-button">+</button>
+  <div id="calendar-dropdown" class="dropdown-menu hidden">
+    <h3>Select Calendars to Display</h3>
+    <div id="calendar-selector"></div>
+    <button id="apply-selection">Apply Selection</button>
+  </div>
+
+  <button id="pre-month" class="last-month-button">-</button>
+  <button id="nxt-month" class="next-month-button">+</button>
+
+
+
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    let currentYear = new Date().getFullYear();
+    let currentMonth = new Date().getMonth();
+
+    document.getElementById('calendar-select-button').addEventListener('click', () => {
+      document.getElementById('calendar-dropdown').classList.toggle('hidden');
+    });
+
+    document.getElementById('apply-selection').addEventListener('click', () => {
+      const selectedCalendars = Array.from(document.querySelectorAll('#calendar-selector input:checked')).map(input => input.value);
+      ipcRenderer.send('set-selected-calendars', selectedCalendars);
+      document.getElementById('calendar-dropdown').classList.add('hidden');
+    });
+
+    ipcRenderer.on('available-calendars', (event, calendars, selected) => {
+      const selector = document.getElementById('calendar-selector');
+      selector.innerHTML = '';
+      calendars.forEach(cal => {
+        const label = document.createElement('label');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.value = cal.id;
+        checkbox.checked = selected.includes(cal.id); // Select by default
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(cal.summary));
+        selector.appendChild(label);
+      });
+    });
+
+    ipcRenderer.send('get-calendars');
+
+    let events = [];
+
+    ipcRenderer.on('event', (event, data) => {
+      //console.log('Received event:', data); // Debug log for received event
+      events.push(data);
+      updateCalendar();
+    });
+
+    ipcRenderer.on('clear-events', () => {
+      events = [];
+      updateCalendar();
+    });
+
+    document.getElementById('pre-month').addEventListener('click', () => {
+      currentMonth -= 1;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear -= 1;
+      }
+
+
+      updateCalendar();
+    });
+
+    document.getElementById('nxt-month').addEventListener('click', () => {
+      currentMonth += 1;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear += 1;
+      }
+
+
+      updateCalendar();
+    });
+
+    function parseURLs(text) {
+      const urlPattern = /(https?:\/\/[^\s]+)/g;
+      return text.replace(urlPattern, '<a href="$1" target="_blank">$1</a>');
+    }
+
+    function createCalendar(year, month) {
+      const calendarElement = document.getElementById('calendar');
+      calendarElement.innerHTML = ''; // Clear previous calendar
+
+      const currentDate = new Date();
+      const today = currentDate.getDate();
+      const currentMonth = currentDate.getMonth();
+      const currentYear = currentDate.getFullYear();
+
+      const firstDay = new Date(year, month).getDay();
+      const lastDate = new Date(year, month + 1, 0).getDate();
+
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+
+      // Create header
+      const header = document.createElement('div');
+      header.className = 'header';
+      header.innerHTML = `${monthNames[month]} ${year}`;
+      calendarElement.appendChild(header);
+
+      // Create day names
+      const daysRow = document.createElement('div');
+      daysRow.className = 'days-row';
+      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      dayNames.forEach(day => {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'day-name';
+        dayElement.innerHTML = day;
+        daysRow.appendChild(dayElement);
+      });
+      calendarElement.appendChild(daysRow);
+
+      // Create calendar grid
+      const calendarGrid = document.createElement('div');
+      calendarGrid.className = 'calendar-grid';
+
+      // Fill initial empty cells
+      for (let i = 0; i < firstDay; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'empty-cell';
+        calendarGrid.appendChild(emptyCell);
+      }
+
+      // Fill days of the month
+      for (let day = 1; day <= lastDate; day++) {
+        const dayCell = document.createElement('div');
+        dayCell.className = 'day-cell';
+        dayCell.innerHTML = `<span>${day}</span>`;
+
+        // Highlight today's date
+        if (day === today && month === currentMonth && year === currentYear) {
+          dayCell.classList.add('today');
+        }
+
+        const dayEvents = events.filter(event => {
+          const eventDate = new Date(event.date);
+          if (event.allDay) {
+            return eventDate.getUTCDate() === day && eventDate.getUTCMonth() === month && eventDate.getUTCFullYear() === year;
+          } else {
+            return eventDate.getDate() === day && eventDate.getMonth() === month && eventDate.getFullYear() === year;
+          }
+        });
+
+        if (dayEvents.length > 0) {
+          const dot = document.createElement('div');
+          dot.className = 'event-dot';
+          dayCell.appendChild(dot);
+        }
+
+        // Add click event to show event details
+        dayCell.addEventListener('click', () => {
+          showEventDetails(dayEvents);
+        });
+
+        calendarGrid.appendChild(dayCell);
+      }
+
+      calendarElement.appendChild(calendarGrid);
+    }
+
+    function showEventDetails(dayEvents) {
+      const eventList = document.getElementById('event-list');
+      eventList.innerHTML = ''; // Clear previous event details
+
+      if (dayEvents.length > 0) {
+        dayEvents.forEach(event => {
+          const eventItem = createEventItem(event);
+          eventList.appendChild(eventItem);
+        });
+      } else {
+        const noEventMessage = document.createElement('p');
+        noEventMessage.innerText = 'No events';
+        eventList.appendChild(noEventMessage);
+      }
+
+      // Show event details
+      const eventDetails = document.getElementById('event-details');
+      eventDetails.style.display = 'block';
+      eventDetails.style.marginTop = '0'; // Ensure margin-top is set to 0
+    }
+    function createEventItem(event) {
+      const eventItem = document.createElement('div');
+      eventItem.className = 'event-item';
+
+      const eventTitle = document.createElement('p');
+      eventTitle.className = 'event-title';
+      eventTitle.innerText = `${event.summary}`;
+      eventItem.appendChild(eventTitle);
+
+      const eventTime = document.createElement('p');
+      eventTime.className = 'event-time';
+      if (event.allDay) {
+        eventTime.innerText = 'All day';
+      } else {
+        const startTime = new Date(event.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const endTime = new Date(event.end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        eventTime.innerText = `Start: ${startTime} End: ${endTime}`;
+      }
+      eventItem.appendChild(eventTime);
+
+      const eventDescription = document.createElement('p');
+      eventDescription.className = 'event-description';
+      eventDescription.innerHTML = `${parseURLs(event.description || 'No description')}`;
+      eventItem.appendChild(eventDescription);
+
+
+
+      if (event.meetingLink) {
+        const eventLink = document.createElement('p');
+        eventLink.className = 'event-link';
+        eventLink.innerHTML = `Meeting Link: <a href="${event.meetingLink}" target="_blank">${event.meetingLink}</a>`;
+        eventItem.appendChild(eventLink);
+      }
+
+      return eventItem;
+    }
+
+    function clearEventDetails() {
+      const eventDetails = document.getElementById('event-details');
+      const eventList = document.getElementById('event-list');
+      eventList.innerHTML = '';
+      eventDetails.style.display = 'none';
+    }
+
+    function updateCalendar() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      createCalendar(currentYear, currentMonth);
+    }
+
+    ipcRenderer.on('change-calendar-color', (event, colorSet) => {
+      document.body.className = colorSet;
+    });
+
+    // Initial call to set the calendar immediately
+    updateCalendar();
+
+    // Resize calendar on window resize
+    window.addEventListener('resize', updateCalendar);
+  </script>
+</body>
+
+</html>

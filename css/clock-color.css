@@ -1,0 +1,166 @@
+
+.clock {
+    color: #B6B6B6;
+}
+
+.black .clock {
+    color: black;
+}
+
+.grey .clock {
+    color: #5E5E5E;
+}
+
+.pink .clock {
+    color: #FF7E96;
+}
+
+.orange .clock {
+    color: #FF8D3A;
+}
+
+.green .clock {
+    color: #328357;
+}
+
+.mint .clock {
+    color: #22A5A5;
+}
+
+.blue .clock {
+    color: #63B4FF;
+}
+
+.purple .clock {
+    color: #8A39B0;
+}
+
+
+
+
+.white .clock {
+    color: white;
+}
+
+.li-grey .clock {
+    color :#B6B6B6;
+}
+
+.li-pink .clock {
+    color: #FFC8D2;
+}
+
+.li-orange .clock {
+    color: #FFD7BB;
+}
+
+
+.li-green .clock {
+    color: #A1E9C2;
+}
+
+.li-mint .clock {
+    color: #A6FFFF;
+}
+
+.li-blue .clock {
+    color: #B8DDFF;
+}
+
+.li-purple .clock {
+    color: #E7B3FF; 
+}
+
+
+.typea, .typeb {
+    cursor: pointer;
+
+}
+
+
+
+
+
+
+
+
+
+/* 
+
+.clock {
+    color: grey;
+}
+
+.black .clock {
+    color: black;
+}
+
+.grey .clock {
+    color: #5E5E5E;
+}
+
+.pink .clock {
+    color: #FF7E96;
+}
+
+.orange .clock {
+    color: #FF8D3A;
+}
+
+.green .clock {
+    color: #328357;
+}
+
+.mint .clock {
+    color: #22A5A5;
+}
+
+.blue .clock {
+    color: #63B4FF;
+}
+
+.purple .clock {
+    color: #8A39B0;
+}
+
+
+
+
+.white .clock {
+    color: white;
+}
+
+.li-grey .clock {
+    color :#B6B6B6;
+}
+
+.li-pink .clock {
+    color: #FFC8D2;
+}
+
+.li-orange .clock {
+    color: #FFD7BB;
+}
+
+
+.li-green .clock {
+    color: #A1E9C2;
+}
+
+.li-mint .clock {
+    color: #A6FFFF;
+}
+
+.li-blue .clock {
+    color: #B8DDFF;
+}
+
+.li-purple .clock {
+    color: #E7B3FF; 
+}
+
+
+.typea, .typeb {
+    cursor: pointer;
+
+} */

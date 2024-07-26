@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calendar: Wide</title>
+    <link rel="stylesheet" href="../css/calendar3.css">
+    <link rel="stylesheet" href="../css/cal3-color.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <!-- <a href="#" target="_blank"> -->
+            <img src="../src/logo.png" alt="Logo Image" class="logo-image">
+            </a>
+            <a href="#" id="logo-word">Widdy</a>
+        </div>
+        <div class="sidebar-menu">
+            <nav>
+                <ul>
+                    <li class="myWiddy-page"><a href="#" id="myWiddy-page">My Widdy</a></li>
+                    <li class="clock-page"><a href="#" id="clock-page">Clock</a></li>
+                    <li class="calendar-page"><a href="#" id="calendar-page">Calendar</a></li>
+                    <li class="toDoList-page"><a href="#" id="toDoList-page">To Do List</a></li>
+                    <li class="weather-page"><a href="#" id="weather-page">Weather</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="cal-headcontainer">
+            <img src="../src/go-back-button.png" alt="Go Back" class="back-button">
+            <div class="name">
+                <a>Wide style</a>
+            </div>
+        </div>
+        <div class="main-container">
+
+            <img src="../src/calendar/cal3.png" alt="Calendar Image" class="cal3-image">
+
+            <div class="setting">
+
+                <div class="switch-container">
+                    <a class="off">Off</a>
+                    <label class="switch">
+                        <input type="checkbox" id="toggleSwitchCal3">
+                        <span class="slider"></span>
+                    </label>
+                    <a class="on">On</a>
+                </div>
+
+                <div class="color-setting">
+                    <a>Colors</a>
+                    <div class="color-buttons-white">
+                        <button class="cal-color-button" data-color-set="white">
+                            <img src="../src/calendar/cal1-white.png" alt="white" width="30px" height="30px">
+                        </button>
+                        <button class="cal-color-button" data-color-set="cmyk">
+                            <img src="../src/calendar/cal1-cmyk.png" alt="cmyk" width="30px" height="30px">
+                        </button>
+                        <button class="cal-color-button" data-color-set="li-pink">
+                            <img src="../src/calendar/cal1-li-pink.png" alt="li-pink" width="30px" height="30px">
+                        </button>
+                        <button class="cal-color-button" data-color-set="li-orange">
+                            <img src="../src/calendar/cal1-li-orange.png" alt="li-orange" width="30px" height="30px">
+                        </button>
+                        <button class="cal-color-button" data-color-set="li-green">
+                            <img src="../src/calendar/cal1-li-green.png" alt="li-green" width="30px" height="30px">
+                        </button>
+                        <button class="cal-color-button" data-color-set="li-mint">
+                            <img src="../src/calendar/cal1-li-mint.png" alt="li-mint" width="30px" height="30px">
+                        </button>
+                        <button class="cal-color-button" data-color-set="li-blue">
+                            <img src="../src/calendar/cal1-li-blue.png" alt="li-blue" width="30px" height="30px">
+                        </button>
+                        <button class="cal-color-button" data-color-set="li-purple">
+                            <img src="../src/calendar/cal1-li-purple.png" alt="li-purple" width="30px" height="30px">
+                        </button>
+                    </div>
+                    <div class="color-buttons-black">
+                        <button class="cal-color-button" data-color-set="black">
+                            <img src="../src/calendar/cal1-black.png" alt="Black" width="30px" height="30px">
+                        </button>
+                        <button class="cal-color-button" data-color-set="grey">
+                            <img src="../src/calendar/cal1-grey.png" alt="grey" width="30px" height="30px">
+                        </button>
+                        <button class="cal-color-button" data-color-set="pink">
+                            <img src="../src/calendar/cal1-pink.png" alt="pink" width="30px" height="30px">
+                        </button>
+                        <button class="cal-color-button" data-color-set="orange">
+                            <img src="../src/calendar/cal1-orange.png" alt="orange" width="30px" height="30px">
+                        </button>
+                        <button class="cal-color-button" data-color-set="green">
+                            <img src="../src/calendar/cal1-green.png" alt="green" width="30px" height="30px">
+                        </button>
+                        <button class="cal-color-button" data-color-set="mint">
+                            <img src="../src/calendar/cal1-mint.png" alt="mint" width="30px" height="30px">
+                        </button>
+                        <button class="cal-color-button" data-color-set="blue">
+                            <img src="../src/calendar/cal1-blue.png" alt="blue" width="30px" height="30px">
+                        </button>
+                        <button class="cal-color-button" data-color-set="purple">
+                            <img src="../src/calendar/cal1-purple.png" alt="purple" width="30px" height="30px">
+                        </button>
+                    </div>
+                </div>
+                <div class="cal3-size-setting">
+                    <a>Size</a>
+                    <div class="slider-container">
+                        <input type="range" id="sizeSlider3" min="1" max="100" value="50" class="custom-slider">
+                        <span id="sliderValue">50</span>
+                    </div>
+                </div>
+                <button id="auth-button" class="link">Link to Google Account</button>
+                <div id="auth-status"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        const { ipcRenderer } = require('electron');
+
+
+        document.getElementById('myWiddy-page').addEventListener('click', () => {
+            window.location.href = 'my-widdy.html';
+        });
+
+        document.getElementById('logo-word').addEventListener('click', () => {
+            window.location.href = 'my-widdy.html';
+        });
+
+        document.querySelector('.logo-image').addEventListener('click', (event) => {
+            event.preventDefault();
+            window.location.href = 'my-widdy.html';
+        });
+
+        document.querySelector('.back-button').addEventListener('click', () => {
+            window.history.back();
+        });
+
+        document.getElementById('clock-page').addEventListener('click', () => {
+            window.location.href = 'clock.html';
+        });
+
+        document.getElementById('calendar-page').addEventListener('click', () => {
+            window.location.href = 'calendar.html';
+        });
+
+        document.getElementById('toDoList-page').addEventListener('click', () => {
+            window.location.href = 'toDoList.html';
+        });
+
+        document.getElementById('weather-page').addEventListener('click', () => {
+            window.location.href = 'weather.html';
+        });
+
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleSwitchCal3 = document.getElementById('toggleSwitchCal3');
+
+            if (toggleSwitchCal3) {
+                function openCal3Display() {
+                    document.getElementById('sizeSlider3').value = 50;
+                    document.getElementById('sliderValue').innerText = 50;
+                    ipcRenderer.send('open-cal3-display');
+                }
+
+                function closeCal3Display() {
+                    document.getElementById('sizeSlider3').value = 50;
+                    document.getElementById('sliderValue').innerText = 50;
+                    ipcRenderer.send('close-cal3-display');
+                }
+
+                const isCal3Open = JSON.parse(localStorage.getItem('isCal3Open'));
+                if (isCal3Open) {
+                    toggleSwitchCal3.checked = true;
+                    openCal3Display();
+                }
+
+                toggleSwitchCal3.addEventListener('click', () => {
+                    console.log(`Toggle switch clicked. Checked: ${toggleSwitchCal3.checked}`);
+                    if (toggleSwitchCal3.checked) {
+                        openCal3Display();
+                    } else {
+                        closeCal3Display();
+                    }
+                    localStorage.setItem('isCal3Open', toggleSwitchCal3.checked);
+                    ipcRenderer.send('cal3-status', { status: toggleSwitchCal3.checked });
+                });
+
+                window.addEventListener('focus', () => {
+                    const isCal3Open = JSON.parse(localStorage.getItem('isCal3Open'));
+                    if (isCal3Open && !toggleSwitchCal3.checked) {
+                        toggleSwitchCal3.checked = true;
+                        openCal3Display();
+                    }
+                });
+            } else {
+                console.error("Element with ID 'toggleSwitchCal3' not found.");
+            }
+
+            document.querySelectorAll('.cal-color-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const colorSet = button.getAttribute('data-color-set');
+                    console.log(`Color button clicked. Color set: ${colorSet}`);
+                    ipcRenderer.send('change-cal3-color', colorSet);
+                });
+            });
+
+
+            const sizeSlider3 = document.getElementById('sizeSlider3');
+            if (sizeSlider3) {
+                sizeSlider3.addEventListener('input', () => {
+                    const newSize = sizeSlider3.value;
+                    console.log(`Size slider moved. New size: ${newSize}`);
+                    document.getElementById('sliderValue').innerText = newSize;
+                    ipcRenderer.send('adjust-cal3-size', { size: newSize });
+                });
+            } else {
+                console.error("Element with ID 'sizeSlider3' not found.");
+            }
+        });
+
+
+
+
+
+        document.getElementById('auth-button').addEventListener('click', () => {
+            const authButton = document.getElementById('auth-button');
+            const buttonText = authButton.innerText;
+            if (buttonText === 'Link to Google Account') {
+                ipcRenderer.send('auth-google');
+            } else {
+                ipcRenderer.send('logout-google');
+            }
+        });
+
+
+        ipcRenderer.on('auth-status', (event, status) => {
+            const authButton = document.getElementById('auth-button');
+            const authStatus = document.getElementById('auth-status');
+
+            if (status === 'linked') {
+                authButton.innerText = 'Log out';
+                authButton.classList.remove('link');
+                authButton.classList.add('logout');
+            } else {
+                authButton.innerText = 'Link to Google Account';
+                authButton.classList.remove('logout');
+                authButton.classList.add('link');
+            }
+        });
+        ipcRenderer.send('check-auth-status');
+
+
+    </script>
+</body>
+
+</html>

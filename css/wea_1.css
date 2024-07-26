@@ -1,0 +1,25 @@
+#weather-result {
+    color: black;
+    background-color: white;
+}
+
+.red-set #weather-result div {
+    color: red;
+    background-color: pink;
+}
+
+.red-set #toggle-unit{
+    color:blue;
+}
+
+.red-set .weather-container {
+    background-color: bisque;
+}
+
+.red-set .weather-search {
+    background-color: blueviolet;
+}
+
+.red-set .result-container {
+    background-color: aqua;
+}

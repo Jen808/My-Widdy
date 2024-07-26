@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clock Page</title>
+  <link rel="stylesheet" href="../css/my-widdy.css">
+</head>
+<body>
+  <h1>Clock Page</h1>
+
+  <!-- Go Back Button -->
+  <button id="back-button">Go Back</button>
+  <!-- Clock First Design Button -->
+  <button id="toDoList-first-design-button">Daily To Do List</button>
+  <button id="toDoList-second-design-button">Weekly To DO List</button>
+
+  <script>
+    document.getElementById('back-button').addEventListener('click', () => {
+      window.history.back();
+    });
+
+    document.getElementById('toDoList-first-design-button').addEventListener('click', () => {
+      window.location.href = 'toDoList_first_design.html';
+    });
+
+    document.getElementById('toDoList-second-design-button').addEventListener('click', () => {
+      window.location.href = 'toDoList_second_design.html';
+    });
+  </script>
+</body>
+</html>

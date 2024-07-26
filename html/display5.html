@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App - Current and 24-hour Forecast</title>
+  <link rel="stylesheet" href="style5.css">
+  <link rel="stylesheet" href="wea_1.css">
+</head>
+<body>
+
+  <div class="default-set"></div>
+
+  <div class="weather-container">
+    <div class="weather-search">
+
+      <h1>Current Weather and 24-hour Forecast</h1>
+      <input type="text" id="city" placeholder="Enter city name">
+      <button onclick="getWeather()">Get Weather</button>
+      <button id="toggle-unit" onclick="toggleUnit()">Toggle to °F</button>
+    </div>
+    <div class="result-container" id="weather-result">
+      <!-- Weather results will be displayed here -->
+    </div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+    let currentUnit = 'metric'; // 'metric' for Celsius, 'imperial' for Fahrenheit
+
+    async function getWeather() {
+      const city = document.getElementById('city').value;
+      const weatherData = await ipcRenderer.invoke('get-weather', city, currentUnit);
+      if (weatherData.error) {
+        document.getElementById('weather-result').innerHTML = `<p>Error: ${weatherData.error}</p>`;
+      } else {
+        displayWeather(weatherData);
+      }
+    }
+
+    function toggleUnit() {
+      currentUnit = currentUnit === 'metric' ? 'imperial' : 'metric';
+      const toggleButton = document.getElementById('toggle-unit');
+      toggleButton.innerText = currentUnit === 'metric' ? 'Toggle to °F' : 'Toggle to °C';
+      getWeather();
+    }
+
+    function displayWeather(weatherData) {
+      const unitSymbol = currentUnit === 'metric' ? '°C' : '°F';
+      let forecastHtml = `
+        <h2>Current Weather in ${weatherData.weather.name}</h2>
+        <p>Temperature: ${weatherData.weather.main.temp} ${unitSymbol}</p>
+        <p>Weather: ${weatherData.weather.weather[0].description}</p>
+        <p>Air Quality Index: ${weatherData.air.list[0].main.aqi}</p>
+        <h2>Next 24-hour Forecast</h2>`;
+
+      weatherData.forecast.forEach(forecast => {
+        const date = new Date(forecast.dt * 1000);
+        forecastHtml += `
+          <div>
+            <p><strong>${date.toLocaleString()}</strong></p>
+            <p>Temperature: ${forecast.main.temp} ${unitSymbol}</p>
+            <p>Weather: ${forecast.weather[0].description}</p>
+          </div>`;
+      });
+
+      document.getElementById('weather-result').innerHTML = forecastHtml;
+    }
+
+    ipcRenderer.on('change-weather-color', (event, colorSet) => {
+      document.body.className = colorSet;
+    });
+
+
+  </script>
+</body>
+</html>

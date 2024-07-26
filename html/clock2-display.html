@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Digital Clock</title>
+  <link rel="stylesheet" href="../css/clock2-design.css">
+  <link rel="stylesheet" href="../css/clock-color.css">  
+</head>
+<body>
+  <div class="clock" id="clock">00:00</div>
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    let is24HourFormat = true;
+
+
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      
+
+      if (!is24HourFormat) {
+        hours = hours % 12 || 12; // Convert to 12-hour format
+      }
+      
+      // Add leading zero to minutes if needed
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+
+      // Format the clock display
+      const timeString = `${hours}:${minutes}`;
+      document.getElementById('clock').textContent = timeString;
+    }
+
+    function resizeClock({ newWidth, newHeight }) {
+      const clockElement = document.getElementById('clock');
+      const fontSize = newHeight * 0.8; // Adjust the scaling factor as needed
+      clockElement.style.fontSize = `${fontSize}px`;
+    }
+
+    function makeClockDraggable() {
+      const clock = document.getElementById('clock');
+      let isDragging = false;
+      let offsetX, offsetY;
+
+      clock.addEventListener('mousedown', (event) => {
+        isDragging = true;
+        offsetX = event.clientX - clock.getBoundingClientRect().left;
+        offsetY = event.clientY - clock.getBoundingClientRect().top;
+        clock.style.cursor = 'grabbing';
+      });
+
+      document.addEventListener('mousemove', (event) => {
+        if (isDragging) {
+          clock.style.left = `${event.clientX - offsetX}px`;
+          clock.style.top = `${event.clientY - offsetY}px`;
+        }
+      });
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+        clock.style.cursor = 'move';
+      });
+    }
+
+    ipcRenderer.on('change-clock2-color', (event, colorSet) => {
+      document.body.className = colorSet
+    });
+
+    ipcRenderer.on('set-clock-format', (event, { format }) => {
+      console.log(`Received set-clock-format: ${format}`);
+      is24HourFormat = (format === '24h');
+      updateClock(); // Update the clock display immediately
+    });
+
+    ipcRenderer.on('clock-status', (event, status) => {
+      isClockOpen = status;
+      localStorage.setItem('isClockOpen', status);
+    });
+
+
+    ipcRenderer.on('resize-clock', (event, { newWidth, newHeight }) => {
+      resizeClock({ newWidth, newHeight });
+    });
+
+
+    // Update the clock every minute
+    setInterval(updateClock, 1000 * 60);
+
+    // Initial call to set the clock immediately
+    updateClock();
+
+    // Resize clock on window resize
+
+    // Initial call to set the size immediately
+    resizeClock({ newWidth: 800, newHeight: 300 });
+
+    // Make clock draggable
+
+  </script>
+</body>
+</html>

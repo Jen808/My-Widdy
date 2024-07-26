@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frameless Window</title>
+    <link rel="stylesheet" href="../css/cal1-design.css">
+    <link rel="stylesheet" href="../css/cal-color.css">
+
+</head>
+
+<body>
+    <div class="section" id="iii">
+
+        <div class="calendar-container">
+            <div class="headers">
+                <div class="months"></div>
+                <div class="years"></div>
+                <button class="last-month-button" id="pre-month"></button>
+                <button class="next-month-button" id="nxt-month"></button>
+                <button class="more-calendar" id="calendar-select-button"></button>
+                <div class="horizontal-line"></div>
+            </div>
+            <div class="calendar" id="calendar">
+                <div class="days-row"></div>
+
+                <div class="calendar-grid">
+                    <div class="event-dot"> </div>
+                    <div class="day-cell date"></div>
+                </div>
+            </div>
+        </div>
+        <div id="calendar-dropdown" class="dropdown-menu-hidden">
+            <div class="cal-header">
+                <h3>Select Calendars to Display</h3>
+            </div>
+            <!-- <button id="close-button">&times;</button> -->
+            <div id="calendar-selector">
+            </div>
+            <button id="apply-selection">Apply</button>
+        </div>
+        <div class="event-details" id="event-details">
+            <div class="detail-header">
+                <div id="today-date"></div>
+                <div class="sort-dropdown">
+                    <button class="dropbtn"></button>
+                    <div class="sort-dropdown-content">
+                        <a href="#" id="sort-time">Sort by Time</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="sort-name">Sort by Name</a>
+                    </div>
+                </div>
+            </div>
+            <div class="event-content">
+                <!-- <div class="event-item"> -->
+                <div id="event-list">
+                    <div class="event-item">
+                        <div class="event-title"></div>
+                        <div class="event-time"></div>
+                        <div class="event-box">
+                            <div class="event-description"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+
+
+
+
+    <script>
+        const { ipcRenderer, shell } = require('electron');
+
+        let currentYear = new Date().getFullYear();
+        let currentMonth = new Date().getMonth();
+
+
+
+        const dropdown = document.getElementById('calendar-dropdown');
+        const button = document.getElementById('calendar-select-button');
+
+        button.addEventListener('click', () => {
+            if (dropdown.classList.contains('dropdown-menu-hidden')) {
+                dropdown.style.display = 'block';
+                setTimeout(() => {
+                    dropdown.classList.remove('dropdown-menu-hidden');
+                    dropdown.classList.add('dropdown-menu-visible');
+                    button.classList.add('rotate-45');  // Add rotation
+                }, 10);
+            } else {
+                dropdown.classList.remove('dropdown-menu-visible');
+                dropdown.classList.add('dropdown-menu-hidden');
+                button.classList.remove('rotate-45');  // Remove rotation
+                setTimeout(() => {
+                    dropdown.style.display = 'none';
+                }, 300);
+            }
+        });
+
+
+        document.getElementById('apply-selection').addEventListener('click', () => {
+            const selectedCalendars = Array.from(document.querySelectorAll('#calendar-selector input:checked')).map(input => input.value);
+            ipcRenderer.send('set-selected-calendars', selectedCalendars);
+            dropdown.classList.add('dropdown-menu-hidden');
+            dropdown.classList.remove('dropdown-menu-visible');
+            setTimeout(() => {
+                dropdown.style.display = 'none';
+            }, 300);
+        });
+
+
+        ipcRenderer.on('available-calendars', (event, calendars, selected) => {
+            const selector = document.getElementById('calendar-selector');
+            selector.innerHTML = '';
+            calendars.forEach(cal => {
+                const label = document.createElement('label');
+                label.classList.add('custom-checkbox');
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = cal.id;
+                checkbox.checked = selected.includes(cal.id);
+
+                const checkmark = document.createElement('span');
+                checkmark.classList.add('checked-box');
+
+                const textSpan = document.createElement('span'); // Create a span for the text
+                textSpan.classList.add('text-box'); // Add a class to the span
+                textSpan.textContent = cal.summary;
+
+                label.appendChild(checkbox);
+                label.appendChild(checkmark);
+                // label.appendChild(document.createTextNode(cal.summary));
+                label.appendChild(textSpan); // Append the text span to the label
+                selector.appendChild(label);
+            });
+        });
+
+        // document.getElementById('close-button').addEventListener('click', () => {
+        //     dropdown.classList.remove('dropdown-menu-visible');
+        //     dropdown.classList.add('dropdown-menu-hidden');
+        //     setTimeout(() => {
+        //         dropdown.style.display = 'none';
+        //     }, 300);
+        // });
+
+        ipcRenderer.send('get-calendars');
+
+        let events = [];
+
+        ipcRenderer.on('event', (event, data) => {
+            // console.log('Received event:', data);
+            events.push(data);
+            updateCalendar();
+        });
+
+        ipcRenderer.on('clear-events', () => {
+            events = [];
+            updateCalendar();
+        });
+
+        document.getElementById('pre-month').addEventListener('click', () => {
+            currentMonth -= 1;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear -= 1;
+            }
+
+
+            updateCalendar();
+        });
+
+        document.getElementById('nxt-month').addEventListener('click', () => {
+            currentMonth += 1;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear += 1;
+            }
+
+
+            updateCalendar();
+        });
+
+
+        ipcRenderer.on('available-calendars', (event, availableCalendars, selectedCalendarIds) => {
+            console.log('Received available calendars:', availableCalendars); // Log received calendars
+            console.log('Selected calendar IDs:', selectedCalendarIds); // Log selected calendar IDs
+
+            // Combine events from all selected calendars
+            events = [];
+            selectedCalendarIds.forEach(calendarId => {
+                const calendar = availableCalendars.find(cal => cal.id === calendarId);
+                if (calendar && calendar.events) {
+                    events = events.concat(calendar.events.map(evt => ({
+                        date: evt.start.dateTime || evt.start.date,
+                        summary: evt.summary,
+                        allDay: !!evt.start.date
+                    })));
+                }
+            });
+            const currentDate = new Date();
+            createCalendar(currentDate.getFullYear(), currentDate.getMonth());
+        });
+
+
+
+        function createCalendar(year, month) {
+            const calendarElement = document.getElementById('calendar');
+            calendarElement.innerHTML = '';
+
+            const currentDate = new Date();
+            const today = currentDate.getDate();
+            const currentMonth = currentDate.getMonth();
+            const currentYear = currentDate.getFullYear();
+
+            const firstDay = new Date(year, month).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+
+
+            const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+                "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
+
+            const monthHeader = document.querySelector('.months');
+            monthHeader.innerHTML = `${monthNames[month]}`;
+
+            const yearHeader = document.querySelector('.years');
+            yearHeader.innerHTML = `${year}`;
+
+            const todayDate = document.getElementById('today-date');
+            const paddedDay = String(today).padStart(2, '0');
+            const paddedCurrentMonth = String(currentMonth + 1).padStart(2, '0');
+            todayDate.textContent = `${paddedCurrentMonth}/${paddedDay}`;
+
+
+            const daysRow = document.createElement('div');
+            daysRow.className = 'days-row';
+            const dayNames = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+            dayNames.forEach(day => {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'day-name';
+                dayElement.innerHTML = day;
+                daysRow.appendChild(dayElement);
+            });
+            calendarElement.appendChild(daysRow);
+
+            const calendarGrid = document.createElement('div');
+            calendarGrid.className = 'calendar-grid';
+
+            let todayCell;
+
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'empty-cell';
+                calendarGrid.appendChild(emptyCell);
+            }
+
+            for (let day = 1; day <= lastDate; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'day-cell date';
+                dayCell.innerHTML = `<span>${day}</span>`;
+
+
+                if (day === today && month === currentMonth && year === currentYear) {
+                    dayCell.classList.add('today');
+                    const todayCircle = document.createElement('div');
+                    todayCircle.className = 'today-circle';
+                    dayCell.appendChild(todayCircle);
+                    todayCell = dayCell;
+
+
+                }
+
+                const existingDots = dayCell.querySelectorAll('.event-dot');
+                existingDots.forEach(dot => dot.remove());
+
+
+                const dayEvents = events.filter(event => {
+                    const eventDate = new Date(event.date);
+                    if (event.allDay) {
+                        return eventDate.getUTCDate() === day && eventDate.getUTCMonth() === month && eventDate.getUTCFullYear() === year;
+                    } else {
+                        return eventDate.getDate() === day && eventDate.getMonth() === month && eventDate.getFullYear() === year;
+                    }
+                });
+
+                if (dayEvents.length > 0) {
+                    const dot = document.createElement('div');
+                    dot.className = 'event-dot';
+                    dayCell.appendChild(dot);
+                }
+
+                dayCell.addEventListener('click', () => {
+                    showEventDetails(dayEvents);
+                    const selectedMonth = String(month + 1).padStart(2, '0'); 
+                    const selectedDay = String(day).padStart(2, '0');
+                    document.getElementById('today-date').textContent = `${selectedMonth}/${selectedDay}`;
+                });
+
+                calendarGrid.appendChild(dayCell);
+            }
+
+            const totalCells = firstDay + lastDate;
+            const trailingEmptyCells = (7 - totalCells % 7) % 7;
+            for (let i = 0; i < trailingEmptyCells; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'empty-cell';
+                calendarGrid.appendChild(emptyCell);
+            }
+
+            calendarElement.appendChild(calendarGrid);
+
+            if (todayCell) {
+                todayCell.click();
+            }
+        }
+
+
+
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // fetchEvents();
+            // fetchSelectedEvents();
+            dropdown.classList.add('dropdown-menu-hidden');
+            dropdown.classList.remove('dropdown-menu-visible');
+            console.log('DOM fully loaded and parsed');
+        });
+
+
+        // function fetchEvents() {
+        //     fetch('721718670827-tgovpmanoh9lft4e5rpnvdm3nqu9ufcs.apps.googleusercontent.com')
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             showEventDetails(data);
+        //         })
+        //         .catch(error => console.error('Error fetching events:', error));
+        // }
+
+        function showEventDetails(dayEvents) {
+            const eventList = document.getElementById('event-list');
+            eventList.innerHTML = '';
+            if (dayEvents.length > 0) {
+                dayEvents.forEach(event => {
+                    const eventItem = createEventItem(event);
+                    eventList.appendChild(eventItem);
+                });
+            } else {
+                const noEventMessage = document.createElement('p');
+                noEventMessage.innerText = 'No events';
+                noEventMessage.classList.add('no-events');
+                eventList.appendChild(noEventMessage);
+            }
+
+            const eventDetails = document.getElementById('event-details');
+            eventDetails.style.display = 'block';
+            eventDetails.style.marginTop = '0';
+
+            // console.log(dayEvents);
+        }
+
+
+
+        function createEventItem(event) {
+            const eventItem = document.createElement('div');
+            eventItem.className = 'event-item';
+
+            // const bulletPoint = document.createElement('span');
+            // bulletPoint.className = 'bullet-point';
+            // bulletPoint.innerText = '• '; // Add bullet point symbol
+            // eventItem.appendChild(bulletPoint);
+
+            const eventTitle = document.createElement('span');
+            eventTitle.className = 'event-title';
+            eventTitle.innerText = `${event.summary}`;
+            eventItem.appendChild(eventTitle);
+            
+            const eventTime = document.createElement('p');
+            eventTime.className = 'event-time';
+            if (event.allDay) {
+                eventTime.innerText = 'All day';
+            } else {
+                const startTime = new Date(event.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const endTime = new Date(event.end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                eventTime.innerText = `${startTime} - ${endTime}`;
+            }
+            eventItem.appendChild(eventTime);
+
+            const eventBox = document.createElement('div');
+            eventBox.classList.add('event-box');
+            eventItem.appendChild(eventBox);
+
+            const eventDescription = document.createElement('p');
+            eventDescription.className = 'event-description';
+            eventDescription.innerHTML = convertUrlsToLinks(event.description || 'No description');
+            eventBox.appendChild(eventDescription);
+
+            if (event.meetingLink) {
+                const meetingLink = document.createElement('a');
+                meetingLink.className = 'meeting-link external-link';
+                meetingLink.href = event.meetingLink;
+                meetingLink.innerText = 'Join Meeting';
+                meetingLink.target = '_blank';
+                eventBox.appendChild(meetingLink);
+            }
+
+            return eventItem;
+        }
+
+
+        // function convertUrlsToLinks(text) {
+        //     const urlRegex = /(https?:\/\/[^\s]+)/g;
+        //     const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
+        //     const googleRedirectRegex = /https:\/\/www\.google\.com\/url\?q=([^&]+)/;
+
+        //     const uniqueEmails = new Set();
+
+        //     const dummyDiv = document.createElement('div');
+        //     dummyDiv.innerHTML = text;
+
+        //     function replaceTextNode(node) {
+        //         let replacedText = node.textContent;
+
+        //         replacedText = replacedText.replace(urlRegex, url => {
+        //             const match = url.match(googleRedirectRegex);
+        //             if (match) {
+        //                 url = decodeURIComponent(match[1].replace(/\+/g, ' '));
+        //             }
+        //             return `<a href="${url}" class="external-link" target="_blank">${url}</a>`;
+        //         });
+
+        //         replacedText = replacedText.replace(emailRegex, email => {
+        //             if (!uniqueEmails.has(email)) {
+        //                 uniqueEmails.add(email);
+        //                 return `<a href="mailto:${email}" class="email-link">${email}</a>`;
+        //             }
+        //             return ''; 
+        //         });
+
+        //         const span = document.createElement('span');
+        //         span.innerHTML = replacedText;
+        //         return span;
+        //     }
+
+        // function convertUrlsToLinks(text) {
+        //     const urlRegex = /(https?:\/\/[^\s]+)/g;
+        //     const googleRedirectRegex = /https:\/\/www\.google\.com\/url\?q=([^&]+)/;
+
+        //     const dummyDiv = document.createElement('div');
+        //     dummyDiv.innerHTML = text;
+
+        //     dummyDiv.childNodes.forEach(node => {
+        //         if (node.nodeType === Node.TEXT_NODE) {
+        //             const replacedText = node.textContent.replace(urlRegex, url => {
+        //                 const match = url.match(googleRedirectRegex);
+        //                 if (match) {
+        //                     url = decodeURIComponent(match[1].replace(/\+/g, ' '));
+        //                 }
+        //                 return `<a href="${url}" class="external-link" target="_blank">${url}</a>`;
+        //             });
+        //             const span = document.createElement('span');
+        //             span.innerHTML = replacedText;
+        //             node.replaceWith(...span.childNodes);
+        //         } else if (node.nodeType === Node.ELEMENT_NODE && node.nodeName === 'A') {
+        //             const link = node.getAttribute('href');
+        //             const match = link.match(googleRedirectRegex);
+        //             if (match) {
+        //                 const url = decodeURIComponent(match[1].replace(/\+/g, ' '));
+        //                 node.setAttribute('href', url);
+        //                 node.classList.add('external-link'); 
+        //             }
+        //         }
+        //     });
+
+        //     return dummyDiv.innerHTML;
+        // }
+
+        // Array.from(dummyDiv.childNodes).forEach(node => {
+        //     if (node.nodeType === Node.TEXT_NODE) {
+        //         const replacedNode = replaceTextNode(node);
+        //         node.replaceWith(...replacedNode.childNodes);
+        //     } else if (node.nodeType === Node.ELEMENT_NODE && node.nodeName === 'A') {
+        //         const link = node.getAttribute('href');
+        //         const match = link.match(googleRedirectRegex);
+        //         if (match) {
+        //             const url = decodeURIComponent(match[1].replace(/\+/g, ' '));
+        //             node.setAttribute('href', url);
+        //             node.classList.add('external-link');
+        //         }
+        //     }
+        // });
+
+
+
+
+        function convertUrlsToLinks(text) {
+            // document.querySelectorAll('.event-description').forEach(link => {
+            //     shell.openExternal(url);
+            // });
+
+            const urlRegex = /(https?:\/\/[^\s]+|www\.[^\s]+)/g;
+            const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
+            const googleRedirectRegex = /https:\/\/www\.google\.com\/url\?q=([^&]+)/;
+
+            const uniqueEmails = new Set();
+
+            const dummyDiv = document.createElement('div');
+            dummyDiv.innerHTML = text;
+
+            console.log('Original Text:', dummyDiv.innerHTML); // Log the original text content
+
+
+
+            function cleanEmails(emails) {
+                console.log('Original Emails:', emails); // Log the original emails
+                const cleaned = emails.map(email => {
+                    const emailPattern = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(\1>)/g;
+                    const cleanedEmail = email.replace(emailPattern, '$1');
+                    console.log('Cleaned Email:', cleanedEmail); // Log each cleaned email
+                    return cleanedEmail;
+                });
+                return cleaned;
+            }
+
+            function collectTextContent(node) {
+                let textContent = '';
+                node.childNodes.forEach(child => {
+                    if (child.nodeType === Node.TEXT_NODE) {
+                        textContent += child.textContent;
+                    } else if (child.nodeType === Node.ELEMENT_NODE) {
+                        textContent += collectTextContent(child);
+                    }
+                });
+                return textContent;
+            }
+
+            let allTextContent = collectTextContent(dummyDiv);
+            console.log('All Text Content:', allTextContent); // Log all text content
+
+            // Extract and clean emails
+            const allEmails = allTextContent.match(emailRegex) || [];
+            console.log('All Emails Before Cleaning:', allEmails); // Log all emails before cleaning
+            const cleanedEmails = cleanEmails(allEmails);
+            console.log('All Emails After Cleaning:', cleanedEmails); // Log all emails after cleaning
+
+            // Replace URLs
+            let replacedText = allTextContent.replace(urlRegex, url => {
+                let originalUrl = url;
+                const match = url.match(googleRedirectRegex);
+                if (match) {
+                    url = decodeURIComponent(match[1].replace(/\+/g, ' '));
+                } else if (url.startsWith('www.')) {
+                    url = 'http://' + url;
+                }
+                return `<a href="${url}" class="external-link" target="_blank">${originalUrl}</a>`;
+            });
+
+            // Replace cleaned emails
+            cleanedEmails.forEach((cleanedEmail, index) => {
+                const emailLink = `<a href="mailto:${cleanedEmail}" class="email-link">${cleanedEmail}</a>`;
+                replacedText = replacedText.replace(allEmails[index], emailLink);
+            });
+
+            console.log('Final Replaced Text:', replacedText); // Log the final replaced text
+            dummyDiv.innerHTML = replacedText;
+
+            return dummyDiv.innerHTML;
+        }
+
+
+        //     // Function to replace URLs and emails in a text node
+        //     function replaceTextNode(node) {
+        //         let replacedText = node.textContent;
+
+        //         // Replace URLs
+        //         replacedText = replacedText.replace(urlRegex, url => {
+        //             let originalUrl = url;
+        //             const match = url.match(googleRedirectRegex);
+        //             if (match) {
+        //                 url = decodeURIComponent(match[1].replace(/\+/g, ' '));
+        //             } else if (url.startsWith('www.')) {
+        //                 url = 'http://' + url;
+        //             }
+        //             return `<a href="${url}" class="external-link" target="_blank">${originalUrl}</a>`;
+        //         });
+
+
+        //         // Replace email addresses
+        //         replacedText = replacedText.replace(emailRegex, email => {
+        //             if (!uniqueEmails.has(email)) {
+        //                 uniqueEmails.add(email);
+        //                 return `<a href="mailto:${email}" class="email-link">${email}</a>`;
+        //             }
+        //             return email;
+        //         });
+
+        //         // Clean up any remaining duplicated emails
+        //         // const allEmails = replacedText.match(emailRegex) || [];
+        //         // const cleanedEmails = cleanEmails(allEmails);
+        //         // cleanedEmails.forEach((cleanedEmail, index) => {
+        //         //     replacedText = replacedText.replace(allEmails[index], cleanedEmail);
+        //         // });
+
+        //         console.log('Replaced Text Before Cleaning:', replacedText); // Log replaced text before cleaning
+        //         const allEmails = replacedText.match(emailRegex) || [];
+        //         console.log('All Emails Before Cleaning:', allEmails); // Log all emails before cleaning
+        //         const cleanedEmails = cleanEmails(allEmails);
+        //         console.log('All Emails After Cleaning:', cleanedEmails); // Log all emails after cleaning
+        //         cleanedEmails.forEach((cleanedEmail, index) => {
+        //             replacedText = replacedText.replace(allEmails[index], cleanedEmail);
+        //         });
+        //         const span = document.createElement('span');
+        //         span.innerHTML = replacedText;
+        //         return span;
+        //     }
+
+        //     // Iterate over child nodes and replace content where necessary
+        //     Array.from(dummyDiv.childNodes).forEach(node => {
+        //         if (node.nodeType === Node.TEXT_NODE) {
+        //             const replacedNode = replaceTextNode(node);
+        //             node.replaceWith(...replacedNode.childNodes);
+        //         } else if (node.nodeType === Node.ELEMENT_NODE && node.nodeName === 'A') {
+        //             const link = node.getAttribute('href');
+        //             const match = link.match(googleRedirectRegex);
+        //             if (match) {
+        //                 const url = decodeURIComponent(match[1].replace(/\+/g, ' '));
+        //                 node.setAttribute('href', url);
+        //                 node.classList.add('external-link');
+        //             }
+        //         }
+        //     });
+
+        //     console.log('Final Replaced Text:', dummyDiv.innerHTML); // Log the final replaced text
+        //     return dummyDiv.innerHTML;
+        // }
+
+
+
+        document.addEventListener('click', (event) => {
+            if (event.target.matches('.external-link')) {
+                event.preventDefault();
+                const url = event.target.href;
+                shell.openExternal(url);
+            } else if (event.target.matches('.email-link')) {
+                event.preventDefault();
+                const email = event.target.href;
+                shell.openExternal(`https://mail.google.com/mail/?view=cm&fs=1&to=${email.substring(7)}`);
+            } else if (event.target.matches('.event-description a')) {
+                event.preventDefault();
+                const url = event.target.href;
+                shell.openExternal(url);
+            }
+        });
+
+
+
+        function sortEventsByTime() {
+            const eventList = document.getElementById('event-list');
+            const events = Array.from(eventList.getElementsByClassName('event-item'));
+            events.sort((a, b) => {
+                const timeA = a.querySelector('.event-time').innerText.split(' - ')[0];
+                const timeB = b.querySelector('.event-time').innerText.split(' - ')[0];
+                return new Date(`1970/01/01 ${timeA}`) - new Date(`1970/01/01 ${timeB}`);
+            });
+            eventList.innerHTML = '';
+            events.forEach(event => eventList.appendChild(event));
+        }
+
+        function sortEventsByName() {
+            const eventList = document.getElementById('event-list');
+            const events = Array.from(eventList.getElementsByClassName('event-item'));
+            events.sort((a, b) => {
+                const nameA = a.querySelector('.event-title').innerText.toUpperCase();
+                const nameB = b.querySelector('.event-title').innerText.toUpperCase();
+                if (nameA < nameB) return -1;
+                if (nameA > nameB) return 1;
+                return 0;
+            });
+            eventList.innerHTML = '';
+            events.forEach(event => eventList.appendChild(event));
+        }
+
+        // Toggle dropdown
+        document.querySelector('.dropbtn').addEventListener('click', function () {
+            document.querySelector('.sort-dropdown-content').classList.toggle('show');
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                const dropdowns = document.getElementsByClassName('sort-dropdown-content');
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        };
+
+        document.getElementById('sort-time').addEventListener('click', sortEventsByTime);
+        document.getElementById('sort-name').addEventListener('click', sortEventsByName);
+
+
+
+        function clearEventDetails() {
+            const eventDetails = document.getElementById('event-details');
+            const eventList = document.getElementById('event-list');
+            eventList.innerHTML = '';
+            eventDetails.style.display = 'none';
+        }
+
+        function updateCalendar() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth();
+            createCalendar(currentYear, currentMonth);
+        }
+
+        ipcRenderer.on('change-cal1-color', (event, colorSet) => {
+            document.body.className = colorSet;
+        });
+
+        function resizeCal({ newWidth, newHeight }) {
+            const calElement = document.getElementById('iii');
+            if (calElement) {
+                const scaleFactor = newWidth / 900; // Assuming 900 is the base width
+                document.documentElement.style.fontSize = `${scaleFactor * 16}px`; // Adjust root font size
+                calElement.style.width = `${newWidth}px`;
+                calElement.style.height = `${newHeight}px`;
+
+            }
+        }
+
+        ipcRenderer.on('resize-cal1', (event, { newWidth, newHeight }) => {
+            resizeCal({ newWidth, newHeight });
+        });
+
+        ipcRenderer.on('all-events', (event, events) => {
+            // console.log('Received all events:', events);
+            window.events = events; // Store events globally or manage them accordingly
+            updateCalendar();
+        });
+
+        updateCalendar();
+
+        resizeCal({ newWidth: 900, newHeight: 453 });
+
+    </script>
+</body>
+
+</html>

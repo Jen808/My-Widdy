@@ -1,0 +1,95 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  -webkit-app-region: drag;
+}
+
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  
+}
+
+.date {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.task-list {
+  width: 80%;
+  max-width: 600px;
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 20px;
+  box-sizing: border-box;
+  -webkit-app-region: no-drag;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.task .mark-done {
+  width: 20px;
+  height: 20px;
+  border: 2px solid black;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.task .task-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.task.done .task-content .title,
+.task.done .task-content .notes,
+.task.done .task-content .due {
+  text-decoration: line-through;
+  font-style: italic;
+  color: grey;
+}
+
+.top-right-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.navigation-buttons {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  -webkit-app-region: no-drag;
+}
+
+.navigation-buttons button {
+  padding: 10px;
+  margin: 0 5px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-app-region: no-drag;
+}

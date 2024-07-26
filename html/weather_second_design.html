@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Second Design Page</title>
+  <link rel="stylesheet" href="wea_1.css">
+</head>
+<body>
+  <h1>Current weather</h1>
+
+  <!-- Go Back Button -->
+  <button id="back-button">Go Back</button>
+  <!-- Display 1 Button -->
+  <button id="display6-button">Current weather</button>
+
+  <div>
+    <h3>Select Calendar Color:</h3>
+    <button class="wea-color-button"  data-color-set="red-set">Red</button>
+    <button class="wea-color-button"  data-color-set="blue-set">Blue</button>
+    <button class="wea-color-button"  data-color-set="black-set">Black</button>
+    <button class="wea-color-button"  data-color-set="white-set">White</button>
+    <button class="wea-color-button"  data-color-set="grey-set">Grey</button>
+  </div>
+
+
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    document.getElementById('back-button').addEventListener('click', () => {
+      window.history.back();
+    });
+
+    
+    document.getElementById('display6-button').addEventListener('click', () => {
+      ipcRenderer.send('toggle-display', { id: 'display6', height: 300, width: 800 });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.wea-color-button').forEach(button => {
+        button.addEventListener('click', () => {
+          const colorSet = button.getAttribute('data-color-set');
+          ipcRenderer.send('change-weather-color', colorSet);
+        });
+      });
+    });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Page</title>
+  <link rel="stylesheet" href="../css/my-widdy.css">
+</head>
+<body>
+  <h1>Weather Page</h1>
+
+  <!-- Go Back Button -->
+  <button id="back-button">Go Back</button>
+  <!-- Clock First Design Button -->
+  <button id="weather-first-design-button">Current and 24h</button>
+  <button id="weather-second-design-button">Current weather</button>
+
+  <script>
+    document.getElementById('back-button').addEventListener('click', () => {
+      window.history.back();
+    });
+
+    document.getElementById('weather-first-design-button').addEventListener('click', () => {
+      window.location.href = 'weather_first_design.html';
+    });
+
+    document.getElementById('weather-second-design-button').addEventListener('click', () => {
+      window.location.href = 'weather_second_design.html';
+    });
+
+    
+  </script>
+</body>
+</html>

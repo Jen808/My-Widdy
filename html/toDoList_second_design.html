@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To Do List First Design Page</title>
+  <link rel="stylesheet" href="todo_1.css">
+</head>
+<body>
+  <h1>To Do List First Design Page</h1>
+
+  <!-- Go Back Button -->
+  <button id="back-button">Go Back</button>
+  <!-- Display 1 Button -->
+  <button id="display4-button">Weekly To Do List</button>
+
+
+  <div>
+    <h3>Select Calendar Color:</h3>
+    <button class="todo-color-button"  data-color-set="red-set">Red</button>
+    <button class="todo-color-button"  data-color-set="blue-set">Blue</button>
+    <button class="todo-color-button"  data-color-set="black-set">Black</button>
+    <button class="todo-color-button"  data-color-set="white-set">White</button>
+    <button class="todo-color-button"  data-color-set="grey-set">Grey</button>
+  </div>
+  
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    document.getElementById('back-button').addEventListener('click', () => {
+      window.history.back();
+    });
+
+ 
+    document.getElementById('display4-button').addEventListener('click', () => {
+      ipcRenderer.send('toggle-display', { id: 'display4', height: 300, width: 800 });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.todo-color-button').forEach(button => {
+        button.addEventListener('click', () => {
+          const colorSet = button.getAttribute('data-color-set');
+          ipcRenderer.send('change-todo-color', colorSet);
+        });
+      });
+    });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Current Weather and Air Quality</title>
+  <link rel="stylesheet" href="style6.css">
+  <link rel="stylesheet" href="wea_1.css">
+
+</head>
+<body>
+  <h1>Current Weather and Air Quality</h1>
+  <input type="text" id="city" placeholder="Enter city name">
+  <button onclick="getWeather()">Get Weather</button>
+  <button id="toggle-unit" onclick="toggleUnit()">Toggle to °F</button>
+  <div id="weather-result"></div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+    let currentUnit = 'metric'; // 'metric' for Celsius, 'imperial' for Fahrenheit
+    let weatherDataCache = null; // Cache to store weather data
+
+    async function getWeather() {
+      const city = document.getElementById('city').value;
+      const weatherData = await ipcRenderer.invoke('get-weather', city, currentUnit);
+      if (weatherData.error) {
+        document.getElementById('weather-result').innerHTML = `<p>Error: ${weatherData.error}</p>`;
+      } else {
+        weatherDataCache = weatherData;
+        displayWeather(weatherData);
+      }
+    }
+
+    function toggleUnit() {
+      currentUnit = currentUnit === 'metric' ? 'imperial' : 'metric';
+      const toggleButton = document.getElementById('toggle-unit');
+      toggleButton.innerText = currentUnit === 'metric' ? 'Toggle to °F' : 'Toggle to °C';
+      if (weatherDataCache) {
+        convertAndDisplayWeather(weatherDataCache);
+      }
+    }
+
+    function convertAndDisplayWeather(weatherData) {
+      const unitSymbol = currentUnit === 'metric' ? '°C' : '°F';
+      const weatherHtml = `
+        <h2>Current Weather in ${weatherData.weather.name}</h2>
+        <p>Temperature: ${convertTemperature(weatherData.weather.main.temp)} ${unitSymbol}</p>
+        <p>Weather: ${weatherData.weather.weather[0].description}</p>
+        <p>Air Quality Index: ${weatherData.air.list[0].main.aqi}</p>`;
+
+      document.getElementById('weather-result').innerHTML = weatherHtml;
+    }
+
+    function convertTemperature(temp) {
+      if (currentUnit === 'metric') {
+        return temp; // Already in Celsius
+      } else {
+        return (temp * 9/5) + 32; // Convert to Fahrenheit
+      }
+    }
+
+    function displayWeather(weatherData) {
+      const unitSymbol = currentUnit === 'metric' ? '°C' : '°F';
+      const weatherHtml = `
+        <h2>Current Weather in ${weatherData.weather.name}</h2>
+        <p>Temperature: ${weatherData.weather.main.temp} ${unitSymbol}</p>
+        <p>Weather: ${weatherData.weather.weather[0].description}</p>
+        <p>Air Quality Index: ${weatherData.air.list[0].main.aqi}</p>`;
+
+      document.getElementById('weather-result').innerHTML = weatherHtml;
+    }
+
+    ipcRenderer.on('change-weather-color', (event, colorSet) => {
+      document.body.className = colorSet;
+    });
+    
+  </script>
+</body>
+</html>

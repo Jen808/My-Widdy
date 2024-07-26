@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App - Current and Forecast</title>
+  <link rel="stylesheet" href="style5.css">
+</head>
+<body>
+  <h1>Current Weather and 5-day Forecast</h1>
+  <input type="text" id="city" placeholder="Enter city name">
+  <button onclick="getWeather()">Get Weather</button>
+  <div id="weather-result"></div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    async function getWeather() {
+      const city = document.getElementById('city').value;
+      const weatherData = await ipcRenderer.invoke('get-weather', city);
+      if (weatherData.error) {
+        document.getElementById('weather-result').innerHTML = `<p>Error: ${weatherData.error}</p>`;
+      } else {
+        let forecastHtml = `
+          <h2>Current Weather in ${weatherData.weather.name}</h2>
+          <p>Temperature: ${weatherData.weather.main.temp} °C</p>
+          <p>Weather: ${weatherData.weather.weather[0].description}</p>
+          <p>Air Quality Index: ${weatherData.air.list[0].main.aqi}</p>
+          <h2>5-day Forecast</h2>`;
+
+        weatherData.forecast.list.forEach(forecast => {
+          const date = new Date(forecast.dt * 1000);
+          forecastHtml += `
+            <div>
+              <p><strong>${date.toLocaleString()}</strong></p>
+              <p>Temperature: ${forecast.main.temp} °C</p>
+              <p>Weather: ${forecast.weather[0].description}</p>
+            </div>`;
+        });
+
+        document.getElementById('weather-result').innerHTML = forecastHtml;
+      }
+    }
+  </script>
+</body>
+</html>

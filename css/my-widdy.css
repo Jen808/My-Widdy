@@ -1,0 +1,812 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Pompiere&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Pompiere&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=VT323&display=swap');
+
+
+
+
+html,
+body {
+    background-color: #404040;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+
+
+}
+
+.sidebar {
+    background-color: #272727;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 14.5rem;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+}
+
+
+.sidebar-menu {
+    position:  relative;
+    /* width: 14.5rem;
+    height: 41.875rem; */
+    padding-top: 8.12rem;
+}
+
+.sidebar-header {
+    position: absolute;
+    width: 14.5rem;
+    height: 8.125rem;    
+    top: 0;
+    left: 0;
+}
+
+.logo-image {
+    /* position: absolute; */
+    height: 2.5rem;
+    width: 2.5rem;
+    padding-left: 1.875rem;
+    padding-top: 1.875rem;
+}
+
+
+#logo-word {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #ffffff;
+    position: absolute;
+    left: 4.9375rem;
+    top: 2.375rem;
+}
+
+
+
+nav {
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+
+}
+
+nav ul li {
+    height: 3.75rem;
+    width: 14.5rem;
+    display: flex;
+    align-items: center;
+
+
+}
+
+nav ul li a {
+    color: #BDBDBD;
+    font-weight: medium;
+    font-size: 1.25rem;
+    text-decoration: none;
+    /* position: absolute; */
+    padding-left: 2rem;
+}
+
+.hiw {
+    height: 23.125rem;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+
+
+.how-it-works{
+    height: 3.75rem;
+    width: 14.5rem;
+    display: flex;
+    align-items: center;
+    padding-bottom: 1rem;
+
+}
+
+
+
+#how-it-works {
+
+    color: #BDBDBD;
+    font-weight: medium;
+    font-size: 1.25rem;
+    text-decoration: none;
+    /* position: absolute; */
+    padding-left: 2rem;
+
+}
+
+
+.myWiddy-page :hover {
+    color: #ff8d3a;
+}
+
+
+
+.clock-page :hover {
+    color: #FF8D3A;
+}
+
+.calendar-page :hover {
+    color: #FF8D3A;
+}
+
+.toDoList-page :hover {
+    color: #ff8d3a;
+}
+
+.weather-page :hover {
+    color: #ff8d3a;
+}
+
+.how-it-works :hover {
+    color: #ff8d3a;
+}
+
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    padding-left: 14.5rem;
+    height: 100%;
+}
+
+
+#content-title {
+    padding-left: 2.06rem;
+    color: #FF8D3A;
+    font-size: 1.875rem;
+
+}
+
+.head-container,
+.content-header {
+    height: 8.125rem;
+    display: flex;
+    align-items: center;
+}
+
+
+.content-header {
+    position: fixed;
+    top:0;
+    left:14.5rem;
+}
+.back-button {
+    position: relative;
+    padding-left: 2.0625rem;
+    padding-right: 1rem;
+    /* top: 2.625rem; */
+    -webkit-app-region: drag;
+}
+
+.name {
+    position: relative;
+    /* padding-left: 4.5625rem; */
+    /* top: 2.3125rem; */
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #ff8d3a;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+
+.content-body,
+.myWiddy-main-container {
+    height: 41.875rem;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.content-body {
+    position: relative;
+
+}
+
+
+.clock1-component,
+.clock2-component,
+.clock3-component,
+.clock4-component,
+.clock5-component,
+.clock6-component {
+    height: 30rem;
+    width: 70.625rem;
+    padding: 0;
+    margin-bottom: 1.88rem;
+    margin-left: 1.88rem;
+    background-color: #272727;
+    border-radius: 2.8125rem;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+
+.home-header1,
+.home-header2,
+.home-header3,
+.home-header4,
+.home-header5,
+.home-header6 {
+
+    padding: 2.19rem 0 2.19rem 2.75rem;
+    font-size: 1.625rem;
+    font-weight: 700;
+    /* color: #FF8D3A; */
+    color: white;
+}
+
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+.main-container1,
+.main-container2,
+.main-container3,
+.main-container4,
+.main-container5,
+.main-container6 {
+    /* padding-top: 2.25rem; */
+    display: flex;
+    flex-direction: row;
+}
+
+#clock-first-design-button {
+
+    padding: 0;
+    width: 21.75rem;
+    height: 13.625rem;
+    margin-left: 3.75rem;
+    border-radius: 0.9375rem;
+    background-color: #5E5E5E;
+    border: none;
+    font-size: 6rem;
+    color: #ffffff;
+    font-family: 'Roboto', Sans-serif;
+}
+
+
+#clock-second-design-button {
+
+    padding: 0;
+    width: 21.75rem;
+    height: 13.625rem;
+    margin-left: 3.75rem;
+    border-radius: 0.9375rem;
+    background-color: #5E5E5E;
+    border: none;
+    font-size: 5rem;
+    color: #ffffff;
+    font-family: 'Roboto', Sans-serif;
+    font-weight: 900;
+}
+
+#clock-third-design-button {
+
+    height: 13.625rem;
+    width: 21.75rem;
+    padding: 0;
+    margin: 0;
+    margin-left: 3.75rem;
+    border-radius: 0.9375rem;
+    background-color: #5E5E5E;
+    border: none;
+    font-size: 4.875rem;
+    color: #ffffff;
+    font-family: 'Montserrat', Sans-serif;
+    font-weight: 900;
+}
+
+
+
+#clock-forth-design-button {
+    height: 13.625rem;
+    width: 21.75rem;
+    padding: 0;
+    margin: 0;
+    margin-left: 3.75rem;
+    border-radius: 0.9375rem;
+    background-color: #5E5E5E;
+    border: none;
+    font-size: 100;
+    color: #ffffff;
+    font-family: 'Pompiere', Sans-serif;
+    font-weight: 400;
+}
+
+#clock-fifth-design-button {
+
+    height: 13.625rem;
+    width: 21.75rem;
+    padding: 0;
+    margin: 0;
+    margin-left: 3.75rem;
+    border-radius: 0.9375rem;
+    background-color: #5E5E5E;
+    border: none;
+    font-size: 61.25rem;
+    color: #ffffff;
+    font-family: 'Oswald', Sans-serif;
+    font-weight: 400;
+}
+
+#clock-sixth-design-button {
+    height: 13.625rem;
+    width: 21.75rem;
+    padding: 0;
+    margin: 0;
+    margin-left: 3.75rem;
+    border-radius: 0.9375rem;
+    background-color: #5E5E5E;
+    border: none;
+    font-size: 110;
+    color: #ffffff; 
+    font-family: 'VT323', Sans-serif;
+    font-weight: 400;
+}
+
+
+.setting {
+    margin-left: 1.88rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.switch-container,
+.switch-container1,
+.switch-container2,
+.switch-container3,
+.switch-container4,
+.switch-container5,
+.switch-container6 {
+    width: 8.375rem;
+    height: 1.6875rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* .switch-container,
+.switch-container1,
+.switch-container2,
+.switch-container3 {
+    width: 8.375rem;
+    height: 1.6875rem;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+} */
+
+.switch {
+    display: flex;
+    display: inline-block;
+    width: 3rem;
+    height: 1.6875rem;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.on,
+.off {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: #5E5E5E;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 2.125rem;
+    width: 3rem;
+    height: 1.6875rem;
+}
+
+
+input:checked+.slider {
+    background-color: #FF8D3A
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 0.0625 #FF8D3A;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(1.3125rem);
+    -ms-transform: translateX(1.3125rem);
+    transform: translateX(1.3125rem);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1.3125rem;
+    width: 1.3125rem;
+    left: 0.1875rem;
+    bottom: 0.1875rem;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+
+
+#toggleSwitchlock1,
+#toggleSwitchlock2,
+#toggleSwitchlock3,
+#toggleSwitchlock4,
+#toggleSwitchlock5,
+#toggleSwitchlock6 {
+    margin: 0;
+    padding: 0;
+
+}
+
+
+
+
+.time-setting {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-top: 2.25rem;
+}
+
+.time-click {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
+
+#typeaClock1,
+#typeaClock2,
+#typeaClock3,
+#typeaClock4,
+#typeaClock5,
+#typeaClock6 {
+    height: 1.6875rem;
+    width: 3.8125rem;
+    border-radius: 1.25rem 0 0 1.25rem;
+    border: none;
+    padding: 0;
+    margin-top: 0.625rem;
+    background-color: #5E5E5E;
+    color: white;
+    font-weight: 600;
+
+}
+
+.btwbutton {
+    height: 1.6875rem;
+    width: 0.0625rem;
+    color: #404040;
+
+}
+
+#typebClock1,
+#typebClock2,
+#typebClock3,
+#typebClock4,
+#typebClock5,
+#typebClock6 {
+    height: 1.6875rem;
+    width: 3.8125rem;
+    border-radius: 0 1.25rem 1.25rem 0;
+    border: none;
+    padding: 0;
+    margin-top: 0.625rem;
+    background-color: #5E5E5E;
+    color: white;
+    font-weight: 600;
+}
+
+
+.color-setting {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-top: 2.25rem;
+}
+
+
+.color-tiles {
+    margin-top: 0.625rem;
+}
+
+
+.color-buttons-white {
+    padding-bottom: 0.625rem;
+
+}
+
+
+.color-buttons-white,
+.color-buttons-black {
+
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    font-size: 0;
+
+}
+
+
+#toggleSwitchClock1,
+#toggleSwitchClock2,
+#toggleSwitchClock3,
+#toggleSwitchClock4,
+#toggleSwitchClock5,
+#toggleSwitchClock6 {
+    margin: 0;
+}
+
+
+
+.sizeheader {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-top: 2.25rem;
+}
+
+
+.custom-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 13.3125rem;
+    height: 0.3125rem;
+    background: #5e5e5e;
+    outline: none;
+    transition: opacity .2s;
+    border-radius: 2.8125rem;
+    margin-top: 0.625rem;
+}
+
+
+
+.custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: #FF8D3A;
+    cursor: pointer;
+    border-radius: 2.8125rem;
+}
+
+
+
+#typeaClock1.enabled,
+#typeaClock2.enabled,
+#typeaClock3.enabled,
+#typeaClock4.enabled,
+#typeaClock5.enabled,
+#typeaClock6.enabled {
+    background-color: #FF8D3A;
+    color: white;
+}
+
+#typebClock1.enabled,
+#typebClock2.enabled,
+#typebClock3.enabled,
+#typebClock4.enabled,
+#typebClock5.enabled,
+#typebClock6.enabled {
+    background-color: #FF8D3A;
+    color: white;
+}
+
+#typeaClock1.disabled,
+#typeaClock2.disabled,
+#typeaClock3.disabled,
+#typeaClock4.disabled,
+#typeaClock5.disabled,
+#typeaClock6.disabled {
+    color: white;
+    cursor: pointer;
+
+}
+
+#typebClock1.disabled,
+#typebClock2.disabled,
+#typebClock3.disabled,
+#typebClock4.disabled,
+#typebClock5.disabled,
+#typebClock6.disabled {
+    cursor: pointer;
+}
+
+
+#sliderValueClock1,
+#sliderValueClock2,
+#sliderValueClock3,
+#sliderValueClock4,
+#sliderValueClock5,
+#sliderValueClock6 {
+    font-size: 1rem;
+    margin-left: 1.375rem;
+    color: white;
+    font-weight: 400;
+}
+
+
+.clock1-color-button,
+.clock2-color-button,
+.clock3-color-button,
+.clock4-color-button,
+.clock5-color-button,
+.clock6-color-button {
+    position: relative;
+    display: inline-block;
+    height: 1.875rem;
+    width: 1.875rem;
+    border: none;
+    padding: 0;
+    margin-right: 0.625rem;
+    background: none;
+    cursor: pointer;
+    border: none;
+}
+
+
+
+
+.clock1-color-button.selected::after,
+.clock2-color-button.selected::after,
+.clock3-color-button.selected::after,
+.clock4-color-button.selected::after,
+.clock5-color-button.selected::after,
+.clock6-color-button.selected::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.125rem;
+    height: 1.125rem;
+    background-image: url('../src/color-check.png');
+    background-size: cover;
+    background-position: center;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+
+#empty-container {
+    height: 100%;
+    width: 100%;
+}
+
+
+
+.empty-main-box {
+    height: 21rem;
+    width: 70.625rem;
+    background-color: #272727;
+    padding: 0;
+    margin-bottom: 1.88rem;
+    margin-left: 1.88rem;
+    background-color: #272727;
+    border-radius: 2.8125rem;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+
+}
+
+
+.dot-box {
+    width: 17.5rem;
+    height: 17.5rem;
+    padding: 1.75rem 0 1.75rem 1.75rem;
+
+}
+
+
+.empty-texts {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    padding-top: 8rem;
+    padding-left: 2.94rem;
+}
+
+
+.header {
+    color: #FF8D3A;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.625rem;
+    font-weight: 700;
+}
+
+
+.content {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding-top: 0.5rem;
+
+}
+
+
+.empty-under {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    height: 21.625rem;
+}
+
+.under-sec {
+    height: 1.9375rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 1.94rem;
+
+}
+
+.under-arrow {
+    padding-left: 1.87rem;
+    padding-right: 1.87rem;
+    width: 4.5rem;
+    height: 1rem;
+
+}
+
+
+.new-user {
+    color: #FF8D3A;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.625rem;
+    font-weight: 700;
+}

@@ -1,0 +1,1006 @@
+.li-pink .headers,
+.li-pink .event-details,
+.li-pink #calendar-dropdown,
+.li-pink #apply-selection,
+.li-pink .today-circle {
+    background-color: #FFF5F7;
+}
+
+.li-pink .calendarline,
+.li-pink .event-content::-webkit-scrollbar-thumb,
+.li-pink .event-box::-webkit-scrollbar-thumb,
+.li-pink .event-content::-webkit-scrollbar-track,
+.li-pink .event-box::-webkit-scrollbar-track,
+.li-pink #calendar-selector::-webkit-scrollbar-thumb,
+.li-pink #calendar-selector::-webkit-scrollbar-track,
+.li-pink #sort-time:hover,
+.li-pink #sort-name:hover{
+    background-color: #FFCBD4;
+}
+
+.li-pink .years,
+.li-pink #pre-month,
+.li-pink #nxt-month,
+.li-pink .months,
+.li-pink .more-calendar,
+.li-pink .days-row,
+.li-pink .event-title,
+.li-pink #today-date,
+.li-pink #apply-selection:hover {
+    color: #FF7E96;
+}
+
+.li-pink .event-dot,
+.li-pink .dropbtn span,
+.li-pink #calendar-selector::-webkit-scrollbar-thumb:hover,
+.li-pink .event-box::-webkit-scrollbar-thumb:hover,
+.li-pink .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #FF7E96;
+}
+
+.li-pink .custom-checkbox input[type="checkbox"]:checked{
+    background-image: url('../src/calendar/cal1-checkbox-li-pink.png')
+}
+
+
+
+.li-orange .headers,
+.li-orange .event-details,
+.li-orange #calendar-dropdown,
+.li-orange #apply-selection,
+.li-orange .today-circle {
+    background-color: #FFF4ED;
+}
+
+.li-orange .calendarline,
+.li-orange .event-content::-webkit-scrollbar-thumb,
+.li-orange .event-box::-webkit-scrollbar-thumb,
+.li-orange .event-content::-webkit-scrollbar-track,
+.li-orange .event-box::-webkit-scrollbar-track,
+.li-orange #calendar-selector::-webkit-scrollbar-thumb,
+.li-orange #calendar-selector::-webkit-scrollbar-track,
+.li-orange #sort-time:hover,
+.li-orange #sort-name:hover{
+    background-color: #FFE0C9;
+}
+
+.li-orange .years,
+.li-orange #pre-month,
+.li-orange #nxt-month,
+.li-orange .months,
+.li-orange .more-calendar,
+.li-orange .days-row,
+.li-orange .event-title,
+.li-orange #today-date,
+.li-orange #apply-selection:hover {
+    color: #FF8D3A;
+}
+
+.li-orange .event-dot,
+.li-orange .dropbtn span,
+.li-orange #calendar-selector::-webkit-scrollbar-thumb:hover,
+.li-orange .event-box::-webkit-scrollbar-thumb:hover,
+.li-orange .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #FF8D3A;
+}
+
+/* .li-orange .custom-checkbox input[type="checkbox"]:checked{
+    background-image: url('../src/calendar/cal1-checkbox-li-orange.png')
+} */
+
+.li-green .headers,
+.li-green .event-details,
+.li-green #calendar-dropdown,
+.li-green #apply-selection,
+.li-green .today-circle {
+    background-color: #E9F7EF;
+}
+
+.li-green .calendarline,
+.li-green .event-content::-webkit-scrollbar-thumb,
+.li-green .event-box::-webkit-scrollbar-thumb,
+.li-green .event-content::-webkit-scrollbar-track,
+.li-green .event-box::-webkit-scrollbar-track,
+.li-green #calendar-selector::-webkit-scrollbar-thumb,
+.li-green #calendar-selector::-webkit-scrollbar-track,
+.li-green #sort-time:hover,
+.li-green #sort-name:hover{
+    background-color: #A8D8BE;
+}
+
+.li-green .years,
+.li-green #pre-month,
+.li-green #nxt-month,
+.li-green .months,
+.li-green .more-calendar,
+.li-green .days-row,
+.li-green .event-title,
+.li-green #today-date,
+.li-green #apply-selection:hover {
+    color: #269C5C ;
+}
+
+.li-green .event-dot,
+.li-green .dropbtn span,
+.li-green #calendar-selector::-webkit-scrollbar-thumb:hover,
+.li-green .event-box::-webkit-scrollbar-thumb:hover,
+.li-green .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #269C5C ;
+}
+
+.li-green .custom-checkbox input[type="checkbox"]:checked{
+    background-image: url('../src/calendar/cal1-checkbox-li-green.png')
+}
+
+
+
+.li-mint .headers,
+.li-mint .event-details,
+.li-mint #calendar-dropdown,
+.li-mint #apply-selection,
+.li-mint .today-circle {
+    background-color: #EDF6F6;
+}
+
+.li-mint .calendarline,
+.li-mint .event-content::-webkit-scrollbar-thumb,
+.li-mint .event-box::-webkit-scrollbar-thumb,
+.li-mint .event-content::-webkit-scrollbar-track,
+.li-mint .event-box::-webkit-scrollbar-track,
+.li-mint #calendar-selector::-webkit-scrollbar-thumb,
+.li-mint #calendar-selector::-webkit-scrollbar-track,
+.li-mint #sort-time:hover,
+.li-mint #sort-name:hover{
+    background-color: #A1D5D5;
+}
+
+.li-mint .years,
+.li-mint #pre-month,
+.li-mint #nxt-month,
+.li-mint .months,
+.li-mint .more-calendar,
+.li-mint .days-row,
+.li-mint .event-title,
+.li-mint #today-date,
+.li-mint #apply-selection:hover {
+    color: #22A5A5;
+}
+
+.li-mint .event-dot,
+.li-mint .dropbtn span,
+.li-mint #calendar-selector::-webkit-scrollbar-thumb:hover,
+.li-mint .event-box::-webkit-scrollbar-thumb:hover,
+.li-mint .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #22A5A5;
+}
+
+.li-mint .custom-checkbox input[type="checkbox"]:checked{
+    background-image: url('../src/calendar/cal1-checkbox-li-mint.png')
+}
+
+
+
+
+.li-blue .headers,
+.li-blue .event-details,
+.li-blue #calendar-dropdown,
+.li-blue #apply-selection,
+.li-blue .today-circle {
+    background-color: #EFF7FF;
+}
+
+.li-blue .calendarline,
+.li-blue .event-content::-webkit-scrollbar-thumb,
+.li-blue .event-box::-webkit-scrollbar-thumb,
+.li-blue .event-content::-webkit-scrollbar-track,
+.li-blue .event-box::-webkit-scrollbar-track,
+.li-blue #calendar-selector::-webkit-scrollbar-thumb,
+.li-blue #calendar-selector::-webkit-scrollbar-track,
+.li-blue #sort-time:hover,
+.li-blue #sort-name:hover{
+    background-color: #A7D6FF;
+}
+
+.li-blue .years,
+.li-blue #pre-month,
+.li-blue #nxt-month,
+.li-blue .months,
+.li-blue .more-calendar,
+.li-blue .days-row,
+.li-blue .event-title,
+.li-blue #today-date,
+.li-blue #apply-selection:hover {
+    color: #39A0FF;
+}
+
+.li-blue .event-dot,
+.li-blue .dropbtn span,
+.li-blue #calendar-selector::-webkit-scrollbar-thumb:hover,
+.li-blue .event-box::-webkit-scrollbar-thumb:hover,
+.li-blue .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #39A0FF;
+}
+
+.li-blue .custom-checkbox input[type="checkbox"]:checked{
+    background-image: url('../src/calendar/cal1-checkbox-li-blue.png')
+} 
+
+
+
+.li-purple .headers,
+.li-purple .event-details,
+.li-purple #calendar-dropdown,
+.li-purple #apply-selection,
+.li-purple .today-circle {
+    background-color: #F9F1FE;
+}
+
+.li-purple .calendarline,
+.li-purple .event-content::-webkit-scrollbar-thumb,
+.li-purple .event-box::-webkit-scrollbar-thumb,
+.li-purple .event-content::-webkit-scrollbar-track,
+.li-purple .event-box::-webkit-scrollbar-track,
+.li-purple #calendar-selector::-webkit-scrollbar-thumb,
+.li-purple #calendar-selector::-webkit-scrollbar-track,
+.li-purple #sort-time:hover,
+.li-purple #sort-name:hover{
+    background-color: #DAB4EA;
+}
+
+.li-purple .years,
+.li-purple #pre-month,
+.li-purple #nxt-month,
+.li-purple .months,
+.li-purple .more-calendar,
+.li-purple .days-row,
+.li-purple .event-title,
+.li-purple #today-date,
+.li-purple #apply-selection:hover {
+    color: #7C0CB0;
+}
+
+.li-purple .event-dot,
+.li-purple .dropbtn span,
+.li-purple #calendar-selector::-webkit-scrollbar-thumb:hover,
+.li-purple .event-box::-webkit-scrollbar-thumb:hover,
+.li-purple .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #7C0CB0;
+}
+
+.li-purple .custom-checkbox input[type="checkbox"]:checked{
+    background-image: url('../src/calendar/cal1-checkbox-li-purple.png')
+} 
+
+
+
+.cmyk .calendar-grid .day-cell:nth-child(7n+1) .day-cell.date.today,
+.cmyk .days-row .day-name:nth-child(1), .cmyk .calendar-grid .day-cell:nth-child(7n+1) {
+    color: #FB2E2E;
+  }
+
+.cmyk .calendar-grid .day-cell:nth-child(7n) .day-cell.date.today,
+.cmyk .days-row .day-name:nth-child(7),
+.cmyk .calendar-grid .day-cell:nth-child(7n) {
+    color: #0085FF;
+  }
+
+
+
+
+.black .calendar-container {
+    background-color: black;
+}
+
+
+.black .headers,
+.black .event-details,
+.black #calendar-dropdown,
+.black #apply-selection,
+.black .today-circle,
+.black #sort-time,
+.black #sort-name,
+.black .sort-dropdown-content {
+    background-color: #191919;
+}
+
+.black #sort-time,
+.black #sort-name,
+.black .sort-dropdown-content,
+.black .event-content::-webkit-scrollbar-thumb,
+.black .event-box::-webkit-scrollbar-thumb,
+.black .event-content::-webkit-scrollbar-track,
+.black .event-box::-webkit-scrollbar-track,
+.black #calendar-selector::-webkit-scrollbar-thumb,
+.black #calendar-selector::-webkit-scrollbar-track {
+    background-color: #2A2A2A;
+}
+
+
+.black .months,
+.black .days-row,
+.black #pre-month,
+.black #nxt-month,
+.black .more-calendar,
+.black .today span,
+.black .event-description a,
+.black .no-events,
+.black .external-link,
+.black .sort-dropdown-content a,
+.black #close-button:hover,
+.black #today-date,
+.black .cal-header,
+.black .day-cell-date,
+.black .text-box,
+.black .calendar-grid,
+.black .event-title,
+.black .event-time,
+.black #apply-selection:hover  {
+    color: white;
+}
+
+
+
+
+.black .dropbtn span,
+.black .calendarline {
+    background-color: #7E7E7E;
+}
+
+.black .event-dot {
+    background-color: white;
+}
+
+
+
+
+.black #sort-time:hover,
+.black #sort-name:hover,
+.black #calendar-selector::-webkit-scrollbar-thumb:hover,
+.black .event-box::-webkit-scrollbar-thumb:hover,
+.black .event-content::-webkit-scrollbar-thumb:hover{
+    background-color: #3B3B3B;
+}
+
+.black .years,
+.black .event-description,
+.black #pre-month,
+.black #nxt-month,
+.black .more-calendar,
+.black #apply-selection{
+    color: #7E7E7E;
+}
+
+
+
+
+
+.grey .calendar-container {
+    background-color: #343434;
+}
+
+
+.grey .headers,
+.grey .event-details,
+.grey #calendar-dropdown,
+.grey #apply-selection,
+.grey .today-circle,
+.grey #sort-time,
+.grey #sort-name,
+.grey .sort-dropdown-content {
+    background-color: #555555;
+}
+
+.grey #sort-time,
+.grey #sort-name,
+.grey .sort-dropdown-content,
+.grey .event-content::-webkit-scrollbar-thumb,
+.grey .event-box::-webkit-scrollbar-thumb,
+.grey .event-content::-webkit-scrollbar-track,
+.grey .event-box::-webkit-scrollbar-track,
+.grey #calendar-selector::-webkit-scrollbar-thumb,
+.grey #calendar-selector::-webkit-scrollbar-track {
+    background-color: #464646;
+}
+
+
+.grey .months,
+.grey .days-row,
+.grey #pre-month,
+.grey #nxt-month,
+.grey .more-calendar,
+.grey .today span,
+.grey .event-description a,
+.grey .no-events,
+.grey .external-link,
+.grey .sort-dropdown-content a,
+.grey #close-button:hover,
+.grey #today-date,
+.grey .cal-header,
+.grey .day-cell-date,
+.grey .text-box,
+.grey .calendar-grid,
+.grey .event-title,
+.grey .event-time,
+.grey #apply-selection:hover  {
+    color: white;
+}
+
+
+
+
+.grey .dropbtn span,
+.grey .calendarline {
+    background-color: #DEDEDE;
+}
+
+.grey .event-dot {
+    background-color: white;
+}
+
+
+
+
+.grey #sort-time:hover,
+.grey #sort-name:hover,
+.grey #calendar-selector::-webkit-scrollbar-thumb:hover,
+.grey .event-box::-webkit-scrollbar-thumb:hover,
+.grey .event-content::-webkit-scrollbar-thumb:hover{
+    background-color: #343434;
+}
+
+.grey .years,
+.grey .event-description,
+.grey #pre-month,
+.grey #nxt-month,
+.grey .more-calendar,
+.grey #apply-selection{
+    color: #DEDEDE;
+}
+
+
+
+.pink .today span,
+.pink .event-description a,
+.pink .no-events,
+.pink .external-link,
+.pink .sort-dropdown-content a,
+.pink #close-button:hover,
+.pink #today-date,
+.pink .cal-header,
+.pink .day-cell-date,
+.pink .text-box,
+.pink .calendar-grid,
+.pink #apply-selection:hover  {
+    color: white;
+}
+
+
+.pink .years,
+.pink .event-description,
+.pink #pre-month,
+.pink #nxt-month,
+.pink .more-calendar,
+.pink #apply-selection{
+    color: #FFDDE3;
+}
+
+.pink .dropbtn span,
+.pink .event-dot {
+    background-color: #FFDDE3;
+}
+
+
+
+.pink .months,
+.pink .days-row,
+.pink .event-title,
+.pink .event-time,
+.pink #today-date {
+    color: #FF7E96;
+}
+
+
+.pink .calendarline { 
+    background-color: #FF7E96;
+}
+
+
+
+.pink .headers,
+.pink .event-details,
+.pink #calendar-dropdown,
+.pink #apply-selection,
+.pink .today-circle,
+.pink #sort-time,
+.pink #sort-name,
+.pink .sort-dropdown-content {
+    background-color: #584A4C ;
+}
+
+.pink #sort-time,
+.pink #sort-name,
+.pink .sort-dropdown-content,
+.pink .event-content::-webkit-scrollbar-thumb,
+.pink .event-box::-webkit-scrollbar-thumb,
+.pink .event-content::-webkit-scrollbar-track,
+.pink .event-box::-webkit-scrollbar-track,
+.pink #calendar-selector::-webkit-scrollbar-thumb,
+.pink #calendar-selector::-webkit-scrollbar-track {
+    background-color: #483D3E;
+}
+
+.pink .calendar-container,
+.pink #sort-time:hover,
+.pink #sort-name:hover,
+.pink #calendar-selector::-webkit-scrollbar-thumb:hover,
+.pink .event-box::-webkit-scrollbar-thumb:hover,
+.pink .event-content::-webkit-scrollbar-thumb:hover{
+    background-color: #2F2A2B;
+}
+
+
+
+ 
+.pink .custom-checkbox input[type="checkbox"]:checked{
+    background-image: url('../src/calendar/cal1-checkbox-li-pink.png')
+} 
+
+
+
+
+
+
+
+
+.orange .today span,
+.orange .event-description a,
+.orange .no-events,
+.orange .external-link,
+.orange .sort-dropdown-content a,
+.orange #close-button:hover,
+.orange #today-date,
+.orange .cal-header,
+.orange .day-cell-date,
+.orange .text-box,
+.orange .calendar-grid,
+.orange #apply-selection:hover  {
+    color: white;
+}
+
+
+.orange .years,
+.orange .event-description,
+.orange #pre-month,
+.orange #nxt-month,
+.orange .more-calendar,
+.orange #apply-selection{
+    color: #FFC9A3;
+}
+
+.orange .dropbtn span,
+.orange .event-dot {
+    background-color: #FFC9A3;
+}
+
+
+
+.orange .months,
+.orange .days-row,
+.orange .event-title,
+.orange .event-time,
+.orange #today-date {
+    color: #FF6C00;
+}
+
+
+.orange .calendarline { 
+    background-color: #FF6C00;
+}
+
+
+
+.orange .headers,
+.orange .event-details,
+.orange #calendar-dropdown,
+.orange #apply-selection,
+.orange .today-circle,
+.orange #sort-time,
+.orange #sort-name,
+.orange .sort-dropdown-content {
+    background-color: #413B37 ;
+}
+
+.orange #sort-time,
+.orange #sort-name,
+.orange .sort-dropdown-content,
+.orange .event-content::-webkit-scrollbar-thumb,
+.orange .event-box::-webkit-scrollbar-thumb,
+.orange .event-content::-webkit-scrollbar-track,
+.orange .event-box::-webkit-scrollbar-track,
+.orange #calendar-selector::-webkit-scrollbar-thumb,
+.orange #calendar-selector::-webkit-scrollbar-track {
+    background-color: #332F2B;
+}
+
+.orange .calendar-container,
+.orange #sort-time:hover,
+.orange #sort-name:hover,
+.orange #calendar-selector::-webkit-scrollbar-thumb:hover,
+.orange .event-box::-webkit-scrollbar-thumb:hover,
+.orange .event-content::-webkit-scrollbar-thumb:hover{
+    background-color: #2B2927;
+}
+
+
+
+ 
+/* .orange .custom-checkbox input[type="checkbox"]:checked{
+    background-image: url('../src/calendar/cal1-checkbox-li-orange.png')
+} 
+ */
+
+
+
+ .green .today span,
+ .green .event-description a,
+ .green .no-events,
+ .green .external-link,
+ .green .sort-dropdown-content a,
+ .green #close-button:hover,
+ .green #today-date,
+ .green .cal-header,
+ .green .day-cell-date,
+ .green .text-box,
+ .green .calendar-grid,
+ .green #apply-selection:hover  {
+     color: white;
+ }
+ 
+ 
+ .green .years,
+ .green .event-description,
+ .green #pre-month,
+ .green #nxt-month,
+ .green .more-calendar,
+ .green #apply-selection{
+     color: #CFEEDD;
+ }
+ 
+ .green .dropbtn span,
+ .green .event-dot {
+     background-color: #CFEEDD;
+ }
+ 
+ 
+ 
+ .green .months,
+ .green .days-row,
+ .green .event-title,
+ .green .event-time,
+ .green #today-date {
+     color: #269C5C;
+ }
+ 
+ 
+ .green .calendarline { 
+     background-color: #269C5C;
+ }
+ 
+ 
+ 
+ .green .headers,
+ .green .event-details,
+ .green #calendar-dropdown,
+ .green #apply-selection,
+ .green .today-circle,
+ .green #sort-time,
+ .green #sort-name,
+ .green .sort-dropdown-content {
+     background-color: #313C35;
+ }
+ 
+ .green #sort-time,
+ .green #sort-name,
+ .green .sort-dropdown-content,
+ .green .event-content::-webkit-scrollbar-thumb,
+ .green .event-box::-webkit-scrollbar-thumb,
+ .green .event-content::-webkit-scrollbar-track,
+ .green .event-box::-webkit-scrollbar-track,
+ .green #calendar-selector::-webkit-scrollbar-thumb,
+ .green #calendar-selector::-webkit-scrollbar-track {
+     background-color: #27302A;
+ }
+ 
+ .green .calendar-container,
+ .green #sort-time:hover,
+ .green #sort-name:hover,
+ .green #calendar-selector::-webkit-scrollbar-thumb:hover,
+ .green .event-box::-webkit-scrollbar-thumb:hover,
+ .green .event-content::-webkit-scrollbar-thumb:hover{
+     background-color: #212523;
+ }
+ 
+ 
+ 
+  
+ .green .custom-checkbox input[type="checkbox"]:checked{
+     background-image: url('../src/calendar/cal1-checkbox-li-green.png')
+ } 
+ 
+ 
+
+
+
+ 
+
+ .mint .today span,
+ .mint .event-description a,
+ .mint .no-events,
+ .mint .external-link,
+ .mint .sort-dropdown-content a,
+ .mint #close-button:hover,
+ .mint #today-date,
+ .mint .cal-header,
+ .mint .day-cell-date,
+ .mint .text-box,
+ .mint .calendar-grid,
+ .mint #apply-selection:hover  {
+     color: white;
+ }
+ 
+ 
+ .mint .years,
+ .mint .event-description,
+ .mint #pre-month,
+ .mint #nxt-month,
+ .mint .more-calendar,
+ .mint #apply-selection{
+     color: #BFFFFF;
+ }
+ 
+ .mint .dropbtn span,
+ .mint .event-dot {
+     background-color: #BFFFFF;
+ }
+ 
+ 
+ 
+ .mint .months,
+ .mint .days-row,
+ .mint .event-title,
+ .mint .event-time,
+ .mint- #today-date {
+     color: #22A5A5;
+ }
+ 
+ 
+ .mint .calendarline { 
+     background-color: #22A5A5;
+ }
+ 
+ 
+ 
+ .mint .headers,
+ .mint .event-details,
+ .mint #calendar-dropdown,
+ .mint #apply-selection,
+ .mint .today-circle,
+ .mint #sort-time,
+ .mint #sort-name,
+ .mint .sort-dropdown-content {
+     background-color: #303939;
+ }
+ 
+ .mint #sort-time,
+ .mint #sort-name,
+ .mint .sort-dropdown-content,
+ .mint .event-content::-webkit-scrollbar-thumb,
+ .mint .event-box::-webkit-scrollbar-thumb,
+ .mint .event-content::-webkit-scrollbar-track,
+ .mint .event-box::-webkit-scrollbar-track,
+ .mint #calendar-selector::-webkit-scrollbar-thumb,
+ .mint #calendar-selector::-webkit-scrollbar-track {
+     background-color: #292F2F;
+ }
+ 
+ .mint .calendar-container,
+ .mint #sort-time:hover,
+ .mint #sort-name:hover,
+ .mint #calendar-selector::-webkit-scrollbar-thumb:hover,
+ .mint .event-box::-webkit-scrollbar-thumb:hover,
+ .mint .event-content::-webkit-scrollbar-thumb:hover{
+     background-color: #232727;
+ }
+ 
+ 
+ 
+  
+ .mint .custom-checkbox input[type="checkbox"]:checked{
+     background-image: url('../src/calendar/cal1-checkbox-li-mint.png')
+ } 
+
+
+
+
+ .blue .today span,
+ .blue .event-description a,
+ .blue .no-events,
+ .blue .external-link,
+ .blue .sort-dropdown-content a,
+ .blue #close-button:hover,
+ .blue #today-date,
+ .blue .cal-header,
+ .blue .day-cell-date,
+ .blue .text-box,
+ .blue .calendar-grid,
+ .blue #apply-selection:hover  {
+     color: white;
+ }
+ 
+ 
+ .blue .years,
+ .blue .event-description,
+ .blue #pre-month,
+ .blue #nxt-month,
+ .blue .more-calendar,
+ .blue #apply-selection{
+     color: #C8E5FF;
+ }
+ 
+ .blue .dropbtn span,
+ .blue .event-dot {
+     background-color: #C8E5FF;
+ }
+ 
+ 
+ 
+ .blue .months,
+ .blue .days-row,
+ .blue .event-title,
+ .blue .event-time,
+ .blue #today-date {
+     color: #63B4FF;
+ }
+ 
+ 
+ .blue .calendarline { 
+     background-color: #63B4FF;
+ }
+ 
+ 
+ 
+ .blue .headers,
+ .blue .event-details,
+ .blue #calendar-dropdown,
+ .blue #apply-selection,
+ .blue .today-circle,
+ .blue #sort-time,
+ .blue #sort-name,
+ .blue .sort-dropdown-content {
+     background-color: #38424C;
+ }
+ 
+ .blue #sort-time,
+ .blue #sort-name,
+ .blue .sort-dropdown-content,
+ .blue .event-content::-webkit-scrollbar-thumb,
+ .blue .event-box::-webkit-scrollbar-thumb,
+ .blue .event-content::-webkit-scrollbar-track,
+ .blue .event-box::-webkit-scrollbar-track,
+ .blue #calendar-selector::-webkit-scrollbar-thumb,
+ .blue #calendar-selector::-webkit-scrollbar-track {
+     background-color: #2C343B;
+ }
+ 
+ .blue .calendar-container,
+ .blue #sort-time:hover,
+ .blue #sort-name:hover,
+ .blue #calendar-selector::-webkit-scrollbar-thumb:hover,
+ .blue .event-box::-webkit-scrollbar-thumb:hover,
+ .blue .event-content::-webkit-scrollbar-thumb:hover{
+     background-color: #24292E;
+ }
+ 
+ 
+ 
+  
+ .blue .custom-checkbox input[type="checkbox"]:checked{
+     background-image: url('../src/calendar/cal1-checkbox-li-blue.png')
+ } 
+ 
+ 
+
+  
+
+
+
+
+ .purple .today span,
+ .purple .event-description a,
+ .purple .no-events,
+ .purple .external-link,
+ .purple .sort-dropdown-content a,
+ .purple #close-button:hover,
+ .purple #today-date,
+ .purple .cal-header,
+ .purple .day-cell-date,
+ .purple .text-box,
+ .purple .calendar-grid,
+ .purple #apply-selection:hover  {
+     color: white;
+ }
+ 
+ 
+ .purple .years,
+ .purple .event-description,
+ .purple #pre-month,
+ .purple #nxt-month,
+ .purple .more-calendar,
+ .purple #apply-selection{
+     color: #F4DDFF;
+ }
+ 
+ .purple .dropbtn span,
+ .purple .event-dot {
+     background-color: #F4DDFF;
+ }
+ 
+ 
+ 
+ .purple .months,
+ .purple .days-row,
+ .purple .event-title,
+ .purple .event-time,
+ .purple #today-date {
+     color: #C572EC;
+ }
+ 
+ 
+ .purple .calendarline { 
+     background-color: #C572EC;
+ }
+ 
+ 
+ 
+ .purple .headers,
+ .purple .event-details,
+ .purple #calendar-dropdown,
+ .purple #apply-selection,
+ .purple .today-circle,
+ .purple #sort-time,
+ .purple #sort-name,
+ .purple .sort-dropdown-content {
+     background-color: #363038;
+ }
+ 
+ .purple #sort-time,
+ .purple #sort-name,
+ .purple .sort-dropdown-content,
+ .purple .event-content::-webkit-scrollbar-thumb,
+ .purple .event-box::-webkit-scrollbar-thumb,
+ .purple .event-content::-webkit-scrollbar-track,
+ .purple .event-box::-webkit-scrollbar-track,
+ .purple #calendar-selector::-webkit-scrollbar-thumb,
+ .purple #calendar-selector::-webkit-scrollbar-track {
+     background-color: #2D272F;
+ }
+ 
+ .purple .calendar-container,
+ .purple #sort-time:hover,
+ .purple #sort-name:hover,
+ .purple #calendar-selector::-webkit-scrollbar-thumb:hover,
+ .purple .event-box::-webkit-scrollbar-thumb:hover,
+ .purple .event-content::-webkit-scrollbar-thumb:hover{
+     background-color: #252327;
+ }
+ 
+ 
+ 
+  
+ .purple .custom-checkbox input[type="checkbox"]:checked{
+     background-image: url('../src/calendar/cal1-checkbox-li-purple.png')
+ } 
+ 
+ 
+
+ 

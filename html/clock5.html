@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Clock: Extra Bold</title>
+    <!-- <link rel="stylesheet" href="../css/clock3.css"> -->
+    <link rel="stylesheet" href="../css/my-widdy.css">
+    <link rel="stylesheet" href="../css/clock-color.css">
+    <style>
+        .clock-page {
+            background-color: #404040;
+        }
+
+        #clock-page {
+            color: #FF8D3A;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="#" target="_blank">
+                <img src="../src/logo.png" alt="Logo Image" class="logo-image">
+            </a>
+            <a href="#" id="logo-word">Widdy</a>
+        </div>
+        <div class="sidebar-menu">
+            <nav>
+                <ul>
+                    <li class="myWiddy-page"><a href="#" id="myWiddy-page">My Widdy</a></li>
+                    <li class="clock-page"><a href="#" id="clock-page">Clock</a></li>
+                    <li class="calendar-page"><a href="#" id="calendar-page">Calendar</a></li>
+                    <li class="toDoList-page"><a href="#" id="toDoList-page">To Do List</a></li>
+                    <li class="weather-page"><a href="#" id="weather-page">Weather</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="head-container">
+            <img src="../src/go-back-button.png" alt="Go Back" class="back-button">
+            <div class="name">
+                <a>Bold</a>
+            </div>
+        </div>
+        <div class="main-container">
+            <button id="clock-fifth-design-button">00:00</button>
+            <div class="setting">
+                <div class="switch-container">
+                    <a class="off">Off</a>
+                    <label class="switch">
+                        <input type="checkbox" id="toggleSwitchClock5">
+                        <span class="slider"></span>
+                    </label>
+                    <a class="on">On</a>
+                </div>
+                <!-- <button class="heart disabled" id="heartButton"></button> -->
+                <div class="time-setting">
+                    <div class="time-header">Time Setting</div>
+                    <div class="time-click">
+                        <button id="typeaClock5">12 h</button>
+                        <div class="btwbutton"></div>
+                        <button id="typebClock5">24 h</button>
+                    </div>
+                </div>
+                <div class="color-setting">
+                    <div class="color-header">Colors</div>
+                    <div class="color-tiles">
+                        <div class="color-buttons-white">
+                            <button class="clock5-color-button" data-color-set="white">
+                                <img src="../src/clock/c-white.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock5-color-button" data-color-set="li-grey">
+                                <img src="../src/clock/c-li-grey.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock5-color-button" data-color-set="li-pink">
+                                <img src="../src/clock/c-li-pink.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock5-color-button" data-color-set="li-orange">
+                                <img src="../src/clock/c-li-orange.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock5-color-button" data-color-set="li-green">
+                                <img src="../src/clock/c-li-green.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock5-color-button" data-color-set="li-mint">
+                                <img src="../src/clock/c-li-mint.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock5-color-button" data-color-set="li-blue">
+                                <img src="../src/clock/c-li-blue.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock5-color-button" data-color-set="li-purple">
+                                <img src="../src/clock/c-li-purple.png" alt="Black" width="30px" height="30px">
+                            </button>
+                        </div>
+                        <div class="color-buttons-black">
+                            <button class="clock5-color-button" data-color-set="black">
+                                <img src="../src/clock/c-black.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock5-color-button" data-color-set="grey">
+                                <img src="../src/clock/c-grey.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock5-color-button" data-color-set="pink">
+                                <img src="../src/clock/c-pink.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock5-color-button" data-color-set="orange">
+                                <img src="../src/clock/c-orange.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock5-color-button" data-color-set="green">
+                                <img src="../src/clock/c-green.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock5-color-button" data-color-set="mint">
+                                <img src="../src/clock/c-mint.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock5-color-button" data-color-set="blue">
+                                <img src="../src/clock/c-blue.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="clock5-color-button" data-color-set="purple">
+                                <img src="../src/clock/c-purple.png" alt="Black" width="30px" height="30px">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clock5-size-setting">
+                    <div class="sizeheader">Size</div>
+                    <div class="slider-container">
+                        <input type="range" id="sizeSliderClock5" min="1" max="100" value="50" class="custom-slider">
+                        <span id="sliderValueClock5">50</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        document.getElementById('myWiddy-page').addEventListener('click', () => {
+            window.location.href = 'my-widdy.html';
+        });
+
+        document.getElementById('logo-word').addEventListener('click', () => {
+            window.location.href = 'my-widdy.html';
+        });
+
+        document.querySelector('.logo-image').addEventListener('click', (event) => {
+            event.preventDefault();
+            window.location.href = 'my-widdy.html';
+        });
+
+        document.querySelector('.back-button').addEventListener('click', () => {
+            window.history.back();
+        });
+
+        document.getElementById('clock-page').addEventListener('click', () => {
+            window.location.href = 'clock.html';
+        });
+
+        document.getElementById('calendar-page').addEventListener('click', () => {
+            window.location.href = 'calendar.html';
+        });
+
+        document.getElementById('toDoList-page').addEventListener('click', () => {
+            window.location.href = 'toDoList.html';
+        });
+
+        document.getElementById('weather-page').addEventListener('click', () => {
+            window.location.href = 'weather.html';
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleSwitchClock5 = document.getElementById('toggleSwitchClock5');
+            const isClock5Open = localStorage.getItem('showClock5') === 'true';
+
+            toggleSwitchClock5.checked = isClock5Open;
+
+            if (isClock5Open) {
+                const savedColor = localStorage.getItem('clockColorSet') || 'li-grey';
+                document.body.className = savedColor;
+                setButtonState(['typeaClock5', 'typebClock5'], localStorage.getItem('clock5Format') === '12h' ? 'typeaClock5' : 'typebClock5');
+                markSelectedColor('clock5', localStorage.getItem('clock5ColorSet') || 'li-grey');
+                const clock5Size = localStorage.getItem('clock5Size') || 50;
+                document.getElementById('sizeSliderClock5').value = clock5Size;
+                document.getElementById('sliderValueClock5').innerText = clock5Size;
+                ipcRenderer.send('adjust-clock-size', { id: 'clock5-display', size: clock5Size });
+            }
+
+            toggleSwitchClock5.addEventListener('change', () => {
+                const isChecked = toggleSwitchClock5.checked;
+                localStorage.setItem('showClock5', isChecked);
+                ipcRenderer.send('clock5-status', { id: 'clock5-display', status: isChecked });
+
+                if (isChecked) {
+                    localStorage.setItem('clock5Format', '24h');
+                    setButtonState(['typeaClock5', 'typebClock5'], 'typebClock5');
+                    localStorage.setItem('clock5ColorSet', 'li-grey');
+                    markSelectedColor('clock5', 'li-grey');
+                    document.body.className = 'li-grey';
+
+                    const clock5Size = 50;
+                    localStorage.setItem('clock5Size', clock5Size);
+                    document.getElementById('sizeSliderClock5').value = clock5Size;
+                    document.getElementById('sliderValueClock5').innerText = clock5Size;
+                    ipcRenderer.send('adjust-clock-size', { id: 'clock5-display', size: clock5Size });
+                } else {
+
+                    clearSelectedColor('clock5');
+                    setButtonState(['typeaClock5', 'typebClock5'], null);
+
+                }
+            });
+        });
+
+
+        function enableButtons(buttonIds) {
+            buttonIds.forEach(id => {
+                const button = document.getElementById(id);
+                button.disabled = false;
+            });
+        }
+
+        function disableButtons(buttonIds) {
+            buttonIds.forEach(id => {
+                const button = document.getElementById(id);
+                button.classList.remove('enabled');
+                button.classList.add('disabled');
+                button.disabled = true;
+            });
+        }
+
+        function setButtonState(buttonIds, enabledButtonId) {
+            buttonIds.forEach(id => {
+                const button = document.getElementById(id);
+                if (id === enabledButtonId) {
+                    button.classList.add('enabled');
+                    button.classList.remove('disabled');
+                } else {
+                    button.classList.remove('enabled');
+                    button.classList.add('disabled');
+                }
+            });
+        }
+
+        function markSelectedColor(clockId, colorSet) {
+            document.querySelectorAll(`.${clockId}-color-button`).forEach(button => {
+                if (button.getAttribute('data-color-set') === colorSet) {
+                    button.classList.add('selected');
+                } else {
+                    button.classList.remove('selected');
+                }
+            });
+        }
+
+        function clearSelectedColor(clockId) {
+            document.querySelectorAll(`.${clockId}-color-button`).forEach(button => {
+                button.classList.remove('selected');
+            });
+        }
+
+        document.getElementById('typeaClock5').addEventListener('click', () => {
+            ipcRenderer.send('set-clock-format', { id: 'clock5-display', format: '12h' });
+            setButtonState(['typeaClock5', 'typebClock5'], 'typeaClock5');
+            localStorage.setItem('clock5Format', '12h');
+            console.log('Clock 5 set to 12h format');
+        });
+
+        document.getElementById('typebClock5').addEventListener('click', () => {
+            ipcRenderer.send('set-clock-format', { id: 'clock5-display', format: '24h' });
+            setButtonState(['typeaClock5', 'typebClock5'], 'typebClock5');
+            localStorage.setItem('clock5Format', '24h');
+            console.log('Clock 5 set to 24h format');
+        });
+
+        document.querySelectorAll('.clock5-color-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const colorSet = button.getAttribute('data-color-set');
+                console.log(`Changing color for clock5 to: ${colorSet}`);
+                ipcRenderer.send('change-clock5-color', colorSet);
+                localStorage.setItem('clock5ColorSet', colorSet);
+                document.body.className = colorSet;
+                markSelectedColor('clock5', colorSet);
+            });
+        });
+
+
+        function setButtonState(buttonIds, enabledButtonId) {
+            buttonIds.forEach(id => {
+                const button = document.getElementById(id);
+                if (id === enabledButtonId) {
+                    button.classList.add('enabled');
+                    button.classList.remove('disabled');
+                } else {
+                    button.classList.remove('enabled');
+                    button.classList.add('disabled');
+                }
+            });
+        }
+
+        document.getElementById('sizeSliderClock5').addEventListener('input', () => {
+            const newSize = document.getElementById('sizeSliderClock5').value;
+            document.getElementById('sliderValueClock5').innerText = newSize;
+            ipcRenderer.send('adjust-clock-size', { id: 'clock5-display', size: newSize });
+            localStorage.setItem('clock5Size', newSize);
+        });
+
+
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'clock5Size') {
+                const newSize = localStorage.getItem('clock5Size');
+                sizeSliderClock5.value = newSize;
+                sliderValueClock5.innerText = newSize;
+            } else if (event.key === 'clock5ColorSet') {
+                const newColorSet = localStorage.getItem('clock5ColorSet');
+                document.body.className = newColorSet;
+                markSelectedColor('clock5', newColorSet);
+            }
+        });
+
+    </script>
+</body>
+
+</html>

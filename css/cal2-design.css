@@ -1,0 +1,937 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manjari:wght@100;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+
+
+html {
+    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+}
+
+#iii {
+    width: 100%;
+    height: 100%;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: transparent;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    -webkit-app-region: drag;
+    font-size: 1rem;
+}
+
+
+.section {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.94rem;
+}
+
+.horizontal-line {
+    position: absolute;
+    top: 6.19rem;
+    left: 1.31rem;
+    height: 0.125rem;
+    width: 20.3125em;
+    background-color: #D9D9D9;
+}
+
+.calendar-container {
+    display: column;
+    position: relative;
+    width: 23rem;
+    height: 100%;
+    border-top-left-radius: 0.94rem;
+    border-bottom-left-radius: 0.94rem;
+    background-color: white;
+    z-index: 10;
+
+}
+
+
+.headers {
+    height: 3.75rem;
+    width: 100%;
+    position: relative;
+}
+
+
+.months {
+    position: absolute;
+    top: 0.75rem;
+    left: 9.62rem;
+    text-align: center;
+    font-weight: 500;
+    font-size: 2rem;
+    padding: 0;
+    margin: 0;
+}
+
+
+.years {
+    position: absolute;
+    top: 1.31rem;
+    left: 1.31rem;
+    padding: 0;
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: #b6b6b6;
+}
+
+
+.calendar {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    display: absolute;
+    margin-top: 0px;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+
+
+
+.days-row {
+    display: absolute;
+    justify-content: center;
+    margin-bottom: 1.3125rem;
+    margin-top: 0.5rem;
+}
+
+.day-name {
+    width: 3.125rem;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+
+}
+
+.calendar-grid {
+    display: grid;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.empty-cell,
+.day-cell.date {
+    width: 3.125rem;
+    height: 2.6875rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.625rem;
+    font-weight: 400;
+
+}
+
+.day-cell.date span {
+    text-align: center;
+    align-items: center;
+    -webkit-app-region: no-drag;
+    cursor: pointer;
+}
+
+
+.event-details {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    /* display: relative;
+  flex-direction: column; */
+    align-items: center;
+    width: 17.3125rem;
+    height: 100%;
+    z-index: 3;
+}
+
+
+.event-details {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #ebebeb;
+
+    overflow: hidden;
+    word-wrap: break-word;
+    border-bottom-right-radius: 0.94rem;
+    border-top-right-radius: 0.94rem;
+}
+
+
+#event-list {
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 1.125rem;
+
+    /* Responsive text size */
+}
+
+
+/* Additional styles for individual event items if needed */
+.event-item {
+    margin: 0;
+    padding: 0;
+    display: block;
+    top: 0;
+    margin-bottom: 0.625rem;
+
+}
+
+.event-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+
+.event-description {
+    font-size: 1rem;
+    width: 100%;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    margin: 0;
+
+}
+
+.event-description p {
+    margin-bottom: 0.125rem;
+}
+
+.event-time {
+    font-size: 1rem;
+    /* Responsive text size for time */
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    margin-top: 0.475rem;
+    margin-bottom: 0.625rem;
+
+}
+
+
+.days-row,
+.calendar-grid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+}
+
+.day-cell {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.today {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.today span {
+    z-index: 30;
+    color: white;
+}
+
+.today-circle {
+    position: absolute;
+    width: 2.375rem;
+    height: 2.375rem;
+    border-radius: 50%;
+    background-color: black;
+    z-index: 5;
+}
+
+.event-dot {
+    position: absolute;
+    width: 2.375rem;
+    height: 2.375rem;
+    border-radius: 50%;
+    background-color: transparent;
+    box-shadow: inset 0 0 0 0.0625rem black;
+    z-index: 5;
+
+}
+
+
+.more-calendar {
+    /* position: absolute;
+  background-image: url('../src/calendar/cal1-white-m.png');
+  top: 1.37rem;
+  left: 23.94rem;
+  outline: none;
+  -webkit-app-region: no-drag;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  height: 1.875rem;
+  width: 1.875rem;
+  border: none;
+  cursor: pointer;
+  background-size: contain;
+  background-position: center;
+  padding: 0;
+  margin: 0; */
+
+    background: none;
+    border: none;
+    font-family: 'Manjari', sans-serif;
+    font-size: 3.25rem;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    position: absolute;
+    left: 20.12rem;
+    top: 0.31rem;
+    color: #b6b6b6;
+    -webkit-app-region: no-drag;
+
+
+}
+
+
+#calendar-dropdown {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    display: column;
+    height: 22.25rem;
+    width: 16.5625em;
+    top: 0.75rem;
+    left: 23rem;
+    border-top-right-radius: 1.25rem;
+    border-bottom-right-radius: 1.25rem;
+    /* box-shadow: inset 4px 0px 10px 0px rgba(0, 0, 0, 0.05); */
+    max-height: 22.25rem;
+    overflow-y: auto;
+    background-color: white;
+    max-width: 16.5625em;
+    transition: transform 0.2s ease-in-out;
+    z-index: 5;
+
+
+}
+
+.cal-header {
+    position: fixed;
+    width: 16.5625rem;
+    height: 4rem;
+}
+
+.cal-header p {
+    position: absolute;
+    top: 1.62rem;
+    left: 1rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* #calendar-dropdown h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding-left: 1rem;
+    padding-right: 1rem;
+} */
+
+/* #calendar-dropdown label {
+    padding-left: 1rem;
+    padding-right: 0.625rem;
+
+} */
+
+/* #calendar-dropdown::-webkit-scrollbar {
+  width: 0.69rem;
+}
+
+#calendar-dropdown::-webkit-scrollbar-track {
+  background: #d9d9d9;
+  border-radius: 1.44rem;
+
+}
+
+#calendar-dropdown::-webkit-scrollbar-thumb {
+  background: #BDBDBD;
+  border-radius: 1.44rem;
+}
+
+#calendar-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #A1A1A1;
+} */
+
+/* #calendar-selector  {
+  display: block;
+  margin-bottom: 0.3125rem;
+  height: 100%;
+  width: 100%;
+
+  
+} */
+
+
+#calendar-selector {
+    height: 14.9375rem;
+    width: 14.35rem;
+    position: absolute;
+    top: 4rem;
+    overflow-y: auto;
+    -webkit-app-region: no-drag;
+    padding-right: 0.5rem;
+    padding-left: 1rem;
+
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    width: 13.5rem;
+    padding: 0;
+    /* height: 1.9375rem;  */
+}
+
+.custom-checkbox input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.125rem;
+    /* Set the width */
+    height: 1.125rem;
+    /* Set the height */
+    border-radius: 50%;
+    /* Make it a circle */
+    background-color: #D9D9D9;
+    /* Grey color for unchecked state */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin:0;
+    padding: 0;
+    margin-right: 0.625rem;
+    /* padding: 0.4375rem; */
+    /* 7px padding */
+
+}
+
+.custom-checkbox input[type="checkbox"]:checked {
+    background-color: transparent;
+    /* Make background transparent when checked */
+    background-image: url('../src/calendar/checked-box.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: none;
+    /* Remove the border */
+}
+
+.custom-checkbox .checked-box {
+    display: none;
+    /* Ensure this element is hidden as it's not used */
+}
+
+.text-box {
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 1.125rem - 1rem);
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
+}
+
+
+
+
+
+/* Style the scrollbar */
+#calendar-selector::-webkit-scrollbar {
+    width: 0.69rem;
+    margin-right: 3.125rem;
+    position: relative;
+    border-right: 0.25rem solid transparent;
+
+
+}
+
+#calendar-selector::-webkit-scrollbar-track {
+    background: #ebebeb;
+    /* Custom track background for this element */
+    border-radius: 1.44rem;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+}
+
+#calendar-selector::-webkit-scrollbar-thumb {
+    background: #d9d9d9;
+    /* Color of the thumb */
+    border-radius: 1.44rem;
+    border-right: 0.25rem solid transparent;
+
+
+
+}
+
+#calendar-selector::-webkit-scrollbar-thumb:hover {
+    background: #bdbdbd;
+    cursor: pointer;
+
+
+    /* Color when hovering */
+}
+
+
+#apply-selection {
+    width: 4.625rem;
+    height: 1.75rem;
+    border-radius: 2rem;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background-color: #FF8D3A;
+    position: absolute;
+    right: 0.88rem;
+    bottom: 0.88rem;
+    cursor: pointer;
+
+}
+
+
+
+
+#apply-selection {
+    margin-top: 0.625rem;
+}
+
+.dropdown-menu label {
+    display: block;
+    margin: 0.625rem 0;
+}
+
+
+#pre-month,
+#nxt-month {
+    font-family: 'Manjari', sans-serif;
+    font-size: 3.625rem;
+    font-weight: 400;
+    position: absolute;
+    top: 0rem;
+    color: #b6b6b6;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    -webkit-app-region: no-drag;
+}
+
+
+#pre-month {
+    transform: rotate(-90deg);
+    left: 8.3935rem;
+}
+#nxt-month {
+    transform: rotate(90deg);
+    left: 13.3395rem;
+}
+
+
+
+/* #pre-month {
+  -webkit-app-region: no-drag;
+  background-image: url('../src/calendar/cal1-white-l.png');
+  position: absolute;
+  top: 1.69rem;
+  left: 9.19rem;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-repeat: no-repeat;
+  width: 0.6875rem;
+  height: 1.25rem;
+  background-color: transparent;
+  background-size: contain;
+  background-position: center;
+  padding: 0;
+  margin: 0;
+
+}
+
+#nxt-month {
+  -webkit-app-region: no-drag;
+  background-image: url('../src/calendar/cal1-white-r.png');
+  position: absolute;
+  top: 1.69rem;
+  left: 18.19rem;
+  border: none;
+  outline: none;
+  background-repeat: no-repeat;
+  width: 0.6875rem;
+  height: 1.25rem;
+  background-color: transparent;
+  cursor: pointer;
+  background-size: contain;
+  background-position: center;
+  padding: 0;
+  margin: 0;
+
+} */
+
+.event-content {
+    margin-right: 0.625rem;
+    margin-left: 1rem;
+    margin-top: 4.25rem;
+    overflow-y: auto;
+    height: 18.5rem;
+    top: 0;
+    max-height: 100%;
+    -webkit-app-region: no-drag;
+    user-select: text;
+
+
+
+}
+
+.event-content::-webkit-scrollbar {
+    width: 0.69rem;
+    margin-right: 3.125rem;
+    position: relative;
+
+}
+
+.event-content::-webkit-scrollbar-track {
+    background: #d9d9d9;
+    border-radius: 1.44rem;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+}
+
+.event-content::-webkit-scrollbar-thumb {
+    background: #BDBDBD;
+    border-radius: 1.44rem;
+
+
+}
+
+.event-content::-webkit-scrollbar-thumb:hover {
+    background: #A1A1A1;
+    cursor: pointer;
+}
+
+/* Additional styling for a specific element, e.g., event-description */
+.event-box {
+    max-height: 9.375rem;
+    /* Maximum height to ensure scrolling */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    margin-right: 0.375rem;
+    -webkit-app-region: no-drag;
+
+}
+
+/* Customize scrollbar for .event-box specifically */
+.event-box::-webkit-scrollbar {
+    width: 0.69rem;
+    /* Custom width for this element */
+}
+
+.event-box::-webkit-scrollbar-track {
+    background: #d9d9d9;
+    /* Custom track background for this element */
+    border-radius: 1.44rem;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+    /* border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  background-clip: padding-box; */
+}
+
+.event-box::-webkit-scrollbar-thumb {
+    background: #BDBDBD;
+    /* Custom thumb color for this element */
+    border-radius: 1.44rem;
+
+}
+
+.event-box::-webkit-scrollbar-thumb:hover {
+    background: #A1A1A1;
+    cursor: pointer;
+
+
+    /* Custom hover color for this element */
+}
+
+
+.detail-header {
+
+    margin: 0;
+    display: column;
+    position: fixed;
+    width: 16.3125rem;
+    height: 3.75rem;
+    background-color: #ebebeb;
+    align-items: center;
+
+
+
+}
+
+#today-date {
+    position: absolute;
+    left: 5.94rem;
+    top: 0.75rem;
+    text-align: center;
+    font-weight: 500;
+    font-size: 2rem;
+
+
+
+
+}
+
+
+
+.dropdown-menu-hidden {
+    display: none;
+    transform: translateX(-100%);
+}
+
+.dropdown-menu-visible {
+    display: block;
+    transform: translateX(0);
+}
+
+#close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #BDBDBD;
+    cursor: pointer;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    -webkit-app-region: no-drag;
+    cursor: pointer;
+    z-index: 20;
+}
+
+
+.external-link,
+.email-link {
+    color: #0057FF;
+    font-weight: 600;
+    text-decoration: underline;
+    -webkit-app-region: no-drag;
+    cursor: pointer;
+}
+
+
+/* .sort-dropdown {
+
+  margin: 0;
+  display: column;
+  position: absolute;
+  right: 0;
+  padding-top: 0.5rem;
+  -webkit-app-region: no-drag;
+
+
+}  */
+
+/* .sort-dropdown {
+  position: relative;
+  display: inline-block;
+  -webkit-app-region: no-drag;
+
+} */
+
+.sort-dropdown-content {
+    /* display: none; */
+    visibility: hidden;
+    position: absolute;
+    background-color: white;
+    /* min-width: 160px; */
+    /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
+    z-index: 1;
+    transition: visibility 0.3s, opacity 0.3s;
+    border-radius: 0.56rem;
+    right: 0;
+    width: 8.4375rem;
+    height: 4.8125rem;
+
+}
+
+.sort-dropdown:hover .sort-dropdown-content,
+.sort-dropdown-content:hover {
+    visibility: visible;
+    opacity: 1;
+    -webkit-app-region: no-drag;
+
+}
+
+.sort-dropdown-content a {
+    color: black;
+    text-decoration: none;
+    display: block;
+    margin-left: 0.75rem;
+    margin-top: 0.5rem;
+    font-size: 1.125rem;
+
+}
+
+.sort-dropdown-content a:hover {
+    font-weight: 600;
+
+}
+
+/* .sort-dropdown .dropbtn {
+  background-image: url('../src/calendar/cal1-sort.png');
+  outline: none;
+  -webkit-app-region: no-drag;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  color: white;
+  padding: 10px 16px; 
+  padding: 0;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  height: 1.88rem;
+  width: 1.88rem;
+  right: 0;
+  
+} */
+
+.sort-dropdown {
+    padding: 0;
+    height: 1.88rem;
+    width: 1.88rem;
+    right: 0;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    outline: none;
+    position: absolute;
+    top: 1rem;
+    -webkit-app-region: no-drag;
+}
+
+.dropbtn {
+    background-image: url('../src/calendar/cal1-sort.png');
+    height: 1.88rem;
+    width: 1.88rem;
+    right: 0;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    outline: none;
+    background-size: contain;
+    -webkit-app-region: no-drag;
+}
+
+/* .dropbtn {
+  position: absolute;
+  top: 1.25rem;
+} */
+
+
+/* .sort-dropdown .dropbtn:hover {
+  background-color: #a1a1a1;
+} */
+
+
+#sort-time,
+#sort-name {
+    width: 7.6875rem;
+    height: 1.875rem;
+    padding: 0px;
+    margin: 0px;
+    padding-left: 0.75rem;
+    padding-top: 0.5rem;
+}
+
+#sort-time:hover {
+    border-top-left-radius: 0.56rem;
+    border-top-right-radius: 0.56rem;
+}
+
+
+#sort-name:hover {
+    border-bottom-left-radius: 0.56rem;
+    border-bottom-right-radius: 0.56rem;
+}
+
+
+/* 
+#sort-name {
+  width: 8.4375rem;
+  height: 2.375rem;
+  padding: 0px;
+  margin: 0px; 
+} */
+
+.dropdown-divider {
+    height: 0.0625rem;
+    width: 7.4375rem;
+    background-color: #ccc;
+    margin: 0.5rem auto;
+    padding: 0;
+    margin: 0;
+    margin-left: 0.5rem;
+
+
+}
+
+
+#calendar-select-button {
+    transition: transform 0.3s ease;
+}
+
+.rotate-45 {
+    transform: rotate(45deg);
+}

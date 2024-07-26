@@ -1,0 +1,906 @@
+.cmyk .today-circle {
+    background-color: #FFEDAD;
+
+}
+
+.cmyk .event-dot {
+    background-color: #FF8D3A;
+} 
+
+.cmyk .days-row .day-name:nth-child(1), .cmyk .calendar-grid .day-cell:nth-child(7n+1) {
+    color: #FB2E2E;
+  }
+
+  
+.cmyk .days-row .day-name:nth-child(7),
+.cmyk .calendar-grid .day-cell:nth-child(7n) {
+    color: #0085FF;
+  }
+
+
+
+
+
+.li-pink .event-details,
+.li-pink .today-circle,
+.li-pink .detail-header,
+.li-pink .custom-checkbox input[type="checkbox"] {
+    background-color: #FFE4E9;
+}
+
+
+.li-pink #apply-selection,
+.li-pink .horizontal-line,
+.li-pink #calendar-selector::-webkit-scrollbar-thumb, 
+.li-pink .event-content::-webkit-scrollbar-thumb,
+.li-pink .event-box::-webkit-scrollbar-thumb{
+    background-color: #FFC8D2;
+}
+
+.li-pink #calendar-selector::-webkit-scrollbar-track,
+.li-pink .event-content::-webkit-scrollbar-track,
+.li-pink .event-box::-webkit-scrollbar-track {
+    background: #FFC8D2;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+}
+
+.li-pink .years,
+.li-pink .months,
+.li-pink .cal-header,
+.li-pink .days-row,
+.li-pink #close-button,
+.li-pink .today span, 
+.li-pink #today-date,
+.li-pink .external-link,
+.li-pink .event-description a,
+.li-pink .sort-dropdown-content a:hover {
+    color: #FF7E96;
+}
+ 
+.li-pink .event-dot,
+.li-pink #apply-selection:hover,
+.li-pink #calendar-selector::-webkit-scrollbar-thumb:hover,
+.li-pink .event-box::-webkit-scrollbar-thumb:hover,
+.li-pink .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #FF7E96;
+  }
+
+.li-pink .dropbtn {
+    background-image: url('../src/calendar/cal1-sort-li-pink.png');
+}
+
+.li-pink .more-calendar {
+    background-image: url('../src/calendar/cal1-li-pink-m.png');
+}
+
+.li-pink #pre-month {
+    background-image: url('../src/calendar/cal1-li-pink-l.png');
+}
+
+.li-pink #nxt-month {
+    background-image: url('../src/calendar/cal1-li-pink-r.png');
+}
+
+.li-pink .custom-checkbox input[type="checkbox"]:checked{
+    background-image: url('../src/calendar/cal1-checkbox-li-pink.png')
+}
+
+
+
+
+
+
+
+.li-pink .event-details,
+.li-pink .today-circle,
+.li-pink .detail-header,
+.li-pink .custom-checkbox input[type="checkbox"] {
+    background-color: #FFE4E9;
+}
+
+
+.li-pink #apply-selection,
+.li-pink .horizontal-line,
+.li-pink #calendar-selector::-webkit-scrollbar-thumb, 
+.li-pink .event-content::-webkit-scrollbar-thumb,
+.li-pink .event-box::-webkit-scrollbar-thumb{
+    background-color: #FFC9A2;
+}
+
+.li-pink #calendar-selector::-webkit-scrollbar-track,
+.li-pink .event-content::-webkit-scrollbar-track,
+.li-pink .event-box::-webkit-scrollbar-track {
+    background: #FFC9A2;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+}
+
+.li-pink .years,
+.li-pink .months,
+.li-pink .cal-header,
+.li-pink .days-row,
+.li-pink #close-button,
+.li-pink .today span, 
+.li-pink #today-date,
+.li-pink .external-link,
+.li-pink .event-description a,
+.li-pink .sort-dropdown-content a:hover {
+    color: #FF8D3A; 
+}
+
+
+.li-pink .event-dot,
+.li-pink #apply-selection:hover,
+.li-pink #calendar-selector::-webkit-scrollbar-thumb:hover,
+.li-pink .event-box::-webkit-scrollbar-thumb:hover,
+.li-pink .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #FF8D3A; 
+}
+
+.li-pink .dropbtn {
+    background-image: url('../src/calendar/cal1-sort-li-pink.png');
+
+}
+
+.li-pink .more-calendar {
+    background-image: url('../src/calendar/cal1-li-pink-m.png');
+}
+
+.li-pink #pre-month {
+    background-image: url('../src/calendar/cal1-li-pink-l.png');
+
+}
+
+.li-pink #nxt-month {
+    background-image: url('../src/calendar/cal1-li-pink-r.png');
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.li-orange .event-details,
+.li-orange .today-circle,
+.li-orange .detail-header,
+.li-orange .custom-checkbox input[type="checkbox"] {
+    background-color: #FFEADB;
+}
+
+
+.li-orange #apply-selection,
+.li-orange .horizontal-line,
+.li-orange #calendar-selector::-webkit-scrollbar-thumb, 
+.li-orange .event-content::-webkit-scrollbar-thumb,
+.li-orange .event-box::-webkit-scrollbar-thumb{
+    background-color: #FFC9A2;
+}
+
+.li-orange #calendar-selector::-webkit-scrollbar-track,
+.li-orange .event-content::-webkit-scrollbar-track,
+.li-orange .event-box::-webkit-scrollbar-track {
+    background: #FFC9A2;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+}
+
+.li-orange .years,
+.li-orange .months,
+.li-orange .cal-header,
+.li-orange .days-row,
+.li-orange #close-button,
+.li-orange .today span, 
+.li-orange #today-date,
+.li-orange .external-link,
+.li-orange .event-description a,
+.li-orange .sort-dropdown-content a:hover {
+    color: #FF8D3A; 
+}
+
+
+.li-orange .event-dot,
+.li-orange #apply-selection:hover,
+.li-orange #calendar-selector::-webkit-scrollbar-thumb:hover,
+.li-orange .event-box::-webkit-scrollbar-thumb:hover,
+.li-orange .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #FF8D3A; 
+}
+
+.li-orange .dropbtn {
+    background-image: url('../src/calendar/cal1-sort-li-orange.png');
+
+}
+
+.li-orange .more-calendar {
+    background-image: url('../src/calendar/cal1-li-orange-m.png');
+}
+
+.li-orange #pre-month {
+    background-image: url('../src/calendar/cal1-li-orange-l.png');
+
+}
+
+.li-orange #nxt-month {
+    background-image: url('../src/calendar/cal1-li-orange-r.png');
+
+}
+
+
+
+
+
+
+
+.li-green .event-details,
+.li-green .today-circle,
+.li-green .detail-header,
+.li-green .custom-checkbox input[type="checkbox"] {
+    background-color: #D4EFE0;
+}
+
+
+.li-green #apply-selection,
+.li-green .horizontal-line,
+.li-green #calendar-selector::-webkit-scrollbar-thumb, 
+.li-green .event-content::-webkit-scrollbar-thumb,
+.li-green .event-box::-webkit-scrollbar-thumb{
+    background-color: #9BD7B7;
+}
+
+.li-green #calendar-selector::-webkit-scrollbar-track,
+.li-green .event-content::-webkit-scrollbar-track,
+.li-green .event-box::-webkit-scrollbar-track {
+    background: #9BD7B7;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+}
+
+.li-green .years,
+.li-green .months,
+.li-green .cal-header,
+.li-green .days-row,
+.li-green #close-button,
+.li-green .today span, 
+.li-green #today-date,
+.li-green .external-link,
+.li-green .event-description a,
+.li-green .sort-dropdown-content a:hover {
+    color: #269C5C;
+}
+ 
+.li-green .event-dot,
+.li-green #apply-selection:hover,
+.li-green #calendar-selector::-webkit-scrollbar-thumb:hover,
+.li-green .event-box::-webkit-scrollbar-thumb:hover,
+.li-green .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #269C5C;
+  }
+
+.li-green .dropbtn {
+    background-image: url('../src/calendar/cal1-sort-li-green.png');
+}
+
+.li-green .more-calendar {
+    background-image: url('../src/calendar/cal1-li-green-m.png');
+}
+
+.li-green #pre-month {
+    background-image: url('../src/calendar/cal1-li-green-l.png');
+}
+
+.li-green #nxt-month {
+    background-image: url('../src/calendar/cal1-li-green-r.png');
+}
+
+.li-green .custom-checkbox input[type="checkbox"]:checked{
+    background-image: url('../src/calendar/cal1-checkbox-li-green.png')
+}
+
+
+
+
+.li-mint .event-details,
+.li-mint .today-circle,
+.li-mint .detail-header,
+.li-mint .custom-checkbox input[type="checkbox"] {
+    background-color: #D0EEEE;
+}
+
+
+.li-mint #apply-selection,
+.li-mint .horizontal-line,
+.li-mint #calendar-selector::-webkit-scrollbar-thumb, 
+.li-mint .event-content::-webkit-scrollbar-thumb,
+.li-mint .event-box::-webkit-scrollbar-thumb{
+    background-color: #98DEDE;
+}
+
+.li-mint #calendar-selector::-webkit-scrollbar-track,
+.li-mint .event-content::-webkit-scrollbar-track,
+.li-mint .event-box::-webkit-scrollbar-track {
+    background: #98DEDE;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+}
+
+.li-mint .years,
+.li-mint .months,
+.li-mint .cal-header,
+.li-mint .days-row,
+.li-mint #close-button,
+.li-mint .today span, 
+.li-mint #today-date,
+.li-mint .external-link,
+.li-mint .event-description a,
+.li-mint .sort-dropdown-content a:hover {
+    color: #22A5A5;
+}
+ 
+.li-mint .event-dot,
+.li-mint #apply-selection:hover,
+.li-mint #calendar-selector::-webkit-scrollbar-thumb:hover,
+.li-mint .event-box::-webkit-scrollbar-thumb:hover,
+.li-mint .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #22A5A5;
+  }
+
+.li-mint .dropbtn {
+    background-image: url('../src/calendar/cal1-sort-li-mint.png');
+}
+
+.li-mint .more-calendar {
+    background-image: url('../src/calendar/cal1-li-mint-m.png');
+}
+
+.li-mint #pre-month {
+    background-image: url('../src/calendar/cal1-li-mint-l.png');
+}
+
+.li-mint #nxt-month {
+    background-image: url('../src/calendar/cal1-li-mint-r.png');
+}
+
+.li-mint .custom-checkbox input[type="checkbox"]:checked{
+    background-image: url('../src/calendar/cal1-checkbox-li-mint.png')
+}
+
+
+
+.li-blue .event-details,
+.li-blue .today-circle,
+.li-blue .detail-header,
+.li-blue .custom-checkbox input[type="checkbox"] {
+    background-color: #DDEFFF;
+}
+
+
+.li-blue #apply-selection,
+.li-blue .horizontal-line,
+.li-blue #calendar-selector::-webkit-scrollbar-thumb, 
+.li-blue .event-content::-webkit-scrollbar-thumb,
+.li-blue .event-box::-webkit-scrollbar-thumb{
+    background-color: #B8DDFF;
+}
+
+.li-blue #calendar-selector::-webkit-scrollbar-track,
+.li-blue .event-content::-webkit-scrollbar-track,
+.li-blue .event-box::-webkit-scrollbar-track {
+    background: #B8DDFF;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+}
+
+.li-blue .years,
+.li-blue .months,
+.li-blue .cal-header,
+.li-blue .days-row,
+.li-blue #close-button,
+.li-blue .today span, 
+.li-blue #today-date,
+.li-blue .external-link,
+.li-blue .event-description a,
+.li-blue .sort-dropdown-content a:hover {
+    color: #3BA1FF;
+}
+ 
+.li-blue .event-dot,
+.li-blue #apply-selection:hover,
+.li-blue #calendar-selector::-webkit-scrollbar-thumb:hover,
+.li-blue .event-box::-webkit-scrollbar-thumb:hover,
+.li-blue .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #3BA1FF;
+  }
+
+.li-blue .dropbtn {
+    background-image: url('../src/calendar/cal1-sort-li-blue.png');
+}
+
+.li-blue .more-calendar {
+    background-image: url('../src/calendar/cal1-li-blue-m.png');
+}
+
+.li-blue #pre-month {
+    background-image: url('../src/calendar/cal1-li-blue-l.png');
+}
+
+.li-blue #nxt-month {
+    background-image: url('../src/calendar/cal1-li-blue-r.png');
+}
+
+.li-blue .custom-checkbox input[type="checkbox"]:checked{
+    background-image: url('../src/calendar/cal1-checkbox-li-blue.png')
+}
+
+
+
+.li-purple .event-details,
+.li-purple .today-circle,
+.li-purple .detail-header,
+.li-purple .custom-checkbox input[type="checkbox"] {
+    background-color: #FBF2FF;
+}
+
+
+.li-purple #apply-selection,
+.li-purple .horizontal-line,
+.li-purple #calendar-selector::-webkit-scrollbar-thumb, 
+.li-purple .event-content::-webkit-scrollbar-thumb,
+.li-purple .event-box::-webkit-scrollbar-thumb{
+    background-color: #EFCDFE;
+}
+
+.li-purple #calendar-selector::-webkit-scrollbar-track,
+.li-purple .event-content::-webkit-scrollbar-track,
+.li-purple .event-box::-webkit-scrollbar-track {
+    background: #EFCDFE;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+}
+
+.li-purple .years,
+.li-purple .months,
+.li-purple .cal-header,
+.li-purple .days-row,
+.li-purple #close-button,
+.li-purple .today span, 
+.li-purple #today-date,
+.li-purple .external-link,
+.li-purple .event-description a,
+.li-purple .sort-dropdown-content a:hover {
+    color: #7C0CB0;
+}
+ 
+.li-purple .event-dot,
+.li-purple #apply-selection:hover,
+.li-purple #calendar-selector::-webkit-scrollbar-thumb:hover,
+.li-purple .event-box::-webkit-scrollbar-thumb:hover,
+.li-purple .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #7C0CB0;
+  }
+
+.li-purple .dropbtn {
+    background-image: url('../src/calendar/cal1-sort-li-purple.png');
+}
+
+.li-purple .more-calendar {
+    background-image: url('../src/calendar/cal1-li-purple-m.png');
+}
+
+.li-purple #pre-month {
+    background-image: url('../src/calendar/cal1-li-purple-l.png');
+}
+
+.li-purple #nxt-month {
+    background-image: url('../src/calendar/cal1-li-purple-r.png');
+}
+
+.li-purple .custom-checkbox input[type="checkbox"]:checked{
+    background-image: url('../src/calendar/cal1-checkbox-li-purple.png')
+}
+
+
+
+
+
+
+.black .years,
+.black .months,
+.black .cal-header,
+.black .days-row,
+.black #close-button,
+.black .today span, 
+.black #today-date,
+.black .external-link,
+.black .event-description a,
+.black .sort-dropdown-content a:hover,
+.black #sort-time,
+.black #sort-name,
+.black #calendar-dropdown span {
+    color: white;
+}
+
+.black .dropdown-divider  {
+    background-color: white;
+}
+ 
+.black .event-dot {
+    background-color: white;
+}
+
+
+.black .event-description,
+.black .no-events,
+.black .event-title,
+.black .event-time,
+.black .calendar-container span {
+    color: #C7C7C7;
+}
+
+.black .horizontal-line {
+    background-color: #C7C7C7;
+}
+
+.black .today-circle,
+.black #apply-selection:hover,
+.black #calendar-selector::-webkit-scrollbar-thumb:hover,
+.black .event-box::-webkit-scrollbar-thumb:hover,
+.black .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #383838;
+  }
+
+
+.black #apply-selection,
+.black #calendar-selector::-webkit-scrollbar-thumb, 
+.black #calendar-selector::-webkit-scrollbar-track,
+.black .event-details,
+.black .detail-header,
+.black .custom-checkbox input[type="checkbox"] {
+    background-color: #191919;
+}
+
+
+.black .calendar-container,
+.black .event-content::-webkit-scrollbar-thumb,
+.black .event-box::-webkit-scrollbar-thumb{
+    background-color: black;
+}
+
+.black .event-content::-webkit-scrollbar-track,
+.black .event-box::-webkit-scrollbar-track {
+    background: black;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+}
+
+.black #calendar-dropdown {
+    background-color: black;
+}
+
+.black .sort-dropdown-content {
+    background-color: black;
+}
+
+.black .dropbtn {
+    background-image: url('../src/calendar/cal1-sort-black.png');
+}
+
+.black .more-calendar {
+    background-image: url('../src/calendar/cal1-black-m.png');
+}
+
+.black #pre-month {
+    background-image: url('../src/calendar/cal1-black-l.png');
+}
+
+.black #nxt-month {
+    background-image: url('../src/calendar/cal1-black-r.png');
+}
+
+
+
+
+.grey .day-cell.date.today span,
+.grey .years,
+.grey .months,
+.grey .cal-header,
+.grey .days-row,
+.grey #close-button,
+.grey .today span, 
+.grey #today-date,
+.grey .external-link,
+.grey .event-description a,
+.grey .sort-dropdown-content a:hover,
+.grey #sort-time,
+.grey #sort-name,
+.grey #calendar-dropdown span {
+    color: white;
+}
+
+
+.grey .dropdown-divider,
+.grey .event-dot  {
+    background-color: white;
+}
+ 
+
+.grey .event-description,
+.grey .no-events,
+.grey .event-title,
+.grey .event-time,
+.grey .calendar-container span {
+    color: white; 
+}
+
+.grey .horizontal-line {
+    background-color: #C7C7C7;
+}
+
+.grey .today-circle,
+.grey #apply-selection:hover,
+.grey #calendar-selector::-webkit-scrollbar-thumb:hover,
+.grey .event-box::-webkit-scrollbar-thumb:hover,
+.grey .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #242424;
+  }
+
+
+.grey #apply-selection,
+.grey #calendar-selector::-webkit-scrollbar-thumb, 
+.grey #calendar-selector::-webkit-scrollbar-track,
+.grey .event-details,
+.grey .detail-header,
+.grey .custom-checkbox input[type="checkbox"] {
+    background-color: #747474;
+}
+
+.grey .sort-dropdown-content,
+.grey #calendar-dropdown,
+.grey .calendar-container,
+.grey .event-content::-webkit-scrollbar-thumb,
+.grey .event-box::-webkit-scrollbar-thumb{
+    background-color: #505050;
+}
+
+.grey .event-content::-webkit-scrollbar-track,
+.grey .event-box::-webkit-scrollbar-track {
+    background: #505050;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+}
+
+
+.grey .dropbtn {
+    background-image: url('../src/calendar/cal1-sort-grey.png');
+}
+
+.grey .more-calendar {
+    background-image: url('../src/calendar/cal1-grey-m.png');
+}
+
+.grey #pre-month {
+    background-image: url('../src/calendar/cal1-grey-l.png');
+}
+
+.grey #nxt-month {
+    background-image: url('../src/calendar/cal1-grey-r.png');
+}
+
+
+
+.grey .day-cell.date.today span,
+.grey .years,
+.grey .months,
+.grey .cal-header,
+.grey .days-row,
+.grey #close-button,
+.grey .today span, 
+.grey #today-date,
+.grey .external-link,
+.grey .event-description a,
+.grey .sort-dropdown-content a:hover,
+.grey #sort-time,
+.grey #sort-name,
+.grey #calendar-dropdown span {
+    color: white;
+}
+
+
+.grey .dropdown-divider,
+.grey .event-dot  {
+    background-color: white;
+}
+ 
+
+.grey .event-description,
+.grey .no-events,
+.grey .event-title,
+.grey .event-time,
+.grey .calendar-container span {
+    color: white; 
+}
+
+.grey .horizontal-line {
+    background-color: #C7C7C7;
+}
+
+.grey .today-circle,
+.grey #apply-selection:hover,
+.grey #calendar-selector::-webkit-scrollbar-thumb:hover,
+.grey .event-box::-webkit-scrollbar-thumb:hover,
+.grey .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #242424;
+  }
+
+
+.grey #apply-selection,
+.grey #calendar-selector::-webkit-scrollbar-thumb, 
+.grey #calendar-selector::-webkit-scrollbar-track,
+.grey .event-details,
+.grey .detail-header,
+.grey .custom-checkbox input[type="checkbox"] {
+    background-color: #747474;
+}
+
+.grey .sort-dropdown-content,
+.grey #calendar-dropdown,
+.grey .calendar-container,
+.grey .event-content::-webkit-scrollbar-thumb,
+.grey .event-box::-webkit-scrollbar-thumb{
+    background-color: #505050;
+}
+
+.grey .event-content::-webkit-scrollbar-track,
+.grey .event-box::-webkit-scrollbar-track {
+    background: #505050;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+}
+
+
+.grey .dropbtn {
+    background-image: url('../src/calendar/cal1-sort-grey.png');
+}
+
+.grey .more-calendar {
+    background-image: url('../src/calendar/cal1-grey-m.png');
+}
+
+.grey #pre-month {
+    background-image: url('../src/calendar/cal1-grey-l.png');
+}
+
+.grey #nxt-month {
+    background-image: url('../src/calendar/cal1-grey-r.png');
+}
+
+
+
+.pink .day-cell.date.today span,
+.pink .years,
+.pink .months,
+.pink .cal-header,
+.pink .days-row,
+.pink #close-button,
+.pink .today span, 
+.pink #today-date,
+.pink .external-link,
+.pink .event-description a,
+.pink .sort-dropdown-content a:hover,
+.pink #sort-time,
+.pink #sort-name,
+.pink #calendar-dropdown span {
+    color: white;
+}
+
+
+.pink .dropdown-divider,
+.pink .event-dot  {
+    background-color: white;
+}
+ 
+
+.pink .event-description,
+.pink .no-events,
+.pink .event-title,
+.pink .event-time,
+.pink .calendar-container span {
+    color: white; 
+}
+
+.pink .horizontal-line {
+    background-color: #C7C7C7;
+}
+
+.pink .today-circle,
+.pink #apply-selection:hover,
+.pink #calendar-selector::-webkit-scrollbar-thumb:hover,
+.pink .event-box::-webkit-scrollbar-thumb:hover,
+.pink .event-content::-webkit-scrollbar-thumb:hover {
+    background-color: #242424;
+  }
+
+
+.pink #apply-selection,
+.pink #calendar-selector::-webkit-scrollbar-thumb, 
+.pink #calendar-selector::-webkit-scrollbar-track,
+.pink .event-details,
+.pink .detail-header,
+.pink .custom-checkbox input[type="checkbox"] {
+    background-color: #747474;
+}
+
+.pink .sort-dropdown-content,
+.pink #calendar-dropdown,
+.pink .calendar-container,
+.pink .event-content::-webkit-scrollbar-thumb,
+.pink .event-box::-webkit-scrollbar-thumb{
+    background-color: #2F2A2B;
+}
+
+.pink .event-content::-webkit-scrollbar-track,
+.pink .event-box::-webkit-scrollbar-track {
+    background: #2F2A2B;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+}
+
+
+.pink .dropbtn {
+    background-image: url('../src/calendar/cal1-sort-pink.png');
+}
+
+.pink .more-calendar {
+    background-image: url('../src/calendar/cal1-pink-m.png');
+}
+
+.pink #pre-month {
+    background-image: url('../src/calendar/cal1-pink-l.png');
+}
+
+.pink #nxt-month {
+    background-image: url('../src/calendar/cal1-pink-r.png');
+}
+
+.pink .custom-checkbox input[type="checkbox"]:checked{
+    background-image: url('../src/calendar/cal1-checkbox-li-pink.png')
+}
+

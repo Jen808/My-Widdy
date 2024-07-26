@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clock</title>
+  <link rel="stylesheet" href="../css/clock.css">
+
+  <style>
+    .clock-page {
+      background-color: #404040;
+    }
+
+
+
+    #clock-page {
+      color: #FF8D3A;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <a href="#" target="_blank">
+        <img src="../src/logo.png" alt="Logo Image" class="logo-image">
+      </a>
+      <a href="#" id="logo-word">Widdy</a>
+    </div>
+    <div class="sidebar-menu">
+      <nav>
+        <ul>
+          <li class="myWiddy-page"><a href="#" id="myWiddy-page">My Widdy</a></li>
+          <li class="clock-page"><a href="#" id="clock-page">Clock</a></li>
+          <li class="calendar-page"><a href="#" id="calendar-page">Calendar</a></li>
+          <li class="toDoList-page"><a href="#" id="toDoList-page">To Do List</a></li>
+          <li class="weather-page"><a href="#" id="weather-page">Weather</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="content-header">
+      <h2 id="content-title">Clock</h2>
+    </div>
+    <div class="content-body">
+      <button id="clock-first-design-button">00:00</button>
+      <!-- <label class="switch1">
+        <input type="checkbox" id="toggleSwitchClock1">
+        <span class="slider1"></span>
+      </label> -->
+      <button id="clock-second-design-button">00:00</button>
+      <button id="clock-third-design-button">00:00</button>
+      <button id="clock-forth-design-button">00:00</button>
+      <button id="clock-fifth-design-button">00:00</button>
+      <button id="clock-sixth-design-button">00:00</button>
+    </div>
+  </div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    // // clock1-display 상태 확인 요청
+    // ipcRenderer.send('request-clock1-status');
+
+    // // clock1-display 상태 동기화
+    // ipcRenderer.on('response-clock1-status', (event, isOn) => {
+    //   const toggleSwitchClock1 = document.getElementById('toggleSwitchClock1');
+    //   if (toggleSwitchClock1) {
+    //     toggleSwitchClock1.checked = isOn;
+    //     localStorage.setItem('isClock1Open', isOn);
+    //   }
+    // });
+
+    // document.addEventListener('DOMContentLoaded', () => {
+    //   const isClock1Open = localStorage.getItem('isClock1Open') === 'true';
+    //   const toggleSwitchClock1 = document.getElementById('toggleSwitchClock1');
+    //   if (toggleSwitchClock1) {
+    //     toggleSwitchClock1.checked = isClock1Open;
+    //   }
+    // });
+
+    // const toggleSwitchClock1 = document.getElementById('toggleSwitchClock1');
+    // if (toggleSwitchClock1) {
+    //   toggleSwitchClock1.addEventListener('click', () => {
+    //     const isOn = toggleSwitchClock1.checked;
+    //     localStorage.setItem('isClock1Open', isOn);
+    //     ipcRenderer.send('toggle-display', { id: 'clock1-display', height: isOn ? 300 : 0, width: isOn ? 800 : 0 });
+    //     ipcRenderer.send('clock-status', { id: 'clock1-display', status: isOn });
+    //     ipcRenderer.send('sync-clock1', isOn); // clock1.html과 동기화
+    //   });
+    // }
+
+    // // clock1.html에서 발생한 변경 사항을 청취
+    // ipcRenderer.on('sync-clock1', (event, isOn) => {
+    //   const toggleSwitchClock1 = document.getElementById('toggleSwitchClock1');
+    //   if (toggleSwitchClock1) {
+    //     toggleSwitchClock1.checked = isOn;
+    //     localStorage.setItem('isClock1Open', isOn);
+    //     ipcRenderer.send('toggle-display', { id: 'clock1-display', height: isOn ? 300 : 0, width: isOn ? 800 : 0 });
+    //     ipcRenderer.send('clock-status', { id: 'clock1-display', status: isOn });
+    //   }
+    // });
+
+    document.getElementById('myWiddy-page').addEventListener('click', () => {
+      window.location.href = 'my-widdy.html';
+    });
+
+    document.getElementById('logo-word').addEventListener('click', () => {
+      window.location.href = 'my-widdy.html';
+    });
+
+    document.querySelector('.logo-image').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'my-widdy.html';
+    });
+
+    document.getElementById('clock-page').addEventListener('click', () => {
+      window.location.href = 'clock.html';
+    });
+
+    document.getElementById('calendar-page').addEventListener('click', () => {
+      window.location.href = 'calendar.html';
+    });
+
+    document.getElementById('toDoList-page').addEventListener('click', () => {
+      window.location.href = 'toDoList.html';
+    });
+
+    document.getElementById('weather-page').addEventListener('click', () => {
+      window.location.href = 'weather.html';
+    });
+
+    document.getElementById('clock-first-design-button').addEventListener('click', () => {
+      window.location.href = 'clock1.html';
+    });
+
+    document.getElementById('clock-second-design-button').addEventListener('click', () => {
+      window.location.href = 'clock2.html';
+    });
+
+    document.getElementById('clock-third-design-button').addEventListener('click', () => {
+      window.location.href = 'clock3.html';
+    });
+
+    document.getElementById('clock-forth-design-button').addEventListener('click', () => {
+      window.location.href = 'clock4.html';
+    });
+
+    document.getElementById('clock-fifth-design-button').addEventListener('click', () => {
+      window.location.href = 'clock5.html';
+    });
+
+    document.getElementById('clock-sixth-design-button').addEventListener('click', () => {
+      window.location.href = 'clock6.html';
+    });
+  </script>
+</body>
+
+</html>

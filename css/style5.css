@@ -1,0 +1,27 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 50px;
+  background-color: white;
+}
+input, button {
+  margin: 5px;
+}
+#weather-result div {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  display: inline-block;
+}
+
+.weather-container {
+  background-color: white; /* White background for the weather container */
+}
+
+.weather-search {
+  background-color: grey; /* Light grey background for the weather search div */
+}
+
+.result-container {
+  background-color: brown; /* Even darker grey for the result container */
+}

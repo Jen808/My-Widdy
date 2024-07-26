@@ -1,0 +1,138 @@
+/* style4.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    -webkit-app-region: drag;
+  }
+  
+  .tasks-container {
+    padding: 20px;
+  }
+  
+  .top-right-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    -webkit-app-region: no-drag;
+  }
+  
+  .week-range {
+    text-align: center;
+    font-size: 2vw;
+    margin-bottom: 20px;
+  }
+  
+  .week-columns {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap; /* Prevent wrapping to keep columns in a horizontal row */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+  }
+  
+  .day-column {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+    flex: 1; /* Make columns flexible */
+    min-width: 80px; /* Ensure a minimum width for each column */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+  }
+  
+  .column-header {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.5vw;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .task {
+    display: flex;
+    align-items: flex-start; /* Align items at the start */
+    margin-bottom: 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    -webkit-app-region: no-drag;
+
+  }
+  
+  .bullet-point {
+    cursor: pointer;
+    font-size: 1.5em;
+    color: #007bff;
+    margin-right: 10px;
+    margin-top: 2px; /* Align the bullet point with the title */
+    -webkit-app-region: no-drag;
+
+  }
+  
+  .title {
+    font-size: 2vw;
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    line-height: 1.2; /* Adjust line height for better spacing */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .notes {
+    font-size: 1vw;
+    margin-top: 0.2em; /* Adjust margin to control spacing */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .done .title,
+  .done .notes {
+    text-decoration: line-through;
+    font-style: italic;
+    color: grey;
+  }
+  
+  .navigation-buttons {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .navigation-buttons button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 1em;
+  }
+  
+  @media (max-width: 768px) {
+    .week-range {
+      font-size: 3vw;
+    }
+  
+    .column-header {
+      font-size: 2.5vw;
+    }
+  
+    .title {
+      font-size: 2vw;
+    }
+  
+    .notes {
+      font-size: 1.5vw;
+    }
+  }
+  
