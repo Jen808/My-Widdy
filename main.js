@@ -124,20 +124,20 @@ const fetchTasks = async (auth) => {
     }
 
     cachedTasks = allTasks;
-    if (displayWindows['display3']) {
-      sendTasksToDisplay3();
+    if (displayWindows['todo1']) {
+      sendTasksToTodo1();
     }
   } catch (error) {
     console.error('Error fetching tasks:', error);
   }
 };
 
-const sendTasksToDisplay3 = () => {
-  if (displayWindows['display3']) {
-    displayWindows['display3'].webContents.send('clear-tasks');
+const sendTasksToTodo1 = () => {
+  if (displayWindows['todo1']) {
+    displayWindows['todo1'].webContents.send('clear-tasks');
     cachedTasks.forEach(task => {
       // console.log('Sending task:', task);
-      displayWindows['display3'].webContents.send('task', {
+      displayWindows['todo1'].webContents.send('task', {
         id: task.id,
         title: task.title,
         notes: task.notes,
@@ -230,9 +230,9 @@ const createMainWindow = () => {
 //         if (isLoggedIn) {
 //           sendEventsToCals();
 //         }
-//       } else if (id === 'display3') {
+//       } else if (id === 'todo1') {
 //         if (isLoggedIn) {
-//           sendTasksToDisplay3();
+//           sendTasksToTodo1();
 //         }
 //       }
 //     }).catch((err) => {
@@ -262,7 +262,7 @@ const createDisplayWindow = (id, title, width, height) => {
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
-        autoplayPolicy: 'no-user-gesture-required'
+        // autoplayPolicy: 'no-user-gesture-required'
       },
       icon: path.join(__dirname, 'src/logo.png'),
     });
@@ -792,9 +792,9 @@ app.on('activate', () => {
 //         if (isLoggedIn) {
 //           sendEventsToCals();
 //         }
-//       } else if (id === 'display3') {
+//       } else if (id === 'todo1') {
 //         if (isLoggedIn) {
-//           sendTasksToDisplay3();
+//           sendTasksToTodo1();
 //         }
 //       }
 //     }).catch((err) => {
@@ -903,6 +903,19 @@ ipcMain.on('adjust-cal4-size', (event, { size }) => {
     console.log(`Resized cal4-display to width: ${newWidth}, height: ${newHeight}`);
   }
 });
+
+
+ipcMain.on('adjust-todo1-size', (event, { size }) => {
+  if (displayWindows['todo1-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 300;
+    const newHeight = (newSize / 50) * 450;
+    displayWindows['todo1-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['todo1-display'].webContents.send('resize-todo1', { newWidth, newHeight });
+    console.log(`Resized todo1-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
 
 
 
@@ -1039,8 +1052,8 @@ ipcMain.on('change-clock4-color', (event, colorSet) => {
 
 
 ipcMain.on('change-todo-color', (event, colorSet) => {
-  if (displayWindows['display3']) {
-    displayWindows['display3'].webContents.send('change-todo-color', colorSet);
+  if (displayWindows['todo1']) {
+    displayWindows['todo1'].webContents.send('change-todo-color', colorSet);
   } else if (displayWindows['display4']) {
     displayWindows['display4'].webContents.send('change-todo-color', colorSet);
   }
@@ -1108,6 +1121,19 @@ function closeCal4Display() {
 }
 
 
+function openTodo1Display() {
+  if (!displayWindows['todo1-display']) {
+    createDisplayWindow('todo1-display', 'Todo1 Display', 300, 450);
+  }
+}
+
+function closeTodo1Display() {
+  if (displayWindows['todo1-display']) {
+    displayWindows['todo1-display'].close();
+  }
+}
+
+
 
 
 
@@ -1146,6 +1172,17 @@ ipcMain.on('close-cal4-display', () => {
 });
 
 
+ipcMain.on('open-todo1-display', () => {
+  openTodo1Display();
+});
+
+ipcMain.on('close-todo1-display', () => {
+  closeTodo1Display();
+});
+
+
+
+
 ipcMain.on('cal1-status', (event, arg) => {
   if (arg.status) {
     openCal1Display();
@@ -1176,6 +1213,15 @@ ipcMain.on('cal4-status', (event, arg) => {
     openCal4Display();
   } else {
     closeCal4Display();
+  }
+});
+
+
+ipcMain.on('todo1-status', (event, arg) => {
+  if (arg.status) {
+    openTodo1Display();
+  } else {
+    closeTodo1Display();
   }
 });
 

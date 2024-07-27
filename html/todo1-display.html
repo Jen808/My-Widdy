@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Tasks</title>
+    <!-- <link rel="stylesheet" href="../css/style3.css"> -->
+    <link rel="stylesheet" href="../css/todo_1.css">
+
+</head>
+
+<body>
+    <div class="default-set"></div>
+    <div class="tasks-container">
+        <div class="todoheader">
+            <button id="prev-day"></button>
+            <div class="date" id="current-date"></div>
+            <button id="next-day"></button>
+        </div>
+        <div class="todo-list-container">
+            <!-- <div class="mark-done"></div> -->
+            <div class="task-list" id="tasks"></div>
+        </div>
+        <a href="https://tasksboard.com/app" class="todo-edit" target="_blank"></a>
+
+    </div>
+
+
+
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        let currentDate = new Date(); // Initialize the currentDate variable
+
+        function formatDate(date) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        function formatDateToUTCString(date) {
+            return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())).toISOString().split('T')[0];
+        }
+
+        function updateTasksForDate(date) {
+            const formattedDate = formatDateToUTCString(date);
+            console.log(`Requesting tasks for date: ${formattedDate}`);
+            ipcRenderer.send('request-tasks', formattedDate); // Send a request to the main process to get tasks for the date
+            document.getElementById('tasks').innerHTML = ''; // Clear the current tasks
+        }
+
+        function renderTask(task) {
+            const tasksDiv = document.getElementById('tasks');
+            const taskDiv = document.createElement('div');
+            taskDiv.classList.add('task');
+            taskDiv.dataset.id = task.id;
+
+            const markDoneButton = document.createElement('div');
+            markDoneButton.classList.add('mark-done');
+            markDoneButton.addEventListener('click', () => {
+                taskDiv.classList.toggle('done');
+            });
+
+            const contentDiv = document.createElement('div');
+            contentDiv.classList.add('task-content');
+
+            const titleDiv = document.createElement('div');
+            titleDiv.classList.add('title');
+            titleDiv.textContent = task.title;
+
+            const notesDiv = document.createElement('div');
+            notesDiv.classList.add('notes');
+            notesDiv.textContent = task.notes || '';
+
+            contentDiv.appendChild(titleDiv);
+            contentDiv.appendChild(notesDiv);
+
+            taskDiv.appendChild(markDoneButton);
+            taskDiv.appendChild(contentDiv);
+            tasksDiv.appendChild(taskDiv);
+        }
+
+        function resizeTodo({ newWidth, newHeight }) {
+            const calElement = document.getElementById('iii');
+            if (calElement) {
+                // const scaleFactor = newWidth / 900; 
+                document.documentElement.style.fontSize = `${scaleFactor * 16}px`; // Adjust root font size
+                calElement.style.width = `${newWidth}px`;
+                calElement.style.height = `${newHeight}px`;
+
+            }
+        }
+
+        ipcRenderer.on('resize-todo1', (event, { newWidth, newHeight }) => {
+            resizeTodo({ newWidth, newHeight });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentDateDiv = document.getElementById('current-date');
+            currentDateDiv.textContent = formatDate(currentDate);
+
+            document.getElementById('prev-day').addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() - 1);
+                currentDateDiv.textContent = formatDate(currentDate);
+                updateTasksForDate(currentDate);
+            });
+
+            document.getElementById('next-day').addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() + 1);
+                currentDateDiv.textContent = formatDate(currentDate);
+                updateTasksForDate(currentDate);
+            });
+
+            updateTasksForDate(currentDate);
+        });
+
+
+        ipcRenderer.on('clear-tasks', () => {
+            console.log('Clearing tasks');
+            const tasksDiv = document.getElementById('tasks');
+            tasksDiv.innerHTML = '';
+        });
+
+        ipcRenderer.on('task', (event, task) => {
+            console.log('Received task:', task); // Log the received task for debugging
+            const taskDate = new Date(task.due);
+            const formattedTaskDate = formatDateToUTCString(taskDate);
+            const formattedCurrentDate = formatDateToUTCString(currentDate);
+            if (formattedTaskDate === formattedCurrentDate) {
+                console.log('Task is for the selected date:', task); // Log if the task is for the selected date
+                renderTask(task);
+            } else {
+                console.log('Task is not for the selected date:', task); // Log if the task is not for the selected date
+            }
+        });
+
+        // For debugging: Log the task list received
+        ipcRenderer.on('tasks-list', (event, tasks) => {
+            console.log('Received tasks list:', tasks);
+            const tasksDiv = document.getElementById('tasks');
+            tasks.forEach(task => {
+                const taskDate = new Date(task.due);
+                const formattedTaskDate = formatDateToUTCString(taskDate);
+                const formattedCurrentDate = formatDateToUTCString(currentDate);
+                if (formattedTaskDate === formattedCurrentDate) {
+                    renderTask(task);
+                }
+            });
+        });
+
+        ipcRenderer.on('change-todo-color', (event, colorSet) => {
+            document.body.className = colorSet;
+        });
+
+    </script>
+</body>
+
+</html>
