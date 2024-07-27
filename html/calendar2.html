@@ -3,8 +3,25 @@
 
 <head>
     <title>Calendar: Impact</title>
-    <link rel="stylesheet" href="../css/calendar2.css">
     <link rel="stylesheet" href="../css/cal-color.css">
+    <link rel="stylesheet" href="../css/my-widdy.css">
+
+
+    <style>
+        .calendar-page {
+            background-color: #404040;
+        }
+
+        #calendar-page {
+            color: #FF8D3A;
+            font-weight: bold;
+        }
+
+        .cal2-image {
+            width: 27.0625rem;
+            height: 15.83294rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -29,10 +46,10 @@
         </div>
     </div>
     <div class="main-content">
-        <div class="cal-headcontainer">
+        <div class="head-container">
             <img src="../src/go-back-button.png" alt="Go Back" class="back-button">
             <div class="name">
-                <a>Impact style</a>
+                <a>Calendar: Impact</a>
             </div>
         </div>
         <div class="main-container">
@@ -51,65 +68,69 @@
                 </div>
 
                 <div class="color-setting">
-                    <a>Colors</a>
-                    <div class="color-buttons-white">
-                        <button class="cal-color-button" data-color-set="white">
-                            <img src="../src/calendar/cal1-white.png" alt="white" width="30px" height="30px">
-                        </button>
-                        <button class="cal-color-button" data-color-set="cmyk">
-                            <img src="../src/calendar/cal1-cmyk.png" alt="cmyk" width="30px" height="30px">
-                        </button>
-                        <button class="cal-color-button" data-color-set="li-pink">
-                            <img src="../src/calendar/cal1-li-pink.png" alt="li-pink" width="30px" height="30px">
-                        </button>
-                        <button class="cal-color-button" data-color-set="li-orange">
-                            <img src="../src/calendar/cal1-li-orange.png" alt="li-orange" width="30px" height="30px">
-                        </button>
-                        <button class="cal-color-button" data-color-set="li-green">
-                            <img src="../src/calendar/cal1-li-green.png" alt="li-green" width="30px" height="30px">
-                        </button>
-                        <button class="cal-color-button" data-color-set="li-mint">
-                            <img src="../src/calendar/cal1-li-mint.png" alt="li-mint" width="30px" height="30px">
-                        </button>
-                        <button class="cal-color-button" data-color-set="li-blue">
-                            <img src="../src/calendar/cal1-li-blue.png" alt="li-blue" width="30px" height="30px">
-                        </button>
-                        <button class="cal-color-button" data-color-set="li-purple">
-                            <img src="../src/calendar/cal1-li-purple.png" alt="li-purple" width="30px" height="30px">
-                        </button>
-                    </div>
-                    <div class="color-buttons-black">
-                        <button class="cal-color-button" data-color-set="black">
-                            <img src="../src/calendar/cal1-black.png" alt="Black" width="30px" height="30px">
-                        </button>
-                        <button class="cal-color-button" data-color-set="grey">
-                            <img src="../src/calendar/cal1-grey.png" alt="grey" width="30px" height="30px">
-                        </button>
-                        <button class="cal-color-button" data-color-set="pink">
-                            <img src="../src/calendar/cal1-pink.png" alt="pink" width="30px" height="30px">
-                        </button>
-                        <button class="cal-color-button" data-color-set="orange">
-                            <img src="../src/calendar/cal1-orange.png" alt="orange" width="30px" height="30px">
-                        </button>
-                        <button class="cal-color-button" data-color-set="green">
-                            <img src="../src/calendar/cal1-green.png" alt="green" width="30px" height="30px">
-                        </button>
-                        <button class="cal-color-button" data-color-set="mint">
-                            <img src="../src/calendar/cal1-mint.png" alt="mint" width="30px" height="30px">
-                        </button>
-                        <button class="cal-color-button" data-color-set="blue">
-                            <img src="../src/calendar/cal1-blue.png" alt="blue" width="30px" height="30px">
-                        </button>
-                        <button class="cal-color-button" data-color-set="purple">
-                            <img src="../src/calendar/cal1-purple.png" alt="purple" width="30px" height="30px">
-                        </button>
+                    <div class="color-header">Colors</div>
+                    <div class="color-tiles">
+                        <div class="color-buttons-white">
+                            <button class="cal2-color-button" data-color-set="white">
+                                <img src="../src/calendar/cal1-white.png" alt="white" width="30px" height="30px">
+                            </button>
+                            <button class="cal2-color-button" data-color-set="cmyk">
+                                <img src="../src/calendar/cal1-cmyk.png" alt="cmyk" width="30px" height="30px">
+                            </button>
+                            <button class="cal2-color-button" data-color-set="li-pink">
+                                <img src="../src/calendar/cal1-li-pink.png" alt="li-pink" width="30px" height="30px">
+                            </button>
+                            <button class="cal2-color-button" data-color-set="li-orange">
+                                <img src="../src/calendar/cal1-li-orange.png" alt="li-orange" width="30px"
+                                    height="30px">
+                            </button>
+                            <button class="cal2-color-button" data-color-set="li-green">
+                                <img src="../src/calendar/cal1-li-green.png" alt="li-green" width="30px" height="30px">
+                            </button>
+                            <button class="cal2-color-button" data-color-set="li-mint">
+                                <img src="../src/calendar/cal1-li-mint.png" alt="li-mint" width="30px" height="30px">
+                            </button>
+                            <button class="cal2-color-button" data-color-set="li-blue">
+                                <img src="../src/calendar/cal1-li-blue.png" alt="li-blue" width="30px" height="30px">
+                            </button>
+                            <button class="cal2-color-button" data-color-set="li-purple">
+                                <img src="../src/calendar/cal1-li-purple.png" alt="li-purple" width="30px"
+                                    height="30px">
+                            </button>
+                        </div>
+                        <div class="color-buttons-black">
+                            <button class="cal2-color-button" data-color-set="black">
+                                <img src="../src/calendar/cal1-black.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="cal2-color-button" data-color-set="grey">
+                                <img src="../src/calendar/cal1-grey.png" alt="grey" width="30px" height="30px">
+                            </button>
+                            <button class="cal2-color-button" data-color-set="pink">
+                                <img src="../src/calendar/cal1-pink.png" alt="pink" width="30px" height="30px">
+                            </button>
+                            <button class="cal2-color-button" data-color-set="orange">
+                                <img src="../src/calendar/cal1-orange.png" alt="orange" width="30px" height="30px">
+                            </button>
+                            <button class="cal2-color-button" data-color-set="green">
+                                <img src="../src/calendar/cal1-green.png" alt="green" width="30px" height="30px">
+                            </button>
+                            <button class="cal2-color-button" data-color-set="mint">
+                                <img src="../src/calendar/cal1-mint.png" alt="mint" width="30px" height="30px">
+                            </button>
+                            <button class="cal2-color-button" data-color-set="blue">
+                                <img src="../src/calendar/cal1-blue.png" alt="blue" width="30px" height="30px">
+                            </button>
+                            <button class="cal2-color-button" data-color-set="purple">
+                                <img src="../src/calendar/cal1-purple.png" alt="purple" width="30px" height="30px">
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="cal2-size-setting">
-                    <a>Size</a>
-                    <div class="slider-container">
-                        <input type="range" id="sizeSlider2" min="1" max="100" value="50" class="custom-slider">
-                        <span id="sliderValue">50</span>
+                    <div class="sizeheader">Size</div>
+                    <div class="slider-container8">
+                        <input type="range" id="sizeSliderCal2" min="1" max="100" value="50" class="custom-slider">
+                        <span id="sliderValueCal2">50</span>
                     </div>
                 </div>
                 <button id="auth-button" class="link">Link to Google Account</button>
@@ -117,12 +138,6 @@
             </div>
         </div>
     </div>
-
-
-
-    <!-- 
-  <div class="header"></div>
-  <div class="clock_img"></div> -->
 
 
     <script>
@@ -167,168 +182,208 @@
 
         // document.addEventListener('DOMContentLoaded', () => {
         //     const toggleSwitchCal2 = document.getElementById('toggleSwitchCal2');
-        //     if (toggleSwitchCal2) {
-        //         toggleSwitchCal2.addEventListener('click', () => {
-        //             console.log(`Toggle switch clicked. Checked: ${toggleSwitchCal2.checked}`);
-        //             if (toggleSwitchCal2.checked) {
-        //                 // Reset size slider to 50 when turning on
-        //                 document.getElementById('sizeSlider2').value = 50;
-        //                 document.getElementById('sliderValue').innerText = 50;
-        //                 ipcRenderer.send('toggle-display', { id: 'cal2-display', height: 453, width: 900 });
-        //                 ipcRenderer.send('adjust-cal2-size', { id: 'cal2-display', size: 50 });
-        //             } else {
-        //                 // Reset size slider to 50 when turning off
-        //                 document.getElementById('sizeSlider2').value = 50;
-        //                 document.getElementById('sliderValue').innerText = 50;
-        //                 ipcRenderer.send('toggle-display', { id: 'cal2-display', height: 0, width: 0 });
-        //             }
-        //             localStorage.setItem('iscal2Open', toggleSwitchCal2.checked);
-        //             ipcRenderer.send('cal-status', { id: 'cal2-display', status: toggleSwitchCal2.checked });
-        //         });
+        //     const sizeSliderCal2 = document.getElementById('sizeSliderCal2');
+        //     const sliderValueCal2 = document.getElementById('sliderValueCal2');
 
-        //         // Event listener for color buttons
-        //         document.querySelectorAll('.cal-color-button').forEach(button => {
-        //             button.addEventListener('click', () => {
-        //                 const colorSet = button.getAttribute('data-color-set');
-        //                 console.log(`Color button clicked. Color set: ${colorSet}`);
-        //                 ipcRenderer.send('change-cal2-color', colorSet);
+
+        //     function synchronizeSettings() {
+        //         const isCal2Open = localStorage.getItem('showCal2') === 'true';
+        //         toggleSwitchCal2.checked = isCal2Open;
+
+        //         if (isCal2Open) {
+        //             const cal2Size = localStorage.getItem('cal2Size') || 50;
+        //             sizeSliderCal2.value = cal2Size;
+        //             sliderValueCal2.innerText = cal2Size;
+        //             const cal2ColorSet = localStorage.getItem('cal2ColorSet') || 'li-grey';
+        //             document.body.className = cal2ColorSet;
+        //             document.querySelectorAll('.cal2-color-button').forEach(button => {
+        //                 if (button.getAttribute('data-color-set') === cal2ColorSet) {
+        //                     button.classList.add('selected');
+        //                 } else {
+        //                     button.classList.remove('selected');
+        //                 }
+        //             });
+        //         }
+        //     }
+
+        //     synchronizeSettings();
+
+        //     toggleSwitchCal2.addEventListener('change', () => {
+        //         const isChecked = toggleSwitchCal2.checked;
+        //         localStorage.setItem('showCal2', isChecked);
+        //         ipcRenderer.send('cal2-status', { status: isChecked });
+
+        //         if (isChecked) {
+        //             synchronizeSettings();
+        //         } else {
+        //             sizeSliderCal2.value = 50;
+        //             sliderValueCal2.innerText = 50;
+        //             document.body.className = '';
+        //             document.querySelectorAll('.cal2-color-button').forEach(button => {
+        //                 button.classList.remove('selected');
+        //             });
+        //         }
+        //     });
+
+        //     sizeSliderCal2.addEventListener('input', () => {
+        //         const newSize = sizeSliderCal2.value;
+        //         sliderValueCal2.innerText = newSize;
+        //         ipcRenderer.send('adjust-cal2-size', { size: newSize });
+        //         localStorage.setItem('cal2Size', newSize);
+        //     });
+
+        //     document.querySelectorAll('.cal2-color-button').forEach(button => {
+        //         button.addEventListener('click', () => {
+        //             const colorSet = button.getAttribute('data-color-set');
+        //             localStorage.setItem('cal2ColorSet', colorSet);
+        //             ipcRenderer.send('change-cal2-color', colorSet);
+        //             document.body.className = colorSet;
+        //             document.querySelectorAll('.cal2-color-button').forEach(btn => {
+        //                 if (btn.getAttribute('data-color-set') === colorSet) {
+        //                     btn.classList.add('selected');
+        //                 } else {
+        //                     btn.classList.remove('selected');
+        //                 }
         //             });
         //         });
+        //     });
 
-        //         // Event listener for the size slider
-        //         document.getElementById('sizeSlider2').addEventListener('input', () => {
-        //             const newSize = document.getElementById('sizeSlider2').value;
-        //             console.log(`Size slider moved. New size: ${newSize}`);
-        //             document.getElementById('sliderValue').innerText = newSize;
-        //             ipcRenderer.send('adjust-cal2-size', { id: 'cal2-display', size: newSize });
-        //         });
+        //     window.addEventListener('storage', synchronizeSettings);
+        // });
+
+        // document.getElementById('auth-button').addEventListener('click', () => {
+        //     window.open('http://localhost:3000/auth', '_blank');
+        //     const authButton = document.getElementById('auth-button');
+        //     const buttonText = authButton.innerText;
+        //     if (buttonText === 'Link to Google Account') {
+        //         ipcRenderer.send('auth-google');
         //     } else {
-        //         console.error("Element with ID 'toggleSwitchCal2' not found.");
+        //         ipcRenderer.send('logout-google');
         //     }
         // });
 
+        // ipcRenderer.on('auth-status', (event, status) => {
+        //     const authButton = document.getElementById('auth-button');
+        //     const authStatus = document.getElementById('auth-status');
+
+        //     if (status === 'linked') {
+        //         authButton.innerText = 'Log out';
+        //         authButton.classList.remove('link');
+        //         authButton.classList.add('logout');
+        //     } else {
+        //         authButton.innerText = 'Link to Google Account';
+        //         authButton.classList.remove('logout');
+        //         authButton.classList.add('link');
+        //     }
+        // });
+
+        // ipcRenderer.send('check-auth-status');
+
+
         document.addEventListener('DOMContentLoaded', () => {
             const toggleSwitchCal2 = document.getElementById('toggleSwitchCal2');
+            const sizeSliderCal2 = document.getElementById('sizeSliderCal2');
+            const sliderValueCal2 = document.getElementById('sliderValueCal2');
+            const currentColorSetCal2 = localStorage.getItem('cal2ColorSet') || 'li-grey';
+            const isCal2Open = localStorage.getItem('showCal2') === 'true';
 
-            if (toggleSwitchCal2) {
-                // Function to open the cal2-display window
-                function openCal2Display() {
-                    document.getElementById('sizeSlider2').value = 50;
-                    document.getElementById('sliderValue').innerText = 50;
-                    ipcRenderer.send('open-cal2-display');
+            // Initialize the state of the toggle switch
+            toggleSwitchCal2.checked = isCal2Open;
+
+            // Initialize the size slider and its value display
+            sizeSliderCal2.value = localStorage.getItem('cal2Size') || 50;
+            sliderValueCal2.innerText = sizeSliderCal2.value;
+
+            // Mark the selected color button
+            markSelectedColor('cal2', currentColorSetCal2);
+
+            // Handle toggle switch change
+            toggleSwitchCal2.addEventListener('change', () => {
+                const isChecked = toggleSwitchCal2.checked;
+                localStorage.setItem('showCal2', isChecked);
+                ipcRenderer.send('cal2-status', { status: isChecked });
+
+                if (isChecked) {
+                    // Set default settings when turned on
+                    localStorage.setItem('cal2ColorSet', 'li-grey');
+                    markSelectedColor('cal2', 'li-grey'); // Place color-check on li-grey
+                    sizeSliderCal2.value = 50;
+                    sliderValueCal2.innerText = 50;
+                    localStorage.setItem('cal2Size', 50);
+                    ipcRenderer.send('adjust-cal2-size', { size: 50 });
+                } else {
+                    // Reset settings when turned off
+                    clearSelectedColor('cal2');
+                    sizeSliderCal2.value = 50;
+                    sliderValueCal2.innerText = 50;
+                    ipcRenderer.send('adjust-cal2-size', { size: 50 });
                 }
+            });
 
-                // Function to close the cal2-display window
-                function closeCal2Display() {
-                    document.getElementById('sizeSlider2').value = 50;
-                    document.getElementById('sliderValue').innerText = 50;
-                    ipcRenderer.send('close-cal2-display');
-                }
-
-                // Check the saved state and update the switch
-                const isCal2Open = JSON.parse(localStorage.getItem('isCal2Open'));
-                if (isCal2Open) {
-                    toggleSwitchCal2.checked = true;
-                    openCal2Display();
-                }
-
-                toggleSwitchCal2.addEventListener('click', () => {
-                    console.log(`Toggle switch clicked. Checked: ${toggleSwitchCal2.checked}`);
-                    if (toggleSwitchCal2.checked) {
-                        openCal2Display();
-                    } else {
-                        closeCal2Display();
-                    }
-                    localStorage.setItem('isCal2Open', toggleSwitchCal2.checked);
-                    ipcRenderer.send('cal2-status', { status: toggleSwitchCal2.checked });
-                });
-
-                // Ensure the window state is restored when navigating back to this page
-                window.addEventListener('focus', () => {
-                    const isCal2Open = JSON.parse(localStorage.getItem('isCal2Open'));
-                    if (isCal2Open && !toggleSwitchCal2.checked) {
-                        toggleSwitchCal2.checked = true;
-                        openCal2Display();
-                    }
-                });
-            } else {
-                console.error("Element with ID 'toggleSwitchCal2' not found.");
-            }
-
-            // Event listener for color buttons
-            document.querySelectorAll('.cal-color-button').forEach(button => {
+            // Handle color button click
+            document.querySelectorAll('.cal2-color-button').forEach(button => {
                 button.addEventListener('click', () => {
                     const colorSet = button.getAttribute('data-color-set');
-                    console.log(`Color button clicked. Color set: ${colorSet}`);
+                    localStorage.setItem('cal2ColorSet', colorSet);
                     ipcRenderer.send('change-cal2-color', colorSet);
+                    markSelectedColor('cal2', colorSet);
                 });
             });
 
-            // Event listener for the size slider
+            // Handle size slider input
+            sizeSliderCal2.addEventListener('input', () => {
+                const newSize = sizeSliderCal2.value;
+                sliderValueCal2.innerText = newSize;
+                ipcRenderer.send('adjust-cal2-size', { size: newSize });
+                localStorage.setItem('cal2Size', newSize);
+            });
 
-            const sizeSlider2 = document.getElementById('sizeSlider2');
-            if (sizeSlider2) {
-                sizeSlider2.addEventListener('input', () => {
-                    const newSize = sizeSlider2.value;
-                    console.log(`Size slider moved. New size: ${newSize}`);
-                    document.getElementById('sliderValue').innerText = newSize;
-                    ipcRenderer.send('adjust-cal2-size', { size: newSize });
-                });
-            } else {
-                console.error("Element with ID 'sizeSlider2' not found.");
-            }
+            // Handle authentication button click
+            document.getElementById('auth-button').addEventListener('click', () => {
+                const authButton = document.getElementById('auth-button');
+                const buttonText = authButton.innerText;
+                if (buttonText === 'Link to Google Account') {
+                    ipcRenderer.send('auth-google');
+                } else {
+                    ipcRenderer.send('logout-google');
+                }
+            });
+
+            // Update authentication status
+            ipcRenderer.on('auth-status', (event, status) => {
+                const authButton = document.getElementById('auth-button');
+                const authStatus = document.getElementById('auth-status');
+
+                if (status === 'linked') {
+                    authButton.innerText = 'Log out';
+                    authButton.classList.remove('link');
+                    authButton.classList.add('logout');
+                } else {
+                    authButton.innerText = 'Link to Google Account';
+                    authButton.classList.remove('logout');
+                    authButton.classList.add('link');
+                }
+            });
+
+            // Check authentication status on load
+            ipcRenderer.send('check-auth-status');
         });
 
-
-        // Heart Button State on Load
-        const isHeartClicked = localStorage.getItem('isHeartClicked') === 'true';
-        const heartButton = document.getElementById('heartButton');
-        if (isHeartClicked) {
-            heartButton.style.backgroundImage = "url('../src/heart-orange.png')";
-        } else {
-            heartButton.style.backgroundImage = "url('../src/heart-white.png')";
+        function markSelectedColor(calendarId, colorSet) {
+            document.querySelectorAll(`.${calendarId}-color-button`).forEach(button => {
+                if (button.getAttribute('data-color-set') === colorSet) {
+                    button.classList.add('selected');
+                } else {
+                    button.classList.remove('selected');
+                }
+            });
         }
 
-
-        document.getElementById('heartButton').addEventListener('click', function () {
-            if (this.style.backgroundImage.includes('heart-white.png')) {
-                this.style.backgroundImage = "url('../src/heart-orange.png')";
-                localStorage.setItem('isHeartClicked', 'true');
-            } else {
-                this.style.backgroundImage = "url('../src/heart-white.png')";
-                localStorage.setItem('isHeartClicked', 'false');
-            }
-        });
-
-
-        document.getElementById('auth-button').addEventListener('click', () => {
-            const authButton = document.getElementById('auth-button');
-            const buttonText = authButton.innerText;
-            if (buttonText === 'Link to Google Account') {
-                ipcRenderer.send('auth-google');
-            } else {
-                ipcRenderer.send('logout-google');
-            }
-        });
-
-
-        ipcRenderer.on('auth-status', (event, status) => {
-            const authButton = document.getElementById('auth-button');
-            const authStatus = document.getElementById('auth-status');
-
-            if (status === 'linked') {
-                authButton.innerText = 'Log out';
-                authButton.classList.remove('link');
-                authButton.classList.add('logout');
-            } else {
-                authButton.innerText = 'Link to Google Account';
-                authButton.classList.remove('logout');
-                authButton.classList.add('link');
-            }
-        });
-        // Check authentication status on load
-        ipcRenderer.send('check-auth-status');
-
+        function clearSelectedColor(calendarId) {
+            document.querySelectorAll(`.${calendarId}-color-button`).forEach(button => {
+                button.classList.remove('selected');
+            });
+        }
 
     </script>
 </body>
