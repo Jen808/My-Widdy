@@ -1,0 +1,700 @@
+body.li-pink,
+.li-pink .todo-edit {
+    background-color: #FFF7F9;
+}
+
+.li-pink .task.done .mark-done {
+    border: 0.0625rem solid #FFCFD7;
+}
+
+
+.li-pink .task.done .mark-done::after {
+    background-color: #FFCFD7;
+}
+
+.li-pink .task.done .task-content .title,
+.li-pink .task.done .task-content .notes,
+.li-pink .task.done .task-content .due {
+    color: #FFCFD7;
+}
+
+
+.li-pink .date,
+.li-pink .task {
+    color:  #FF7E96;
+}
+
+.li-pink .todo-edit,
+.li-pink .task .mark-done {
+    border: 0.0625rem solid #FF7E96;
+}
+
+/* 
+.li-pink .notes {
+    color: #CC2A49;
+} */
+
+
+.li-pink .todo-edit {
+    background-image: url('../src/todo/todo-edit-pink.png');
+}
+
+.li-pink #prev-day,
+.li-pink #next-day {
+    background-image: url('../src/todo/todo-pink-l.png');
+}
+
+
+
+
+
+
+
+body.li-orange,
+.li-orange .todo-edit {
+    background-color: #FFFAF7;
+}
+
+.li-orange .task.done .mark-done {
+    border: 0.0625rem solid #FFD0AE;
+}
+
+
+.li-orange .task.done .mark-done::after {
+    background-color: #FFD0AE;
+}
+
+.li-orange .task.done .task-content .title,
+.li-orange .task.done .task-content .notes,
+.li-orange .task.done .task-content .due {
+    color: #FFD0AE;
+}
+
+.li-orange .date, 
+.li-orange .task {
+    color:  #FF8D3A;
+}
+
+.li-orange .todo-edit,
+.li-orange .task .mark-done {
+    border: 0.0625rem solid #FF8D3A;
+}
+
+
+/* .li-orange .notes {
+    color: #FF6C00;
+} */
+
+
+.li-orange .todo-edit {
+    background-image: url('../src/todo/todo-edit-orange.png');
+}
+
+.li-orange #prev-day,
+.li-orange #next-day {
+    background-image: url('../src/todo/todo-orange-l.png');
+}
+
+
+
+
+
+
+body.li-green,
+.li-green .todo-edit {
+    background-color: #F5FFFA;
+}
+
+.li-green .task.done .mark-done {
+    border: 0.0625rem solid #96D5B3;
+}
+
+
+.li-green .task.done .mark-done::after {
+    background-color: #96D5B3;
+}
+
+.li-green .task.done .task-content .title,
+.li-green .task.done .task-content .notes,
+.li-green .task.done .task-content .due {
+    color: #96D5B3;
+}
+
+.li-green .date, 
+.li-green .task {
+    color:  #269C5C;
+}
+
+.li-green .todo-edit,
+.li-green .task .mark-done {
+    border: 0.0625rem solid #269C5C;
+} 
+
+/* 
+.li-green .notes {
+    color: #006F33;
+} */
+
+
+.li-green .todo-edit {
+    background-image: url('../src/todo/todo-edit-green.png');
+}
+
+.li-green #prev-day,
+.li-green #next-day {
+    background-image: url('../src/todo/todo-green-l.png');
+}
+
+
+
+
+
+body.li-mint,
+.li-mint .todo-edit {
+    background-color: #F7FFFF;
+}
+
+.li-mint .task.done .mark-done {
+    border: 0.0625rem solid #A8D9D9;
+}
+
+
+.li-mint .task.done .mark-done::after {
+    background-color: #A8D9D9;
+}
+
+.li-mint .task.done .task-content .title,
+.li-mint .task.done .task-content .notes,
+.li-mint .task.done .task-content .due {
+    color: #A8D9D9;
+}
+
+.li-mint .date, 
+.li-mint .task {
+    color:  #22A5A5;
+}
+
+.li-mint .todo-edit,
+.li-mint .task .mark-done {
+    border: 0.0625rem solid #22A5A5;
+}
+
+/* .li-mint .notes {
+    color: #006464;
+} */
+
+
+
+.li-mint .todo-edit {
+    background-image: url('../src/todo/todo-edit-mint.png');
+}
+
+.li-mint #prev-day,
+.li-mint #next-day {
+    background-image: url('../src/todo/todo-mint-l.png');
+} 
+
+
+
+
+
+
+
+
+body.li-blue,
+.li-blue .todo-edit {
+    background-color: #F4FAFF;
+}
+
+.li-blue .task.done .mark-done {
+    border: 0.0625rem solid #B5DCFF;
+}
+
+
+.li-blue .task.done .mark-done::after {
+    background-color: #B5DCFF;
+}
+
+.li-blue .task.done .task-content .title,
+.li-blue .task.done .task-content .notes,
+.li-blue .task.done .task-content .due {
+    color: #B5DCFF;
+}
+
+.li-blue .date, 
+.li-blue .task {
+    color:  #52A2EB; 
+}
+
+.li-blue .todo-edit,
+.li-blue .task .mark-done {
+    border: 0.0625rem solid #52A2EB;
+}
+
+/* .li-blue .notes {
+    color: #0064C0;
+} */
+
+
+.li-blue .todo-edit {
+    background-image: url('../src/todo/todo-edit-blue.png');
+}
+
+.li-blue #prev-day,
+.li-blue #next-day {
+    background-image: url('../src/todo/todo-blue-l.png');
+} 
+
+
+
+
+
+body.li-purple,
+.li-purple .todo-edit {
+    background-color: #FDFAFF;
+}
+
+.li-purple .task.done .mark-done {
+    border: 0.0625rem solid #E7B3FF;
+}
+
+
+.li-purple .task.done .mark-done::after {
+    background-color: #E7B3FF;
+}
+
+.li-purple .task.done .task-content .title,
+.li-purple .task.done .task-content .notes,
+.li-purple .task.done .task-content .due {
+    color: #E7B3FF;
+}
+
+.li-purple .date, 
+.li-purple .task {
+    color:  #7C0CB0; 
+}
+
+.li-purple .todo-edit,
+.li-purple .task .mark-done {
+    border: 0.0625rem solid #7C0CB0;
+}
+
+/* .li-purple .notes {
+    color: #440065;
+} */
+
+
+.li-purple .todo-edit {
+    background-image: url('../src/todo/todo-edit-purple.png');
+}
+
+.li-purple #prev-day,
+.li-purple #next-day {
+    background-image: url('../src/todo/todo-purple-l.png');
+} 
+
+
+
+
+
+.cmyk .title {
+    color: #0085FF;
+}
+
+
+
+body.grey,
+.grey .todo-edit {
+    background-color: #505050;
+}
+
+
+.grey .task.done .mark-done {
+    border: 0.0625rem solid #A3A3A3;
+}
+
+
+.grey .task.done .mark-done::after {
+    background-color: #A3A3A3;
+}
+
+.grey .task.done .task-content .title,
+.grey .task.done .task-content .notes,
+.grey .task.done .task-content .due {
+    color: #A3A3A3;
+}
+
+.grey .date, 
+.grey .task {
+    color:  white; 
+}
+
+.grey .todo-edit,
+.grey .task .mark-done {
+    border: 0.0625rem solid white;
+}
+
+.grey .todo-edit {
+    background-image: url('../src/todo/todo-edit-white.png');
+}
+
+.grey #prev-day,
+.grey #next-day {
+    background-image: url('../src/todo/todo-white-l.png');
+} 
+
+
+
+
+
+
+body.black,
+.black .todo-edit {
+    background-color: black;
+} 
+
+
+.black .task.done .mark-done {
+    border: 0.0625rem solid #626262;
+}
+
+
+.black .task.done .mark-done::after {
+    background-color: #626262;
+}
+
+.black .task.done .task-content .title,
+.black .task.done .task-content .notes,
+.black .task.done .task-content .due {
+    color: #626262;
+}
+
+.black .date, 
+.black .task {
+    color:  white; 
+}
+
+.black .todo-edit,
+.black .task .mark-done {
+    border: 0.0625rem solid white;
+}
+
+.black .todo-edit {
+    background-image: url('../src/todo/todo-edit-white.png');
+}
+
+.black #prev-day,
+.black #next-day {
+    background-image: url('../src/todo/todo-white-l.png');
+} 
+
+
+
+
+
+
+
+
+
+
+
+body.pink,
+.pink .todo-edit {
+    background-color: #2F2A2B;
+}
+
+
+.pink .task.done .mark-done {
+    border: 0.0625rem solid #6A585B;
+}
+
+
+.pink .task.done .mark-done::after {
+    background-color: #6A585B;
+}
+
+.pink .task.done .task-content .title,
+.pink .task.done .task-content .notes,
+.pink .task.done .task-content .due {
+    color: #6A585B;
+}
+
+.pink .date, 
+.pink .task {
+    color:  #FF7E96; 
+}
+
+.pink .todo-edit,
+.pink .task .mark-done {
+    border: 0.0625rem solid #FF7E96;
+}
+
+/* .pink .notes {
+    color: #FFCFD7;
+} */
+
+.pink .todo-edit {
+    background-image: url('../src/todo/todo-edit-pink.png');
+}
+
+.pink #prev-day,
+.pink #next-day {
+    background-image: url('../src/todo/todo-pink-l.png');
+} 
+
+
+
+
+
+body.orange,
+.orange .todo-edit {
+    background-color: #2B2927;
+}
+
+
+.orange .task.done .mark-done {
+    border: 0.0625rem solid #5B524B;
+}
+
+
+.orange .task.done .mark-done::after {
+    background-color: #5B524B;
+}
+
+.orange .task.done .task-content .title,
+.orange .task.done .task-content .notes,
+.orange .task.done .task-content .due {
+    color: #5B524B;
+}
+
+.orange .date, 
+.orange .task {
+    color:  #FF6C00 ; 
+}
+
+.orange .todo-edit,
+.orange .task .mark-done {
+    border: 0.0625rem solid #FF6C00 ;
+}
+
+/* .orange .notes {
+    color: #FFD0AE;
+} */
+
+.orange .todo-edit {
+    background-image: url('../src/todo/todo-edit-orange.png');
+}
+
+.orange #prev-day,
+.orange #next-day {
+    background-image: url('../src/todo/todo-orange-l.png');
+} 
+
+
+
+
+
+
+
+body.green,
+.green .todo-edit {
+    background-color: #212523;
+}
+
+
+.green .task.done .mark-done {
+    border: 0.0625rem solid #475A4E;
+}
+
+
+.green .task.done .mark-done::after {
+    background-color: #475A4E;
+}
+
+.green .task.done .task-content .title,
+.green .task.done .task-content .notes,
+.green .task.done .task-content .due {
+    color: #475A4E;
+}
+
+.green .date, 
+.green .task {
+    color:  #269C5C ; 
+}
+
+.green .todo-edit,
+.green .task .mark-done {
+    border: 0.0625rem solid #269C5C ;
+}
+
+/* .green .notes {
+    color: #96D5B3;
+} */
+
+.green .todo-edit {
+    background-image: url('../src/todo/todo-edit-green.png');
+}
+
+.green #prev-day,
+.green #next-day {
+    background-image: url('../src/todo/todo-green-l.png');
+} 
+
+
+
+
+
+
+
+
+
+
+
+body.mint,
+.mint .todo-edit {
+    background-color: #232727;
+}
+
+
+.mint .task.done .mark-done {
+    border: 0.0625rem solid #495A5A;
+}
+
+
+.mint .task.done .mark-done::after {
+    background-color: #495A5A;
+}
+
+.mint .task.done .task-content .title,
+.mint .task.done .task-content .notes,
+.mint .task.done .task-content .due {
+    color: #495A5A; 
+}
+
+.mint .date, 
+.mint .task {
+    color:  #22A5A5; 
+}
+
+.mint .todo-edit,
+.mint .task .mark-done {
+    border: 0.0625rem solid #22A5A5;
+}
+
+/* .mint .notes {
+    color: #A8D9D9;
+} */
+
+.mint .todo-edit {
+    background-image: url('../src/todo/todo-edit-mint.png');
+}
+
+.mint #prev-day,
+.mint #next-day {
+    background-image: url('../src/todo/todo-mint-l.png');
+} 
+
+
+
+
+
+
+
+body.blue,
+.blue .todo-edit {
+    background-color: #24292E;
+}
+
+
+.blue .task.done .mark-done {
+    border: 0.0625rem solid #515D69;
+}
+
+
+.blue .task.done .mark-done::after {
+    background-color: #515D69;
+}
+
+.blue .task.done .task-content .title,
+.blue .task.done .task-content .notes,
+.blue .task.done .task-content .due {
+    color: #515D69; 
+}
+
+.blue .date, 
+.blue .task {
+    color:  #63B4FF; 
+}
+
+.blue .todo-edit,
+.blue .task .mark-done {
+    border: 0.0625rem solid #63B4FF;
+}
+
+/* 
+.blue .notes {
+    color: #B5DCFF;
+} */
+
+.blue .todo-edit {
+    background-image: url('../src/todo/todo-edit-blue.png');
+}
+
+.blue #prev-day,
+.blue #next-day {
+    background-image: url('../src/todo/todo-blue-l.png');
+} 
+
+
+
+
+
+
+
+body.purple,
+.purple .todo-edit {
+    background-color: #252327;
+}
+
+
+.purple .task.done .mark-done {
+    border: 0.0625rem solid #605265;
+}
+
+
+.purple .task.done .mark-done::after {
+    background-color: #605265;
+}
+
+.purple .task.done .task-content .title,
+.purple .task.done .task-content .notes,
+.purple .task.done .task-content .due {
+    color: #605265; 
+}
+ 
+.purple .date, 
+.purple .task {
+    color:  #A568C1; 
+}
+
+.purple .todo-edit,
+.purple .task .mark-done {
+    border: 0.0625rem solid #A568C1;
+}
+/* 
+.purple .notes {
+    color: #E7B3FF;
+} */
+
+.purple .todo-edit {
+    background-image: url('../src/todo/todo-edit-purple-l.png');
+}
+
+.purple #prev-day,
+.purple #next-day {
+    background-image: url('../src/todo/todo-purple-ll.png');
+} 
+
+
+
+

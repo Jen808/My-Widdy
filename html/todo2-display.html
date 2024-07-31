@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Display Tasks</title>
     <!-- <link rel="stylesheet" href="../css/style3.css"> -->
-    <link rel="stylesheet" href="../css/todo_1.css">
-    <link rel="stylesheet" href="../css/todo_color.css">
+    <link rel="stylesheet" href="../css/todo_2.css">
+    <link rel="stylesheet" href="../css/todo2_color.css">
 
 
 
@@ -95,7 +95,7 @@
             }
         }
 
-        ipcRenderer.on('resize-todo1', (event, { newWidth, newHeight }) => {
+        ipcRenderer.on('resize-todo2', (event, { newWidth, newHeight }) => {
             resizeTodo({ newWidth, newHeight });
         });
 
@@ -152,7 +152,7 @@
             });
         });
 
-        ipcRenderer.on('change-todo1-color', (event, colorSet) => {
+        ipcRenderer.on('change-todo2-color', (event, colorSet) => {
             document.body.className = colorSet;
         });
 

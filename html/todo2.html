@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calendar: Default</title>
+    <link rel="stylesheet" href="../css/cal-color.css">
+    <link rel="stylesheet" href="../css/my-widdy.css">
+
+
+    <style>
+        .toDoList-page {
+            background-color: #404040;
+        }
+
+        #toDoList-page {
+            color: #FF8D3A;
+            font-weight: bold;
+        }
+
+        .cal1-image {
+            width: 30rem;
+            height: 15.125rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <!-- <a href="#" target="_blank"> -->
+            <img src="../src/logo.png" alt="Logo Image" class="logo-image">
+            </a>
+            <a href="#" id="logo-word">Widdy</a>
+        </div>
+        <div class="sidebar-menu">
+            <nav>
+                <ul>
+                    <li class="myWiddy-page"><a href="#" id="myWiddy-page">My Widdy</a></li>
+                    <li class="clock-page"><a href="#" id="clock-page">Clock</a></li>
+                    <li class="calendar-page"><a href="#" id="calendar-page">Calendar</a></li>
+                    <li class="toDoList-page"><a href="#" id="toDoList-page">To Do List</a></li>
+                    <li class="weather-page"><a href="#" id="weather-page">Weather</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="head-container">
+            <img src="../src/go-back-button.png" alt="Go Back" class="back-button">
+            <div class="name">
+                <a>Calendar: Default</a>
+            </div>
+        </div>
+        <div class="main-container">
+
+            <img src="../src/calendar/cal1.png" alt="Calendar Image" class="cal1-image">
+
+            <div class="setting">
+
+                <div class="switch-container">
+                    <a class="off">Off</a>
+                    <label class="switch">
+                        <input type="checkbox" id="toggleSwitchTodo2">
+                        <span class="slider"></span>
+                    </label>
+                    <a class="on">On</a>
+                </div>
+
+                <div class="color-setting">
+                    <div class="color-header">Colors</div>
+                    <div class="color-tiles">
+                        <div class="color-buttons-white">
+                            <button class="todo2-color-button" data-color-set="white">
+                                <img src="../src/calendar/cal1-white.png" alt="white" width="30px" height="30px">
+                            </button>
+                            <button class="todo2-color-button" data-color-set="cmyk">
+                                <img src="../src/calendar/cal1-cmyk.png" alt="cmyk" width="30px" height="30px">
+                            </button>
+                            <button class="todo2-color-button" data-color-set="li-pink">
+                                <img src="../src/calendar/cal1-li-pink.png" alt="li-pink" width="30px" height="30px">
+                            </button>
+                            <button class="todo2-color-button" data-color-set="li-orange">
+                                <img src="../src/calendar/cal1-li-orange.png" alt="li-orange" width="30px"
+                                    height="30px">
+                            </button>
+                            <button class="todo2-color-button" data-color-set="li-green">
+                                <img src="../src/calendar/cal1-li-green.png" alt="li-green" width="30px" height="30px">
+                            </button>
+                            <button class="todo2-color-button" data-color-set="li-mint">
+                                <img src="../src/calendar/cal1-li-mint.png" alt="li-mint" width="30px" height="30px">
+                            </button>
+                            <button class="todo2-color-button" data-color-set="li-blue">
+                                <img src="../src/calendar/cal1-li-blue.png" alt="li-blue" width="30px" height="30px">
+                            </button>
+                            <button class="todo2-color-button" data-color-set="li-purple">
+                                <img src="../src/calendar/cal1-li-purple.png" alt="li-purple" width="30px"
+                                    height="30px">
+                            </button>
+                        </div>
+                        <div class="color-buttons-black">
+                            <button class="todo2-color-button" data-color-set="black">
+                                <img src="../src/calendar/cal1-black.png" alt="Black" width="30px" height="30px">
+                            </button>
+                            <button class="todo2-color-button" data-color-set="grey">
+                                <img src="../src/calendar/cal1-grey.png" alt="grey" width="30px" height="30px">
+                            </button>
+                            <button class="todo2-color-button" data-color-set="pink">
+                                <img src="../src/calendar/cal1-pink.png" alt="pink" width="30px" height="30px">
+                            </button>
+                            <button class="todo2-color-button" data-color-set="orange">
+                                <img src="../src/calendar/cal1-orange.png" alt="orange" width="30px" height="30px">
+                            </button>
+                            <button class="todo2-color-button" data-color-set="green">
+                                <img src="../src/calendar/cal1-green.png" alt="green" width="30px" height="30px">
+                            </button>
+                            <button class="todo2-color-button" data-color-set="mint">
+                                <img src="../src/calendar/cal1-mint.png" alt="mint" width="30px" height="30px">
+                            </button>
+                            <button class="todo2-color-button" data-color-set="blue">
+                                <img src="../src/calendar/cal1-blue.png" alt="blue" width="30px" height="30px">
+                            </button>
+                            <button class="todo2-color-button" data-color-set="purple">
+                                <img src="../src/calendar/cal1-purple.png" alt="purple" width="30px" height="30px">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="todo2-size-setting">
+                    <div class="sizeheader">Size</div>
+                    <div class="slider-container11">
+                        <input type="range" id="sizeSliderTodo2" min="1" max="100" value="50" class="custom-slider">
+                        <span id="sliderValueTodo2">50</span>
+                    </div>
+                </div>
+                <button id="auth-button" class="link">Link to Google Account</button>
+                <div id="auth-status"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const { ipcRenderer } = require('electron');
+
+
+        document.getElementById('myWiddy-page').addEventListener('click', () => {
+            window.location.href = 'my-widdy.html';
+        });
+
+        document.getElementById('logo-word').addEventListener('click', () => {
+            window.location.href = 'my-widdy.html';
+        });
+
+        document.querySelector('.logo-image').addEventListener('click', (event) => {
+            event.preventDefault();
+            window.location.href = 'my-widdy.html';
+        });
+
+        document.querySelector('.back-button').addEventListener('click', () => {
+            window.history.back();
+        });
+
+        document.getElementById('clock-page').addEventListener('click', () => {
+            window.location.href = 'clock.html';
+        });
+
+        document.getElementById('calendar-page').addEventListener('click', () => {
+            window.location.href = 'calendar.html';
+        });
+
+        document.getElementById('toDoList-page').addEventListener('click', () => {
+            window.location.href = 'toDoList.html';
+        });
+
+        document.getElementById('weather-page').addEventListener('click', () => {
+            window.location.href = 'weather.html';
+        });
+
+
+
+
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     const toggleSwitchTodo2 = document.getElementById('toggleSwitchTodo2');
+        //     const sizeSliderTodo2 = document.getElementById('sizeSliderTodo2');
+        //     const sliderValueTodo2 = document.getElementById('sliderValueTodo2');
+
+
+        //     function synchronizeSettings() {
+        //         const isTodo2Open = localStorage.getItem('showTodo2') === 'true';
+        //         toggleSwitchTodo2.checked = isTodo2Open;
+
+        //         if (isTodo2Open) {
+        //             const cal1Size = localStorage.getItem('cal1Size') || 50;
+        //             sizeSliderTodo2.value = cal1Size;
+        //             sliderValueTodo2.innerText = cal1Size;
+        //             const cal1ColorSet = localStorage.getItem('cal1ColorSet') || 'li-grey';
+        //             document.body.className = cal1ColorSet;
+        //             document.querySelectorAll('.cal1-color-button').forEach(button => {
+        //                 if (button.getAttribute('data-color-set') === cal1ColorSet) {
+        //                     button.classList.add('selected');
+        //                 } else {
+        //                     button.classList.remove('selected');
+        //                 }
+        //             });
+        //         }
+        //     }
+
+        //     synchronizeSettings();
+
+        //     toggleSwitchTodo2.addEventListener('change', () => {
+        //         const isChecked = toggleSwitchTodo2.checked;
+        //         localStorage.setItem('showTodo2', isChecked);
+        //         ipcRenderer.send('cal1-status', { status: isChecked });
+
+        //         if (isChecked) {
+        //             synchronizeSettings();
+        //         } else {
+        //             sizeSliderTodo2.value = 50;
+        //             sliderValueTodo2.innerText = 50;
+        //             document.body.className = '';
+        //             document.querySelectorAll('.cal1-color-button').forEach(button => {
+        //                 button.classList.remove('selected');
+        //             });
+        //         }
+        //     });
+
+        //     sizeSliderTodo2.addEventListener('input', () => {
+        //         const newSize = sizeSliderTodo2.value;
+        //         sliderValueTodo2.innerText = newSize;
+        //         ipcRenderer.send('adjust-cal1-size', { size: newSize });
+        //         localStorage.setItem('cal1Size', newSize);
+        //     });
+
+        //     document.querySelectorAll('.cal1-color-button').forEach(button => {
+        //         button.addEventListener('click', () => {
+        //             const colorSet = button.getAttribute('data-color-set');
+        //             localStorage.setItem('cal1ColorSet', colorSet);
+        //             ipcRenderer.send('change-cal1-color', colorSet);
+        //             document.body.className = colorSet;
+        //             document.querySelectorAll('.cal1-color-button').forEach(btn => {
+        //                 if (btn.getAttribute('data-color-set') === colorSet) {
+        //                     btn.classList.add('selected');
+        //                 } else {
+        //                     btn.classList.remove('selected');
+        //                 }
+        //             });
+        //         });
+        //     });
+
+        //     window.addEventListener('storage', synchronizeSettings);
+        // });
+
+        // document.getElementById('auth-button').addEventListener('click', () => {
+        //     window.open('http://localhost:3000/auth', '_blank');
+        //     const authButton = document.getElementById('auth-button');
+        //     const buttonText = authButton.innerText;
+        //     if (buttonText === 'Link to Google Account') {
+        //         ipcRenderer.send('auth-google');
+        //     } else {
+        //         ipcRenderer.send('logout-google');
+        //     }
+        // });
+
+        // ipcRenderer.on('auth-status', (event, status) => {
+        //     const authButton = document.getElementById('auth-button');
+        //     const authStatus = document.getElementById('auth-status');
+
+        //     if (status === 'linked') {
+        //         authButton.innerText = 'Log out';
+        //         authButton.classList.remove('link');
+        //         authButton.classList.add('logout');
+        //     } else {
+        //         authButton.innerText = 'Link to Google Account';
+        //         authButton.classList.remove('logout');
+        //         authButton.classList.add('link');
+        //     }
+        // });
+
+        // ipcRenderer.send('check-auth-status');
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleSwitchTodo2 = document.getElementById('toggleSwitchTodo2');
+            const sizeSliderTodo2 = document.getElementById('sizeSliderTodo2');
+            const sliderValueTodo2 = document.getElementById('sliderValueTodo2');
+            const currentColorSetTodo2 = localStorage.getItem('todo2ColorSet') || 'li-grey';
+            const isTodo2Open = localStorage.getItem('showTodo2') === 'true';
+
+            // Initialize the state of the toggle switch
+            toggleSwitchTodo2.checked = isTodo2Open;
+
+            // Initialize the size slider and its value display
+            sizeSliderTodo2.value = localStorage.getItem('todo2Size') || 50;
+            sliderValueTodo2.innerText = sizeSliderTodo2.value;
+
+            // Mark the selected color button
+            markSelectedColor('todo2', currentColorSetTodo2);
+
+            // Handle toggle switch change
+            toggleSwitchTodo2.addEventListener('change', () => {
+                const isChecked = toggleSwitchTodo2.checked;
+                localStorage.setItem('showTodo2', isChecked);
+                ipcRenderer.send('todo2-status', { status: isChecked });
+
+                if (isChecked) {
+                    // Set default settings when turned on
+                    localStorage.setItem('todo2ColorSet', 'li-grey');
+                    markSelectedColor('todo2', 'li-grey'); // Place color-check on li-grey
+                    sizeSliderTodo2.value = 50;
+                    sliderValueTodo2.innerText = 50;
+                    localStorage.setItem('todo2Size', 50);
+                    ipcRenderer.send('adjust-todo2-size', { size: 50 });
+                } else {
+                    // Reset settings when turned off
+                    clearSelectedColor('todo2');
+                    sizeSliderTodo2.value = 50;
+                    sliderValueTodo2.innerText = 50;
+                    ipcRenderer.send('adjust-todo2-size', { size: 50 });
+                }
+            });
+
+            // Handle color button click
+            document.querySelectorAll('.todo2-color-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const colorSet = button.getAttribute('data-color-set');
+                    localStorage.setItem('todo2ColorSet', colorSet);
+                    ipcRenderer.send('change-todo2-color', colorSet);
+                    markSelectedColor('todo2', colorSet);
+                });
+            });
+
+            // Handle size slider input
+            sizeSliderTodo2.addEventListener('input', () => {
+                const newSize = sizeSliderTodo2.value;
+                sliderValueTodo2.innerText = newSize;
+                ipcRenderer.send('adjust-todo2-size', { size: newSize });
+                localStorage.setItem('todo2Size', newSize);
+            });
+
+            // Handle authentication button click
+            document.getElementById('auth-button').addEventListener('click', () => {
+                const authButton = document.getElementById('auth-button');
+                const buttonText = authButton.innerText;
+                if (buttonText === 'Link to Google Account') {
+                    ipcRenderer.send('auth-google');
+                } else {
+                    ipcRenderer.send('logout-google');
+                }
+            });
+
+            // Update authentication status
+            ipcRenderer.on('auth-status', (event, status) => {
+                const authButton = document.getElementById('auth-button');
+                const authStatus = document.getElementById('auth-status');
+
+                if (status === 'linked') {
+                    authButton.innerText = 'Log out';
+                    authButton.classList.remove('link');
+                    authButton.classList.add('logout');
+                } else {
+                    authButton.innerText = 'Link to Google Account';
+                    authButton.classList.remove('logout');
+                    authButton.classList.add('link');
+                }
+            });
+
+            // Check authentication status on load
+            ipcRenderer.send('check-auth-status');
+        });
+
+        function markSelectedColor(calendarId, colorSet) {
+            document.querySelectorAll(`.${calendarId}-color-button`).forEach(button => {
+                if (button.getAttribute('data-color-set') === colorSet) {
+                    button.classList.add('selected');
+                } else {
+                    button.classList.remove('selected');
+                }
+            });
+        }
+
+        function clearSelectedColor(calendarId) {
+            document.querySelectorAll(`.${calendarId}-color-button`).forEach(button => {
+                button.classList.remove('selected');
+            });
+        }
+
+    </script>
+</body>
+
+</html>
