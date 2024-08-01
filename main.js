@@ -1021,7 +1021,6 @@ ipcMain.on('adjust-todo3-size', (event, { size }) => {
 
 
 
-
 ipcMain.on('change-clock1-color', (event, colorSet) => {
   if (displayWindows['clock1-display']) {
     console.log(`Changing clock color to: ${colorSet}`);
