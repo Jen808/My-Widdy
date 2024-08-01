@@ -9,11 +9,8 @@
 
 .todoheader {
     height: 3.2rem;
-
     border-top-left-radius: 1.0625rem;
     border-top-right-radius: 1.0625rem;
-
-
     background-color: #D9D9D9;
 }
 
@@ -23,12 +20,537 @@
 }
 
 
-.task .mark-done {
-    width: 0.625rem;
-    height: 0.625rem;
-    fill: #A0A0A0;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-right: 1rem;
-    position: relative;
-  }
+
+
+
+.li-pink .notes,
+.li-pink .date,
+.li-orange .notes,
+.li-orange .date,
+.li-green .notes,
+.li-green .date,
+.li-mint .notes,
+.li-mint .date,
+.li-blue .notes,
+.li-blue .date,
+.li-purple .notes,
+.li-purple .date {
+    color: #4F4F4F;
+}
+
+
+.li-pink .todoheader,
+.li-pink .todo-edit  {
+    background-color: #FFE6EA;
+}
+
+
+.li-pink .task .mark-done {
+    background-color: #FF7E96;
+}
+
+
+.li-pink .task.done .mark-done {
+    background-color: #FFE6EA;
+    box-sizing: border-box;
+    border: 2px solid #FFE6EA;  
+}
+
+
+.li-pink .todo-edit {
+    background-image: url('../src/todo/todo-edit-pink.png');
+}
+
+
+
+
+
+
+.li-orange .todoheader,
+.li-orange .todo-edit {
+    background-color: #FFE6D3;
+}
+
+
+.li-orange .task .mark-done {
+    background-color: #FF8D3A;
+}
+
+
+.li-orange .task.done .mark-done {
+    background-color: #FFE6D3;
+    box-sizing: border-box;
+    border: 2px solid #FFE6D3;  
+}
+
+
+.li-orange .todo-edit {
+    background-image: url('../src/todo/todo-edit-orange.png');
+}
+
+
+
+
+
+
+
+
+.li-green .todoheader,
+.li-green .todo-edit  {
+    background-color: #DFF3E8;
+}
+
+
+.li-green .task .mark-done {
+    background-color: #269C5C;
+}
+
+
+.li-green .task.done .mark-done {
+    background-color: #DFF3E8;
+    box-sizing: border-box;
+    border: 2px solid #DFF3E8;  
+}
+
+
+
+.li-green .todo-edit {
+    background-image: url('../src/todo/todo-edit-green.png');
+}
+
+
+
+
+
+
+.li-mint .todoheader,
+.li-mint .todo-edit {
+    background-color: #DCF2F2;
+}
+
+
+.li-mint .task .mark-done {
+    background-color: #22A5A5;
+}
+
+
+.li-mint .task.done .mark-done {
+    background-color: #DCF2F2;
+    box-sizing: border-box;
+    border: 2px solid #DCF2F2;  
+}
+
+
+.li-mint .todo-edit {
+    background-image: url('../src/todo/todo-edit-mint.png');
+}
+
+
+
+
+
+.li-blue .todoheader,
+.li-blue .todo-edit {
+    background-color: #DDEFFF;
+}
+
+
+.li-blue .task .mark-done {
+    background-color: #63B4FF;
+}
+
+
+.li-blue .task.done .mark-done {
+    background-color: #DDEFFF;
+    box-sizing: border-box;
+    border: 2px solid #DDEFFF;  
+}
+
+
+.li-blue .todo-edit {
+    background-image: url('../src/todo/todo-edit-blue.png');
+}
+
+
+
+.li-purple .todoheader,
+.li-purple .todo-edit {
+    background-color: #EEE1F4;
+}
+
+
+.li-purple .task .mark-done {
+    background-color: #7C0CB0;
+}
+
+
+.li-purple .task.done .mark-done {
+    background-color: #EEE1F4;
+    box-sizing: border-box;
+    border: 2px solid #EEE1F4;  
+}
+
+
+.li-purple .todo-edit {
+    background-image: url('../src/todo/todo-edit-purple.png');
+}
+
+
+
+
+
+.black .tasks-container {
+    background-color: black;
+}
+
+.black .todoheader,
+.black .todo-edit {
+    background-color: #191919;
+}
+
+.black .task .mark-done {
+    background-color: white;
+}
+
+.black .task.done .task-content .title,
+.black .task.done .task-content .notes,
+.black .task.done .task-content .due {
+    color: #4C4C4C;
+}
+
+
+
+.black .task.done .mark-done {
+    background-color: black;
+    box-sizing: border-box;
+    border: 2px solid #4C4C4C; 
+}
+
+.black .notes,
+.black .date {
+    color: #A7A7A7;
+}
+
+
+.black .title {
+    color: white;
+}
+
+.black .todo-edit {
+    background-image: url('../src/todo/todo-edit-white.png');
+
+}
+
+.black #prev-day,
+.black #next-day {
+    background-image: url('../src/todo/todo-white-l.png');
+
+}
+
+
+
+
+.grey .tasks-container {
+    background-color: #505050;
+}
+
+.grey .todoheader,
+.grey .todo-edit {
+    background-color: #747474;
+}
+
+.grey .task .mark-done {
+    background-color: #A0A0A0;
+}
+
+.grey .task.done .task-content .title,
+.grey .task.done .task-content .notes,
+.grey .task.done .task-content .due {
+    color: #A0A0A0;
+}
+
+
+
+.grey .task.done .mark-done {
+    background-color: #505050;
+    box-sizing: border-box;
+    border: 2px solid #A0A0A0;
+}
+
+.grey .notes,
+.grey .date,
+.grey .title {
+    color: white;
+}
+
+.grey .todo-edit {
+    background-image: url('../src/todo/todo-edit-white.png');
+
+}
+
+.grey #prev-day,
+.grey #next-day {
+    background-image: url('../src/todo/todo-white-l.png');
+
+}
+
+
+
+.cmyk .task .mark-done {
+    background-color:  #0085FF;
+}
+
+
+
+.cmyk .task.done .mark-done {
+    background-color: transparent;
+    box-sizing: border-box;
+    border: 2px solid #0085FF;
+}
+
+.pink .notes,
+.pink .date,
+.orange .notes,
+.orange .date,
+.green .notes,
+.green .date,
+.mint .notes,
+.mint .date,
+.blue .notes,
+.blue .date,
+.purple .notes,
+.purple .date {
+    color: #D9D9D9;
+}
+
+.pink .title,
+.orange .title,
+.green .title,
+.mint .title,
+.blue .title,
+.purple .title {
+    color: white;
+}
+
+.pink .todo-edit,
+.orange .todo-edit,
+.green .todo-edit,
+.mint .todo-edit,
+.blue .todo-edit,
+.purple .todo-edit {
+    background-image: url('../src/todo/todo-edit-white.png');
+
+}
+
+.pink #prev-day,
+.pink #next-day,
+.orange #prev-day,
+.orange #next-day ,
+.green #prev-day,
+.green #next-day ,
+.mint #prev-day,
+.mint #next-day ,
+.blue #prev-day,
+.blue #next-day ,
+.purple #prev-day,
+.purple #next-day {
+    background-image: url('../src/todo/todo-white-l.png');
+
+}
+
+
+
+
+
+
+
+.pink .tasks-container {
+    background-color: #2F2A2B;
+}
+
+.pink .todoheader,
+.pink .todo-edit {
+    background-color: #6A585B;
+}
+
+.pink .task .mark-done {
+    background-color: #FF7E96;
+}
+
+.pink .task.done .task-content .title,
+.pink .task.done .task-content .notes,
+.pink .task.done .task-content .due {
+    color: #6A585B;
+}
+
+
+
+.pink .task.done .mark-done {
+    background-color: #6A585B;
+    box-sizing: border-box;
+    border: 2px solid #6A585B;
+}
+
+
+
+
+
+
+.orange .tasks-container {
+    background-color: #2B2927;
+}
+
+.orange .todoheader,
+.orange .todo-edit {
+    background-color: #5B524B;
+}
+
+.orange .task .mark-done {
+    background-color:  #FF6C00;
+}
+
+.orange .task.done .task-content .title,
+.orange .task.done .task-content .notes,
+.orange .task.done .task-content .due {
+    color: #5B524B;
+}
+
+
+
+.orange .task.done .mark-done {
+    background-color: #5B524B;
+    box-sizing: border-box;
+    border: 2px solid #5B524B;
+}
+
+
+
+
+
+.green .tasks-container {
+    background-color: #212523;
+}
+
+.green .todoheader,
+.green .todo-edit {
+    background-color: #475A4E;
+}
+
+.green .task .mark-done {
+    background-color:  #68C090;
+}
+
+.green .task.done .task-content .title,
+.green .task.done .task-content .notes,
+.green .task.done .task-content .due {
+    color: #475A4E;
+}
+
+
+
+
+
+.green .task.done .mark-done {
+    background-color: #475A4E;
+    box-sizing: border-box;
+    border: 2px solid #475A4E;
+}
+
+
+
+
+
+.mint .tasks-container {
+    background-color: #232727;
+}
+
+.mint .todoheader,
+.mint .todo-edit {
+    background-color: #495A5A;
+}
+
+.mint .task .mark-done {
+    background-color:  #47CFCF;
+}
+
+.mint .task.done .task-content .title,
+.mint .task.done .task-content .notes,
+.mint .task.done .task-content .due {
+    color: #495A5A;
+}
+
+
+
+.mint .task.done .mark-done {
+    background-color: #495A5A;
+    box-sizing: border-box;
+    border: 2px solid #495A5A;
+}
+
+
+
+
+
+.blue .tasks-container {
+    background-color: #24292E;
+}
+
+.blue .todoheader,
+.blue .todo-edit {
+    background-color: #515D69;
+}
+
+.blue .task .mark-done {
+    background-color:  #63B4FF;
+}
+
+.blue .task.done .task-content .title,
+.blue .task.done .task-content .notes,
+.blue .task.done .task-content .due {
+    color: #515D69;
+}
+
+
+
+.blue .task.done .mark-done {
+    background-color: #515D69;
+    box-sizing: border-box;
+    border: 2px solid #515D69;
+}
+
+
+
+
+
+
+.purple .tasks-container {
+    background-color: #252327;
+}
+
+.purple .todoheader,
+.purple .todo-edit {
+    background-color: #605265;
+}
+
+.purple .task .mark-done {
+    background-color:  #B36AD5;
+}
+
+.purple .task.done .task-content .title,
+.purple .task.done .task-content .notes,
+.purple .task.done .task-content .due {
+    color: #605265;
+}
+
+
+
+.purple .task.done .mark-done {
+    background-color: #605265;
+    box-sizing: border-box;
+    border: 2px solid #605265;
+}
+
+
+
+
+

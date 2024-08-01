@@ -15,14 +15,14 @@
 
 <body>
     <div class="default-set"></div>
-    <div class="tasks-container">
+    <div class="tasks-container" id="iii">
         <div class="todoheader">
             <button id="prev-day"></button>
             <div class="date" id="current-date"></div>
             <button id="next-day"></button>
         </div>
         <div class="todo-list-container">
-            <!-- <div class="mark-done"></div> -->
+            <div class="mark-done"></div>
             <div class="task-list" id="tasks"></div>
         <a href="https://tasksboard.com/app" class="todo-edit" target="_blank"></a>
 
@@ -87,7 +87,7 @@
         function resizeTodo({ newWidth, newHeight }) {
             const calElement = document.getElementById('iii');
             if (calElement) {
-                // const scaleFactor = newWidth / 900; 
+                const scaleFactor = newWidth / 300; 
                 document.documentElement.style.fontSize = `${scaleFactor * 16}px`; // Adjust root font size
                 calElement.style.width = `${newWidth}px`;
                 calElement.style.height = `${newHeight}px`;

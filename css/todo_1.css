@@ -1,98 +1,18 @@
-/* body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    -webkit-app-region: drag;
-  }
-  
-  .tasks-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
-    box-sizing: border-box;
-    
-  }
-  
-  .date {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .task-list {
-    width: 80%;
-    max-width: 600px;
-    background: #fff;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 20px;
-    box-sizing: border-box;
-    -webkit-app-region: no-drag;
-  }
-  
-  .task {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
-  }
-  
-  .task .mark-done {
-    width: 20px;
-    height: 20px;
-    border: 2px solid black;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-  
-  .task .task-content {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .task.done .task-content .title,
-  .task.done .task-content .notes,
-  .task.done .task-content .due {
-    text-decoration: line-through;
-    font-style: italic;
-    color: grey;
-  }
-  
-  .top-right-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 16px;
-  }
-  
-  .navigation-buttons {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    -webkit-app-region: no-drag;
-  }
-  
-  .navigation-buttons button {
-    padding: 10px;
-    margin: 0 5px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    -webkit-app-region: no-drag;
-  } */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manjari:wght@100;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
+
+
+
+
+
+#iii {
+  width: 100%;
+  height: 100%;
+}
+
 
 body {
   font-family: "Inter", sans-serif;
@@ -100,27 +20,29 @@ body {
   margin: 0;
   padding: 0;
   -webkit-app-region: drag;
+  height: 100%;
+  width: 100%;
 }
 
 
 .tasks-container {
-  position: relative;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
+  background-color: yellow;
+  width: 18.75rem;
+  height: 28.125rem;
 
 
 }
 
 .todoheader {
-  width: 100%;
+  width: 18.75rem;
   height: 4.25rem;
+  position:relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  /* margin: 0 2.69rem 0 2.69rem; */
 
 
 
@@ -131,8 +53,7 @@ body {
   font-size: 1rem;
   font-weight: 600;
   color: black;
-  /* padding-right: 2.81rem;
-    padding-left: 2.81rem; */
+
   width: 12rem;
   display: flex;
   text-align: center;
@@ -147,42 +68,50 @@ body {
 
 
 #prev-day {
+  display: flex;
+
   width: 0.625rem;
   height: 1.0625rem;
-  /* 
-    width: 100%;
-    height: 100%; */
   background-image: url('../src/todo/todo-black-l.png');
   border: none;
   cursor: pointer;
   background-repeat: no-repeat;
   background-color: transparent;
   outline: none;
+  background-size: contain;
+
   -webkit-app-region: no-drag;
 
 
 }
 
-/* #next-day {
-    width: 0.625rem;
-    height: 1.0625rem;
-
-    background-image: url('../src/todo/todo-black-r.png');
-    border: none;
-    cursor: pointer;
-    background-repeat: no-repeat;
-    background-color: transparent;
-    outline: none;
 
 
+
+/* .dropbtn {
+  background-image: url('../src/calendar/cal1-sort.png');
+  height: 1.88rem;
+  width: 1.88rem;
+  right: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  outline: none;
+  background-size: contain;
+  -webkit-app-region: no-drag;
 } */
+
+
+
+
+
 
 
 #next-day {
   width: 0.625rem;
   height: 1.0625rem;
-  /* width: 100%;
-    height: 100%; */
   background-image: url('../src/todo/todo-black-l.png');
   border: none;
   cursor: pointer;
@@ -190,6 +119,8 @@ body {
   background-color: transparent;
   outline: none;
   transform: rotate(180deg);
+  background-size: contain;
+
   -webkit-app-region: no-drag;
 
 
@@ -216,11 +147,7 @@ body {
 
 .task {
   width: 100%;
-  /* max-width: 17.5rem; */
-  /* background: #fff;
-  border: 1px solid #ddd; */
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-  /* border-radius: 4px; */
+
   padding: 0.6875rem 1.81rem 0.6875rem 1.81rem;
   box-sizing: border-box;
   -webkit-app-region: no-drag;
@@ -231,9 +158,7 @@ body {
   font-weight: 600;
   display: flex;
   align-items: center;
-  /* margin: 0.62rem 0; */
   flex-direction: row;
-  /* background-color: #F6F6F6; */
   border: none;
 }
 
@@ -283,9 +208,6 @@ body {
   color: #A0A0A0;
 }
 
-/* .title{
-    font-weight: 700;
-  } */
 
 .notes {
   font-size: 0.75rem;
@@ -301,7 +223,7 @@ body {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 100px;
-  border: 0.0625rem solid black; 
+  border: 0.0625rem solid black;
   background-color: white;
   background-size: cover;
   background-position: center;
@@ -313,6 +235,72 @@ body {
   -webkit-app-region: no-drag;
   transform: rotate(45deg);
 
-  
+
 
 }
+
+
+
+/* 
+body{
+  background-color: white;
+}
+
+
+#prev-day {
+  position: absolute;
+  top:1.56rem;
+  left: 2.63rem;
+  width: 0.625rem;
+  height: 1.0625rem;
+
+  background-image: url('../src/todo/todo-black-l.png');
+  border: none;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  outline: none;
+  -webkit-app-region: no-drag;
+
+
+}
+
+.date {
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  width: 12.25rem;
+  color: black;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  top:1.5rem;
+  left:3.25rem;
+  position:absolute;
+
+
+
+
+
+}
+
+
+#next-day {
+  position: absolute;
+  top:1.56rem;
+  right: 2.63rem;
+  width: 0.625rem;
+  height: 1.0625rem;
+
+  background-image: url('../src/todo/todo-black-l.png');
+  border: none;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  outline: none;
+  transform: rotate(180deg);
+  -webkit-app-region: no-drag;
+
+
+} */

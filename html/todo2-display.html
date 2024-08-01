@@ -15,7 +15,7 @@
 
 <body>
     <div class="default-set"></div>
-    <div class="tasks-container">
+    <div class="tasks-container"  id="iii">
         <div class="todoheader">
             <button id="prev-day"></button>
             <div class="date" id="current-date"></div>
@@ -87,7 +87,7 @@
         function resizeTodo({ newWidth, newHeight }) {
             const calElement = document.getElementById('iii');
             if (calElement) {
-                // const scaleFactor = newWidth / 900; 
+                const scaleFactor = newWidth / 300; 
                 document.documentElement.style.fontSize = `${scaleFactor * 16}px`; // Adjust root font size
                 calElement.style.width = `${newWidth}px`;
                 calElement.style.height = `${newHeight}px`;

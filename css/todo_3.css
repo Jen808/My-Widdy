@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Pompiere&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Pompiere&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=VT323&display=swap');
+
+
+
+
+
+
+body {
+    background-color: transparent;
+    margin: 0;
+    -webkit-app-region: drag;
+    border-radius: 1.06rem;
+    font-family: 'Roboto', sans-serif;
+
+
+}
+
+
+#iii {
+    width:100%;
+    height: 100%;
+    border-radius: 1.06rem;
+    font-family: 'Roboto', sans-serif;
+
+
+}
+
+.tasks-container {
+    width: 87.5rem;
+    height: 28.125rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.todo-list-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.day {
+    width: 12.5rem;
+    height: 28.125rem;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+
+}
+
+
+.day1.day{
+    border-top-left-radius: 1.06rem;
+    border-bottom-left-radius: 1.06rem;
+
+}
+.day7.day {
+    border-top-right-radius: 1.06rem;
+    border-bottom-right-radius: 1.06rem;
+
+}
+
+
+.day-header-container {
+    width: 12.4375rem;
+    height: 4.6875rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+
+.day-header {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 300;
+}
+
+.day-name {
+    padding-top: 0.1rem;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+}
+
+
+
+.todofloat {
+    width: 18.0625rem;
+    height: 2.5rem;
+    position: fixed;
+    left: 34.7rem;
+    top: 24.4rem;
+    display: flex;
+    align-items: center;
+}
+
+.week-control {
+    height: 1.75rem;
+    display: flex;
+    flex-direction: row;
+}
+
+
+#prev-week,
+#next-week {
+    width: 9.0625rem;
+    height: 1.75rem;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    -webkit-app-region: no-drag;
+    background-size: contain;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    border-radius: 1.88rem;
+    background: #C8C8C8;
+
+
+}
+
+
+#prev-week {
+    padding-left: 0.94rem;
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+
+}
+
+
+
+.arrow-l {
+    padding-left: 0.69rem;
+    width: 0.5rem;
+    height: 0.6875rem;
+    background-image: url('../src/todo/arrow-black-l.png');
+    border: none;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    outline: none;
+    background-size: contain;
+}
+
+
+#next-week {
+    padding-right: 0.94em;
+    display: flex;
+    flex-direction: row-reverse;
+    text-align: right;
+    align-items: center;
+}
+
+
+.arrow-r {
+    margin-left: 0.69rem;
+    width: 0.5rem;
+    height: 0.6875rem;
+    background-image: url('../src/todo/arrow-black-r.png');
+    border: none;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    outline: none;
+    background-size: contain;
+}
+
+.todo-edit {
+    width: 2.5rem;
+    height: 2.5rem;
+    position: fixed;
+    left: 42.5rem;
+    top: 24.4rem;
+    background-color: white;
+    border-radius: 100px;
+    background-image: url('../src/todo/todo-edit-black.png');
+    border: none;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    outline: none;
+    -webkit-app-region: no-drag;
+    transform: rotate(45deg);
+    background-size: contain;
+
+
+}
+
+
+/* #next-week {
+    width: 9.0625rem;
+    height: 1.75rem;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    -webkit-app-region: no-drag;
+    background-size: contain;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    border-radius: 1.88rem;
+    background: #C8C8C8;
+
+
+} */
+
+
+
+.task-list {
+    margin-top: 1.625rem;
+    width: 12.4375rem;
+    height: 21.25rem;
+    color: black;
+}
+
+.day2.day,
+.day4.day,
+.day6.day {
+    background-color: #EDEDED;
+}
+
+
+.line {
+    position: fixed;
+    width: 87.5rem;
+    height: 0.0625rem;
+    top: 4.69rem;
+    background-color: #9F9F9F;
+
+}
+
+
+
+
+  .task {
+    width: 100%;
+    padding: 0.405rem 1.25rem 0.405rem 1rem;
+    box-sizing: border-box;
+    -webkit-app-region: no-drag;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border: none;
+  }
+  
+  
+  .task .mark-done {
+    width: 0.875rem;
+    height: 0.875rem;
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 0.69rem;
+    position: relative;
+    box-sizing: border-box;
+    border: 0.125rem solid black;
+
+  }
+
+  .task.done .mark-done {
+    width: 0.875rem;
+    height: 0.875rem;
+    background-color: transparent;
+
+    box-sizing: border-box;
+    border: 0.125rem solid #D9D9D9;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 0.75rem;
+  }
+  
+  .task .task-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 8.625rem;
+  }
+  
+  .task.done .task-content .title,
+  .task.done .task-content .notes,
+  .task.done .task-content .due {
+    text-decoration: line-through;
+    font-style: italic;
+    color: #D9D9D9;
+  }
+  
+  .notes {
+    font-size: 0.75rem;
+  }
+  

@@ -108,7 +108,6 @@ const fetchSelectedEvents = async (auth) => {
 
 
 
-
 const fetchTasks = async (auth) => {
   const tasks = google.tasks({ version: 'v1', auth });
   let allTasks = [];
@@ -129,16 +128,19 @@ const fetchTasks = async (auth) => {
       sendTasksToTodo1();
     }
 
-
     if (displayWindows['todo2']) {
       sendTasksToTodo2();
     }
 
+    if (displayWindows['todo3']) {
+      sendWeeklyTasksToTodo3();
+    }
 
   } catch (error) {
     console.error('Error fetching tasks:', error);
   }
 };
+
 
 const sendTasksToTodo1 = () => {
   if (displayWindows['todo1']) {
@@ -174,6 +176,36 @@ const sendTasksToTodo2 = () => {
 };
 
 
+
+const sendWeeklyTasksToTodo3 = () => {
+  if (displayWindows['todo3']) {
+    const today = new Date();
+    const start = new Date(today.setDate(today.getDate() - today.getDay())); // Start of the week (Sunday)
+    const end = new Date(start);
+    end.setDate(start.getDate() + 6); // End of the week (Saturday)
+
+    const weeklyTasks = cachedTasks.filter(task => {
+      const taskDate = new Date(task.due);
+      const taskDateUTC = new Date(Date.UTC(taskDate.getUTCFullYear(), taskDate.getUTCMonth(), taskDate.getUTCDate()));
+      return taskDateUTC >= start && taskDateUTC <= end;
+    });
+
+    displayWindows['todo3'].webContents.send('clear-tasks');
+    weeklyTasks.forEach(task => {
+      displayWindows['todo3'].webContents.send('task', {
+        id: task.id,
+        title: task.title,
+        notes: task.notes,
+        due: task.due,
+        status: task.status
+      });
+    });
+  }
+};
+
+
+
+
 ipcMain.on('get-calendars', (event) => {
   fetchAllCalendars(oAuth2Client);
 });
@@ -196,6 +228,27 @@ ipcMain.on('request-tasks', async (event, date) => {
   // console.log(`Sending filtered tasks: ${JSON.stringify(filteredTasks)}`);
   event.sender.send('tasks-list', filteredTasks);
 });
+
+
+ipcMain.on('request-weekly-tasks', async (event, startDate) => {
+  console.log(`Received request-weekly-tasks for date: ${startDate}`);
+
+  await fetchTasks(oAuth2Client);
+  const start = new Date(startDate);
+  const end = new Date(startDate);
+  end.setDate(start.getDate() + 6); // Set the end date to 6 days after the start date
+
+  const filteredTasks = cachedTasks.filter(task => {
+    const taskDate = new Date(task.due);
+    const taskDateUTC = new Date(Date.UTC(taskDate.getUTCFullYear(), taskDate.getUTCMonth(), taskDate.getUTCDate()));
+    return taskDateUTC >= start && taskDateUTC <= end;
+  });
+
+  console.log('Sending filtered tasks:', filteredTasks);
+  event.sender.send('tasks-list', filteredTasks);
+});
+
+
 
 const createMainWindow = () => {
   mainWindow = new BrowserWindow({
@@ -953,6 +1006,18 @@ ipcMain.on('adjust-todo2-size', (event, { size }) => {
   }
 });
 
+ipcMain.on('adjust-todo3-size', (event, { size }) => {
+  if (displayWindows['todo3-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 1400;
+    const newHeight = (newSize / 50) * 450;
+    displayWindows['todo3-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['todo3-display'].webContents.send('resize-todo3', { newWidth, newHeight });
+    console.log(`Resized todo3-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
+
 
 
 
@@ -1113,6 +1178,14 @@ ipcMain.on('change-todo2-color', (event, colorSet) => {
 });
 
 
+ipcMain.on('change-todo3-color', (event, colorSet) => {
+  if (displayWindows['todo3-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['todo3-display'].webContents.send('change-todo3-color', colorSet);
+  }
+});
+
+
 ipcMain.on('change-weather-color', (event, colorSet) => {
   if (displayWindows['display5']) {
     displayWindows['display5'].webContents.send('change-weather-color', colorSet);
@@ -1202,6 +1275,21 @@ function closeTodo2Display() {
 
 
 
+function openTodo3Display() {
+  if (!displayWindows['todo3-display']) {
+    createDisplayWindow('todo3-display', 'Todo3 Display', 1400, 450);
+  }
+}
+
+function closeTodo3Display() {
+  if (displayWindows['todo3-display']) {
+    displayWindows['todo3-display'].close();
+  }
+}
+
+
+
+
 
 
 
@@ -1259,6 +1347,16 @@ ipcMain.on('close-todo2-display', () => {
 
 
 
+
+ipcMain.on('open-todo3-display', () => {
+  openTodo3Display();
+});
+
+ipcMain.on('close-todo3-display', () => {
+  closeTodo3Display();
+});
+
+
 ipcMain.on('cal1-status', (event, arg) => {
   if (arg.status) {
     openCal1Display();
@@ -1309,6 +1407,17 @@ ipcMain.on('todo2-status', (event, arg) => {
     closeTodo2Display();
   }
 });
+
+
+ipcMain.on('todo3-status', (event, arg) => {
+  if (arg.status) {
+    openTodo3Display();
+  } else {
+    closeTodo3Display();
+  }
+});
+
+
 
 // let clock1Window;
 

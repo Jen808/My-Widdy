@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Tasks</title>
+    <link rel="stylesheet" href="../css/todo_3.css">
+    <!-- <link rel="stylesheet" href="../css/todo3_color.css"> -->
+
+</head>
+
+<body>
+    <div class="default-set"></div>
+    <div id="iii">
+        <div class="tasks-container">
+            <div class="line"></div>
+            <div class="todo-list-container" id="tasks">
+                <div class="day1 day">
+                    <div class="day-header-container">
+                        <div class="day-header"></div>
+                        <div class="day-name">SUNDAY</div>
+                    </div>
+                    <div class="task-list1 task-list"></div>
+                </div>
+                <div class="day2 day">
+                    <div class="day-header-container">
+                        <div class="day-header"></div>
+                        <div class="day-name">MONDAY</div>
+                    </div>
+                    <div class="task-list2 task-list"></div>
+                </div>
+                <div class="day3 day">
+                    <div class="day-header-container">
+                        <div class="day-header"></div>
+                        <div class="day-name">TUESDAY</div>
+                    </div>
+                    <div class="task-list3 task-list"></div>
+                </div>
+                <div class="day4 day">
+                    <div class="day-header-container">
+                        <div class="day-header"></div>
+                        <div class="day-name">WEDNESDAY</div>
+                    </div>
+                    <div class="task-list4 task-list"></div>
+                </div>
+                <div class="day5 day">
+                    <div class="day-header-container">
+                        <div class="day-header"></div>
+                        <div class="day-name">THURSDAY</div>
+                    </div>
+                    <div class="task-list5 task-list"></div>
+                </div>
+                <div class="day6 day">
+                    <div class="day-header-container">
+                        <div class="day-header"></div>
+                        <div class="day-name">FRIDAY</div>
+                    </div>
+                    <div class="task-list6 task-list"></div>
+                </div>
+                <div class="day7 day">
+                    <div class="day-header-container">
+                        <div class="day-header"></div>
+                        <div class="day-name">SATURDAY</div>
+                    </div>
+                    <div class="task-list7 task-list"></div>
+                </div>
+            </div>
+        </div>
+        <div class="todofloat">
+            <div class="week-control">
+                <button id="prev-week">
+                    <div class="arrow-l"></div>
+                    <div class="prev-week">LAST WEEK</div>
+                </button>
+                <button id="next-week">
+                    <div class="arrow-r"></div>
+                    <div class="next-week">NEXT WEEK</div>
+
+
+                </button>
+            </div>
+            <a href="https://tasksboard.com/app" class="todo-edit" target="_blank"></a>
+        </div>
+
+    </div>
+
+
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        let currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() - currentDate.getDay()); // Set to the start of the week (Sunday)
+
+        function formatDate(date) {
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            return `${month}/${day}`;
+        }
+
+        function formatDateToUTCString(date) {
+            return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())).toISOString().split('T')[0];
+        }
+
+        function updateTasksForWeek(date) {
+            const formattedDate = formatDateToUTCString(date);
+            console.log(`Requesting tasks for week starting: ${formattedDate}`);
+            ipcRenderer.send('request-weekly-tasks', formattedDate);
+            document.querySelectorAll('.task-list').forEach(taskList => taskList.innerHTML = ''); // Clear the current tasks
+        }
+
+        function renderTask(task) {
+            const taskDiv = document.createElement('div');
+            taskDiv.classList.add('task');
+            taskDiv.dataset.id = task.id;
+
+            const markDoneButton = document.createElement('div');
+            markDoneButton.classList.add('mark-done');
+            markDoneButton.addEventListener('click', () => {
+                taskDiv.classList.toggle('done');
+            });
+
+            const contentDiv = document.createElement('div');
+            contentDiv.classList.add('task-content');
+
+            const titleDiv = document.createElement('div');
+            titleDiv.classList.add('title');
+            titleDiv.textContent = task.title;
+
+            const notesDiv = document.createElement('div');
+            notesDiv.classList.add('notes');
+            notesDiv.textContent = task.notes || '';
+
+            contentDiv.appendChild(titleDiv);
+            contentDiv.appendChild(notesDiv);
+
+            taskDiv.appendChild(markDoneButton);
+            taskDiv.appendChild(contentDiv);
+
+            const taskDate = new Date(task.due);
+            const dayIndex = taskDate.getDay() + 1; // +1 to match your day classes (day1, day2, etc.)
+            const dayDiv = document.querySelector(`.day${dayIndex} .task-list`);
+            if (dayDiv) {
+                dayDiv.appendChild(taskDiv);
+                console.log(`Task rendered in day${dayIndex}: ${task.title}`);
+            } else {
+                console.log(`Could not find dayDiv for day${dayIndex}`);
+            }
+        }
+
+        function renderWeekHeader(date) {
+            const startOfWeek = new Date(date);
+
+            for (let i = 0; i < 7; i++) {
+                const dayDiv = document.querySelector(`.day${i + 1}`);
+                const dayHeader = dayDiv.querySelector('.day-header');
+                const dayDate = new Date(startOfWeek);
+                dayDate.setDate(startOfWeek.getDate() + i);
+                dayHeader.textContent = formatDate(dayDate);
+            }
+        }
+
+
+        function resizeTodo({ newWidth, newHeight }) {
+            const calElement = document.getElementById('iii');
+            if (calElement) {
+                const scaleFactor = newWidth / 1400; 
+                document.documentElement.style.fontSize = `${scaleFactor * 16}px`; // Adjust root font size
+                calElement.style.width = `${newWidth}px`;
+                calElement.style.height = `${newHeight}px`;
+
+            }
+        }
+
+        ipcRenderer.on('resize-todo3', (event, { newWidth, newHeight }) => {
+            resizeTodo({ newWidth, newHeight });
+        });
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderWeekHeader(currentDate);
+
+            document.getElementById('prev-week').addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() - 7);
+                renderWeekHeader(currentDate);
+                updateTasksForWeek(currentDate);
+            });
+
+            document.getElementById('next-week').addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() + 7);
+                renderWeekHeader(currentDate);
+                updateTasksForWeek(currentDate);
+            });
+
+            updateTasksForWeek(currentDate);
+        });
+
+        ipcRenderer.on('clear-tasks', () => {
+            console.log('Clearing tasks');
+            document.querySelectorAll('.task-list').forEach(taskList => taskList.innerHTML = '');
+        });
+
+        ipcRenderer.on('task', (event, task) => {
+            console.log('Received task:', task);
+            renderTask(task);
+        });
+
+        ipcRenderer.on('tasks-list', (event, tasks) => {
+            console.log('Received tasks list:', tasks);
+            tasks.forEach(task => {
+                renderTask(task);
+            });
+        });
+
+        ipcRenderer.on('change-todo3-color', (event, colorSet) => {
+            document.body.className = colorSet;
+        });
+    </script>
+</body>
+
+</html>
