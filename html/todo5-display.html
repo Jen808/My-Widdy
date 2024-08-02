@@ -5,16 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Display Tasks</title>
-    <link rel="stylesheet" href="../css/todo_3.css">
-    <link rel="stylesheet" href="../css/todo3_color.css">
+    <link rel="stylesheet" href="../css/todo_5.css">
+    <link rel="stylesheet" href="../css/todo5_color.css">
 
 </head>
 
 <body>
     <div class="default-set"></div>
     <div id="iii">
+        <div class="todofloat">
+            <div class="week-control">
+                <button id="prev-week">
+                    <div class="arrow-l"></div>
+                </button>
+                <div class="week-date-range"></div>
+                <button id="next-week">
+                    <div class="arrow-r"></div>
+                </button>
+            </div>
+            <a href="https://tasksboard.com/app" class="todo-edit" target="_blank"></a>
+        </div>
         <div class="tasks-container">
-            <div class="line"></div>
+
+
+
             <div class="todo-list-container" id="tasks">
                 <div class="day1 day">
                     <div class="day-header-container">
@@ -66,21 +80,14 @@
                     <div class="task-list7 task-list"></div>
                 </div>
             </div>
-        </div>
-        <div class="todofloat">
-            <div class="week-control">
-                <button id="prev-week">
-                    <div class="arrow-l"></div>
-                    <div class="prev-week">LAST WEEK</div>
-                </button>
-                <button id="next-week">
-                    <div class="arrow-r"></div>
-                    <div class="next-week">NEXT WEEK</div>
 
-
-                </button>
-            </div>
-            <a href="https://tasksboard.com/app" class="todo-edit" target="_blank"></a>
+            <div class="line"></div>
+            <div class="vline1"></div>
+            <div class="vline2"></div>
+            <div class="vline3"></div>
+            <div class="vline4"></div>
+            <div class="vline5"></div>
+            <div class="vline6"></div>
         </div>
 
     </div>
@@ -164,7 +171,7 @@
         function resizeTodo({ newWidth, newHeight }) {
             const calElement = document.getElementById('iii');
             if (calElement) {
-                const scaleFactor = newWidth / 1400; 
+                const scaleFactor = newWidth / 1400;
                 document.documentElement.style.fontSize = `${scaleFactor * 16}px`; // Adjust root font size
                 calElement.style.width = `${newWidth}px`;
                 calElement.style.height = `${newHeight}px`;
@@ -172,7 +179,18 @@
             }
         }
 
-        ipcRenderer.on('resize-todo3', (event, { newWidth, newHeight }) => {
+        function updateWeekDateRange(date) {
+            const startOfWeek = new Date(date);
+            const endOfWeek = new Date(date);
+            endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+            const weekDateRange = document.querySelector('.week-date-range');
+            if (weekDateRange) {
+                weekDateRange.textContent = `${formatDate(startOfWeek)} - ${formatDate(endOfWeek)}`;
+            }
+        }
+
+        ipcRenderer.on('resize-todo5', (event, { newWidth, newHeight }) => {
             resizeTodo({ newWidth, newHeight });
         });
 
@@ -180,17 +198,20 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             renderWeekHeader(currentDate);
+            updateWeekDateRange(currentDate); 
 
             document.getElementById('prev-week').addEventListener('click', () => {
                 currentDate.setDate(currentDate.getDate() - 7);
                 renderWeekHeader(currentDate);
                 updateTasksForWeek(currentDate);
+                updateWeekDateRange(currentDate); 
             });
 
             document.getElementById('next-week').addEventListener('click', () => {
                 currentDate.setDate(currentDate.getDate() + 7);
                 renderWeekHeader(currentDate);
                 updateTasksForWeek(currentDate);
+                updateWeekDates(currentDate);
             });
 
             updateTasksForWeek(currentDate);
@@ -213,7 +234,7 @@
             });
         });
 
-        ipcRenderer.on('change-todo3-color', (event, colorSet) => {
+        ipcRenderer.on('change-todo5-color', (event, colorSet) => {
             document.body.className = colorSet;
         });
     </script>

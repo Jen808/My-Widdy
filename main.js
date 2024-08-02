@@ -135,6 +135,12 @@ const fetchTasks = async (auth) => {
     if (displayWindows['todo3']) {
       sendWeeklyTasksToTodo3();
     }
+    if (displayWindows['todo4']) {
+      sendWeeklyTasksToTodo4();
+    }
+    if (displayWindows['todo5']) {
+      sendWeeklyTasksToTodo5();
+    }
 
   } catch (error) {
     console.error('Error fetching tasks:', error);
@@ -202,6 +208,61 @@ const sendWeeklyTasksToTodo3 = () => {
     });
   }
 };
+
+
+const sendWeeklyTasksToTodo4 = () => {
+  if (displayWindows['todo4']) {
+    const today = new Date();
+    const start = new Date(today.setDate(today.getDate() - today.getDay())); // Start of the week (Sunday)
+    const end = new Date(start);
+    end.setDate(start.getDate() + 6); // End of the week (Saturday)
+
+    const weeklyTasks = cachedTasks.filter(task => {
+      const taskDate = new Date(task.due);
+      const taskDateUTC = new Date(Date.UTC(taskDate.getUTCFullYear(), taskDate.getUTCMonth(), taskDate.getUTCDate()));
+      return taskDateUTC >= start && taskDateUTC <= end;
+    });
+
+    displayWindows['todo4'].webContents.send('clear-tasks');
+    weeklyTasks.forEach(task => {
+      displayWindows['todo4'].webContents.send('task', {
+        id: task.id,
+        title: task.title,
+        notes: task.notes,
+        due: task.due,
+        status: task.status
+      });
+    });
+  }
+};
+
+
+const sendWeeklyTasksToTodo5 = () => {
+  if (displayWindows['todo5']) {
+    const today = new Date();
+    const start = new Date(today.setDate(today.getDate() - today.getDay())); // Start of the week (Sunday)
+    const end = new Date(start);
+    end.setDate(start.getDate() + 6); // End of the week (Saturday)
+
+    const weeklyTasks = cachedTasks.filter(task => {
+      const taskDate = new Date(task.due);
+      const taskDateUTC = new Date(Date.UTC(taskDate.getUTCFullYear(), taskDate.getUTCMonth(), taskDate.getUTCDate()));
+      return taskDateUTC >= start && taskDateUTC <= end;
+    });
+
+    displayWindows['todo5'].webContents.send('clear-tasks');
+    weeklyTasks.forEach(task => {
+      displayWindows['todo5'].webContents.send('task', {
+        id: task.id,
+        title: task.title,
+        notes: task.notes,
+        due: task.due,
+        status: task.status
+      });
+    });
+  }
+};
+
 
 
 
@@ -1017,6 +1078,32 @@ ipcMain.on('adjust-todo3-size', (event, { size }) => {
   }
 });
 
+ipcMain.on('adjust-todo4-size', (event, { size }) => {
+  if (displayWindows['todo4-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 1400;
+    const newHeight = (newSize / 50) * 450;
+    displayWindows['todo4-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['todo4-display'].webContents.send('resize-todo4', { newWidth, newHeight });
+    console.log(`Resized todo4-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
+
+
+ipcMain.on('adjust-todo5-size', (event, { size }) => {
+  if (displayWindows['todo5-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 1400;
+    const newHeight = (newSize / 50) * 450;
+    displayWindows['todo5-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['todo5-display'].webContents.send('resize-todo5', { newWidth, newHeight });
+    console.log(`Resized todo5-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
+
+
 
 
 
@@ -1185,6 +1272,25 @@ ipcMain.on('change-todo3-color', (event, colorSet) => {
 });
 
 
+ipcMain.on('change-todo4-color', (event, colorSet) => {
+  if (displayWindows['todo4-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['todo4-display'].webContents.send('change-todo4-color', colorSet);
+  }
+});
+
+
+
+
+ipcMain.on('change-todo5-color', (event, colorSet) => {
+  if (displayWindows['todo5-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['todo5-display'].webContents.send('change-todo5-color', colorSet);
+  }
+});
+
+
+
 ipcMain.on('change-weather-color', (event, colorSet) => {
   if (displayWindows['display5']) {
     displayWindows['display5'].webContents.send('change-weather-color', colorSet);
@@ -1288,6 +1394,34 @@ function closeTodo3Display() {
 
 
 
+function openTodo4Display() {
+  if (!displayWindows['todo4-display']) {
+    createDisplayWindow('todo4-display', 'Todo4 Display', 1400, 450);
+  }
+}
+
+function closeTodo4Display() {
+  if (displayWindows['todo4-display']) {
+    displayWindows['todo4-display'].close();
+  }
+}
+
+
+
+function openTodo5Display() {
+  if (!displayWindows['todo5-display']) {
+    createDisplayWindow('todo5-display', 'Todo5 Display', 1400, 450);
+  }
+}
+
+function closeTodo5Display() {
+  if (displayWindows['todo5-display']) {
+    displayWindows['todo5-display'].close();
+  }
+}
+
+
+
 
 
 
@@ -1356,6 +1490,26 @@ ipcMain.on('close-todo3-display', () => {
 });
 
 
+ipcMain.on('open-todo4-display', () => {
+  openTodo4Display();
+});
+
+ipcMain.on('close-todo4-display', () => {
+  closeTodo4Display();
+});
+
+
+
+ipcMain.on('open-todo5-display', () => {
+  openTodo5Display();
+});
+
+ipcMain.on('close-todo5-display', () => {
+  closeTodo5Display();
+});
+
+
+
 ipcMain.on('cal1-status', (event, arg) => {
   if (arg.status) {
     openCal1Display();
@@ -1415,6 +1569,23 @@ ipcMain.on('todo3-status', (event, arg) => {
     closeTodo3Display();
   }
 });
+
+ipcMain.on('todo4-status', (event, arg) => {
+  if (arg.status) {
+    openTodo4Display();
+  } else {
+    closeTodo4Display();
+  }
+});
+
+ipcMain.on('todo5-status', (event, arg) => {
+  if (arg.status) {
+    openTodo5Display();
+  } else {
+    closeTodo5Display();
+  }
+});
+
 
 
 

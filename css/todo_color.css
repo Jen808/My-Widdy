@@ -1,4 +1,4 @@
-body.li-pink,
+.li-pink #iii ,
 .li-pink .todo-edit {
     background-color: #FFF7F9;
 }
@@ -50,7 +50,7 @@ body.li-pink,
 
 
 
-body.li-orange,
+.li-orange #iii ,
 .li-orange .todo-edit {
     background-color: #FFFAF7;
 }
@@ -100,7 +100,7 @@ body.li-orange,
 
 
 
-body.li-green,
+.li-green #iii ,
 .li-green .todo-edit {
     background-color: #F5FFFA;
 }
@@ -149,7 +149,7 @@ body.li-green,
 
 
 
-body.li-mint,
+.li-mint #iii ,
 .li-mint .todo-edit {
     background-color: #F7FFFF;
 }
@@ -201,7 +201,7 @@ body.li-mint,
 
 
 
-body.li-blue,
+.li-blue #iii ,
 .li-blue .todo-edit {
     background-color: #F4FAFF;
 }
@@ -249,7 +249,7 @@ body.li-blue,
 
 
 
-body.li-purple,
+.li-purple #iii ,
 .li-purple .todo-edit {
     background-color: #FDFAFF;
 }
@@ -301,9 +301,17 @@ body.li-purple,
     color: #0085FF;
 }
 
+.cmyk .task .mark-done {
+    border: 0.0625rem solid #FB2E2E;
+}
+
+.cmyk .task.done .mark-done {
+    border: 0.0625rem solid #A0A0A0;
+}
 
 
-body.grey,
+
+.grey #iii ,
 .grey .todo-edit {
     background-color: #505050;
 }
@@ -348,7 +356,7 @@ body.grey,
 
 
 
-body.black,
+.black #iii ,
 .black .todo-edit {
     background-color: black;
 } 
@@ -398,7 +406,7 @@ body.black,
 
 
 
-body.pink,
+.pink #iii ,
 .pink .todo-edit {
     background-color: #2F2A2B;
 }
@@ -446,7 +454,7 @@ body.pink,
 
 
 
-body.orange,
+.orange #iii ,
 .orange .todo-edit {
     background-color: #2B2927;
 }
@@ -496,7 +504,7 @@ body.orange,
 
 
 
-body.green,
+.green #iii ,
 .green .todo-edit {
     background-color: #212523;
 }
@@ -550,7 +558,7 @@ body.green,
 
 
 
-body.mint,
+.mint #iii ,
 .mint .todo-edit {
     background-color: #232727;
 }
@@ -600,7 +608,7 @@ body.mint,
 
 
 
-body.blue,
+.blue #iii ,
 .blue .todo-edit {
     background-color: #24292E;
 }
@@ -651,7 +659,7 @@ body.blue,
 
 
 
-body.purple,
+.purple #iii ,
 .purple .todo-edit {
     background-color: #252327;
 }
@@ -698,3 +706,151 @@ body.purple,
 
 
 
+
+
+
+.li-pink .todo-list-container::-webkit-scrollbar-track,
+.li-pink .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #FFCFD7;
+} 
+
+.li-pink .todo-list-container::-webkit-scrollbar-thumb:hover,
+.pink .todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #FF7E96;
+} 
+
+
+.li-orange .todo-list-container::-webkit-scrollbar-track,
+.li-orange .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #FFD0AE;
+} 
+
+.li-orange .todo-list-container::-webkit-scrollbar-thumb:hover,
+.orange .todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #FF8D3A;
+} 
+
+.li-green .todo-list-container::-webkit-scrollbar-track,
+.li-green .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #96D5B3;
+} 
+
+.li-green .todo-list-container::-webkit-scrollbar-thumb:hover,
+.green.todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #269C5C;
+} 
+
+.li-mint .todo-list-container::-webkit-scrollbar-track,
+.li-mint .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #A8D9D9;
+} 
+
+.li-mint .todo-list-container::-webkit-scrollbar-thumb:hover,
+.mint .todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #22A5A5;
+} 
+
+
+.li-blue .todo-list-container::-webkit-scrollbar-track,
+.li-blue .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #B5DCFF;
+} 
+
+.li-blue .todo-list-container::-webkit-scrollbar-thumb:hover,
+.blue .todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #52A2EB; 
+} 
+
+
+.li-purple .todo-list-container::-webkit-scrollbar-track,
+.li-purple .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #E7B3FF;
+} 
+
+.li-purple .todo-list-container::-webkit-scrollbar-thumb:hover,
+.purple .todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #7C0CB0;
+} 
+ 
+
+
+
+
+
+
+
+
+.black .todo-list-container::-webkit-scrollbar-track,
+.black .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #242424
+} 
+
+.black .todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #3B3B3B;
+} 
+
+
+
+.grey .todo-list-container::-webkit-scrollbar-track,
+.grey .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #646464;
+} 
+
+.grey .todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #7E7E7E;
+}  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.pink .todo-list-container::-webkit-scrollbar-track,
+.pink .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #6A585B;
+} 
+
+
+.orange .todo-list-container::-webkit-scrollbar-track,
+.orange .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #5B524B;
+} 
+
+
+
+.green .todo-list-container::-webkit-scrollbar-track,
+.green .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #475A4E;
+} 
+
+
+
+
+.mint .todo-list-container::-webkit-scrollbar-track,
+.mint .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #495A5A;
+} 
+
+
+
+
+.blue .todo-list-container::-webkit-scrollbar-track,
+.blue .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #515D69;
+} 
+
+
+
+
+.purple .todo-list-container::-webkit-scrollbar-track,
+.purple .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #605265;
+} 

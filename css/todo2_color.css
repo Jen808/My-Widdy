@@ -15,9 +15,9 @@
 }
 
 
-.task-list {
+/* .task-list {
     margin-top: 1rem;
-}
+} */
 
 
 
@@ -554,3 +554,149 @@
 
 
 
+
+.li-pink .todo-list-container::-webkit-scrollbar-track,
+.li-pink .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #FFE6EA;
+} 
+
+.li-pink .todo-list-container::-webkit-scrollbar-thumb:hover,
+.pink .todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #FF7E96;
+} 
+
+
+.li-orange .todo-list-container::-webkit-scrollbar-track,
+.li-orange .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #FFE6D3; ;
+} 
+
+.li-orange .todo-list-container::-webkit-scrollbar-thumb:hover,
+.orange .todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #FF8D3A;
+} 
+
+.li-green .todo-list-container::-webkit-scrollbar-track,
+.li-green .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #DFF3E8;
+} 
+
+.li-green .todo-list-container::-webkit-scrollbar-thumb:hover,
+.green.todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #269C5C;
+} 
+
+.li-mint .todo-list-container::-webkit-scrollbar-track,
+.li-mint .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #DCF2F2;
+} 
+
+.li-mint .todo-list-container::-webkit-scrollbar-thumb:hover,
+.mint .todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #22A5A5;
+} 
+
+
+.li-blue .todo-list-container::-webkit-scrollbar-track,
+.li-blue .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #DDEFFF; 
+} 
+
+.li-blue .todo-list-container::-webkit-scrollbar-thumb:hover,
+.blue .todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #52A2EB; 
+} 
+
+
+.li-purple .todo-list-container::-webkit-scrollbar-track,
+.li-purple .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #EEE1F4;
+} 
+
+.li-purple .todo-list-container::-webkit-scrollbar-thumb:hover,
+.purple .todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #7C0CB0;
+} 
+ 
+
+
+
+
+
+
+
+
+.black .todo-list-container::-webkit-scrollbar-track,
+.black .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #242424
+} 
+
+.black .todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #3B3B3B;
+} 
+
+
+
+.grey .todo-list-container::-webkit-scrollbar-track,
+.grey .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #646464;
+} 
+
+.grey .todo-list-container::-webkit-scrollbar-thumb:hover{
+    background-color: #7E7E7E;
+}  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.pink .todo-list-container::-webkit-scrollbar-track,
+.pink .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #6A585B;
+} 
+
+
+.orange .todo-list-container::-webkit-scrollbar-track,
+.orange .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #5B524B;
+} 
+
+
+
+.green .todo-list-container::-webkit-scrollbar-track,
+.green .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #475A4E;
+} 
+
+
+
+
+.mint .todo-list-container::-webkit-scrollbar-track,
+.mint .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #495A5A;
+} 
+
+
+
+
+.blue .todo-list-container::-webkit-scrollbar-track,
+.blue .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #515D69;
+} 
+
+
+
+
+.purple .todo-list-container::-webkit-scrollbar-track,
+.purple .todo-list-container::-webkit-scrollbar-thumb {
+    background-color: #605265;
+} 

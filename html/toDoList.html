@@ -33,24 +33,32 @@
       <h2 id="content-title">To Do List</h2>
     </div>
     <div class="content-body">
-      <a href="#">
-        <button class="todo1button">
-          <img src="../src/calendar/cal1.png" alt="Calendar Image" class="todo1-image">
-        </button>
-        <button class="todo2button">
-          <img src="../src/calendar/cal2.png" alt="Calendar Image" class="todo2-image">
-        </button>
-        <button class="todo3button">
-          <img src="../src/calendar/cal3.png" alt="Calendar Image" class="todo3-image">
-        </button>
-        <button class="todo4button">
-          <img src="../src/calendar/cal4.png" alt="Calendar Image" class="todo4-image">
-        </button>
+      <div class="daily-header">Daily View</div>
+      <div class="daily-view">
+        <a href="#">
+          <button class="todo1button">
+            <img src="../src/todo/todo1.png" alt="Calendar Image" class="todo1-image">
+          </button>
+          <button class="todo2button">
+            <img src="../src/todo/todo2.png" alt="Calendar Image" class="todo2-image">
+          </button>
+        </a>
+      </div>
 
-
-      </a>
+      <div class="weekly-view">
+        <a href="#">
+          <button class="todo3button">
+            <img src="../src/todo/todo3.png" alt="Calendar Image" class="todo3-image">
+          </button>
+          <button class="todo4button">
+            <img src="../src/todo/todo4.png" alt="Calendar Image" class="todo4-image">
+          </button>
+          <button class="todo5button">
+            <img src="../src/todo/todo4.png" alt="Calendar Image" class="todo5-image">
+          </button>
+        </a>
+      </div>
     </div>
-  </div>
   </div>
 
 
@@ -130,6 +138,14 @@
     document.querySelector('.todo4button').addEventListener('click', (event) => {
       event.preventDefault();
       window.location.href = 'todo4.html';
+
+    });
+
+
+
+    document.querySelector('.todo5button').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'todo5.html';
 
     });
 

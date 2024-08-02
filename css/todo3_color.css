@@ -1,0 +1,946 @@
+.li-pink .day2.day,
+.li-pink .day4.day,
+.li-pink .day6.day {
+    background-color: #FFF7F9;
+}
+
+.li-pink .line,
+.li-pink .task.done .mark-done::after,
+.li-pink .task-list::-webkit-scrollbar-track,
+.li-pink .task-list::-webkit-scrollbar-thumb,
+.li-pink #prev-week,
+.li-pink #next-week  {
+    background-color: #FFC7D1;
+}
+
+.li-pink .task.done .task-content .title,
+.li-pink .task.done .task-content .notes,
+.li-pink .task.done .task-content .due {
+    color: #FFC7D1;
+}
+
+.li-pink .task.done .mark-done {
+    border: 0.0625rem solid #FFC7D1;
+}
+
+.li-pink .task .mark-done {
+    border: 0.0625rem solid #FF7E96;
+}
+
+
+.li-pink .day-name{
+    color: #FF7E96;
+}
+
+
+.li-pink .todo-edit {
+    background-image: url('../src/todo/todo-edit-pink.png');
+}
+
+
+
+
+
+
+
+
+.li-orange .day2.day,
+.li-orange .day4.day,
+.li-orange .day6.day {
+    background-color: #FFF9F5;
+}
+
+.li-orange .line,
+.li-orange .task.done .mark-done::after,
+.li-orange .task-list::-webkit-scrollbar-track,
+.li-orange .task-list::-webkit-scrollbar-thumb,
+.li-orange #prev-week,
+.li-orange #next-week  {
+    background-color: #FBC096;
+}
+
+.li-orange .task.done .task-content .title,
+.li-orange .task.done .task-content .notes,
+.li-orange .task.done .task-content .due {
+    color: #FBC096;
+}
+
+.li-orange .task.done .mark-done {
+    border: 0.0625rem solid #FBC096;
+}
+
+.li-orange .task .mark-done {
+    border: 0.0625rem solid #FF8D3A;
+}
+
+
+.li-orange .day-name{
+    color: #FF8D3A;
+}
+
+
+.li-orange .todo-edit {
+    background-image: url('../src/todo/todo-edit-orange.png');
+}
+
+
+
+
+
+
+
+.li-green .day2.day,
+.li-green .day4.day,
+.li-green .day6.day {
+    background-color: #F0FBF5;
+}
+
+.li-green .line,
+.li-green .task.done .mark-done::after,
+.li-green .task-list::-webkit-scrollbar-track,
+.li-green .task-list::-webkit-scrollbar-thumb,
+.li-green #prev-week,
+.li-green #next-week  {
+    background-color: #ACD9C1;
+}
+
+.li-green .task.done .task-content .title,
+.li-green .task.done .task-content .notes,
+.li-green .task.done .task-content .due {
+    color: #ACD9C1;
+}
+
+.li-green .task.done .mark-done {
+    border: 0.0625rem solid #ACD9C1;
+}
+
+.li-green .task .mark-done {
+    border: 0.0625rem solid #269C5C;
+}
+
+
+.li-green .day-name{
+    color: #269C5C;
+}
+
+
+.li-green .todo-edit {
+    background-image: url('../src/todo/todo-edit-green.png');
+}
+
+
+
+
+
+
+
+
+
+.li-mint .day2.day,
+.li-mint .day4.day,
+.li-mint .day6.day {
+    background-color: #F0FBFB;
+}
+
+.li-mint .line,
+.li-mint .task.done .mark-done::after,
+.li-mint .task-list::-webkit-scrollbar-track,
+.li-mint .task-list::-webkit-scrollbar-thumb,
+.li-mint #prev-week,
+.li-mint #next-week  {
+    background-color: #A0D1D1;
+}
+
+.li-mint .task.done .task-content .title,
+.li-mint .task.done .task-content .notes,
+.li-mint .task.done .task-content .due {
+    color: #A0D1D1;
+}
+
+.li-mint .task.done .mark-done {
+    border: 0.0625rem solid #A0D1D1;
+}
+
+.li-mint .task .mark-done {
+    border: 0.0625rem solid #22A5A5;
+}
+
+
+.li-mint .day-name{
+    color: #22A5A5;
+}
+
+
+.li-mint .todo-edit {
+    background-image: url('../src/todo/todo-edit-mint.png');
+}
+
+
+
+
+
+
+
+
+
+.li-blue .day2.day,
+.li-blue .day4.day,
+.li-blue .day6.day {
+    background-color: #F2F9FF;
+}
+
+.li-blue .line,
+.li-blue .task.done .mark-done::after,
+.li-blue .task-list::-webkit-scrollbar-track,
+.li-blue .task-list::-webkit-scrollbar-thumb,
+.li-blue #prev-week,
+.li-blue #next-week  {
+    background-color: #C0E1FF;
+}
+
+.li-blue .task.done .task-content .title,
+.li-blue .task.done .task-content .notes,
+.li-blue .task.done .task-content .due {
+    color: #C0E1FF;
+}
+
+.li-blue .task.done .mark-done {
+    border: 0.0625rem solid #C0E1FF;
+}
+
+.li-blue .task .mark-done {
+    border: 0.0625rem solid #63B4FF;
+}
+
+
+.li-blue .day-name{
+    color: #63B4FF;
+}
+
+
+.li-blue .todo-edit {
+    background-image: url('../src/todo/todo-edit-blue.png');
+}
+
+
+
+
+
+
+
+
+
+
+.li-purple .day2.day,
+.li-purple .day4.day,
+.li-purple .day6.day {
+    background-color: #FDF1FE;
+}
+
+.li-purple .line,
+.li-purple .task.done .mark-done::after,
+.li-purple .task-list::-webkit-scrollbar-track,
+.li-purple .task-list::-webkit-scrollbar-thumb,
+.li-purple #prev-week,
+.li-purple #next-week  {
+    background-color: #F0C5FF;
+}
+
+.li-purple .task.done .task-content .title,
+.li-purple .task.done .task-content .notes,
+.li-purple .task.done .task-content .due {
+    color: #F0C5FF;
+}
+
+.li-purple .task.done .mark-done {
+    border: 0.0625rem solid #F0C5FF;
+}
+
+.li-purple .task .mark-done {
+    border: 0.0625rem solid #C257E8;
+}
+
+
+.li-purple .day-name{
+    color: #C257E8;
+}
+
+
+.li-purple .todo-edit {
+    background-image: url('../src/todo/todo-edit-purple.png');
+}
+
+
+
+
+
+
+.cmyk .task .mark-done {
+    border: 0.0625rem solid #FB2E2E;
+}
+
+.cmyk .task.done .mark-done {
+    border: 0.0625rem solid #D9D9D9;
+}
+
+
+.cmyk .task .task-content .title {
+    color: #0085FF;
+}
+
+.cmyk .task.done .task-content .title {
+    color: #D9D9D9;
+}
+
+/* .cmyk .day-name{
+    color: #0085FF;
+} */
+
+
+
+
+
+
+
+.black #iii,
+/* .black .todo-list-container,
+.black .tasks-container, */
+.black .task-list,
+.grey #iii,
+.grey .task-list,
+.pink #iii,
+.pink .task-list,
+.orange #iii,
+.orange .task-list,
+.green #iii,
+.green .task-list,
+.mint #iii,
+.mint .task-list,
+.blue #iii,
+.blue .task-list,
+.purple #iii,
+.purple .task-list
+
+{
+    color: white;
+}
+
+
+.black .day1.day,
+.black .day3.day,
+.black .day5.day,
+.black .day7.day,
+.black .todo-edit {
+    background-color: black;
+}
+
+
+
+.black .day2.day,
+.black .day4.day,
+.black .day6.day {
+    background-color: #181818;
+
+}
+
+
+.black #prev-week,
+.black #next-week {
+    color: white;
+    background-color: #484848;
+}
+
+.black .todo-edit {
+    background-image: url('../src/todo/todo-edit-white.png');
+}
+
+
+.black .task .mark-done {
+    border: 0.0625rem solid white;
+
+}
+
+
+.black .task.done .mark-done {
+    border: 0.0625rem solid #5A5A5A;
+
+}
+
+.black .task.done .mark-done::after,
+.black .task-list::-webkit-scrollbar-track,
+.black .task-list::-webkit-scrollbar-thumb {
+    background-color: #5A5A5A;
+
+}
+
+
+.black .task.done .task-content .title,
+.black .task.done .task-content .notes,
+.black .task.done .task-content .due {
+
+    color: #5A5A5A;
+}
+
+
+.black .arrow-l {
+    background-image: url('../src/todo/arrow-white-l.png');
+
+}
+
+.black .arrow-r {
+    background-image: url('../src/todo/arrow-white-r.png');
+
+}
+
+
+
+
+
+
+
+.grey .day1.day,
+.grey .day3.day,
+.grey .day5.day,
+.grey .day7.day,
+.grey .todo-edit {
+    background-color: #505050;
+}
+
+
+
+.grey .day2.day,
+.grey .day4.day,
+.grey .day6.day {
+    background-color: #5C5C5C;
+
+}
+
+
+.grey #prev-week,
+.grey #next-week {
+    color: white;
+    background-color: #7C7C7C;
+}
+
+.grey .todo-edit {
+    background-image: url('../src/todo/todo-edit-white.png');
+}
+
+
+.grey .task .mark-done {
+    border: 0.0625rem solid white;
+
+}
+
+
+.grey .task.done .mark-done {
+    border: 0.0625rem solid #A0A0A0;
+
+}
+
+.grey .task.done .mark-done::after,
+.grey .task-list::-webkit-scrollbar-track,
+.grey .task-list::-webkit-scrollbar-thumb {
+    background-color: #7C7C7C;
+
+}
+
+
+.grey .task.done .task-content .title,
+.grey .task.done .task-content .notes,
+.grey .task.done .task-content .due {
+
+    color: #A0A0A0;
+}
+
+
+.grey .arrow-l {
+    background-image: url('../src/todo/arrow-white-l.png');
+
+}
+
+.grey .arrow-r {
+    background-image: url('../src/todo/arrow-white-r.png');
+
+}
+
+
+
+
+
+
+
+
+
+.pink .day1.day,
+.pink .day3.day,
+.pink .day5.day,
+.pink .day7.day,
+.pink .todo-edit {
+    background-color: #2F2A2B;
+}
+
+
+
+.pink .day2.day,
+.pink .day4.day,
+.pink .day6.day {
+    background-color: #352F30;
+
+}
+
+
+.pink #prev-week,
+.pink #next-week {
+    color: white;
+    background-color: #6A585B;
+}
+
+.pink .task .mark-done {
+    border: 0.0625rem solid #FF7E96;
+
+}
+
+
+.pink .task.done .mark-done {
+    border: 0.0625rem solid #6A585B;
+
+}
+
+.pink .task.done .mark-done::after,
+.pink .task-list::-webkit-scrollbar-track,
+.pink .task-list::-webkit-scrollbar-thumb {
+    background-color: #6A585B;
+}
+
+
+.pink .task.done .task-content .title,
+.pink .task.done .task-content .notes,
+.pink .task.done .task-content .due {
+
+    color: #6A585B;
+}
+
+.pink .todo-edit {
+    background-image: url('../src/todo/todo-edit-pink.png');
+}
+
+
+.pink .arrow-l {
+    background-image: url('../src/todo/arrow-white-l.png');
+
+}
+
+.pink .arrow-r {
+    background-image: url('../src/todo/arrow-white-r.png');
+
+}
+
+
+.pink .day-name {
+    color: #FF7E96;
+}
+
+
+.pink .line {
+    background-color: #FFCBD4;
+}
+
+
+
+
+
+
+
+
+
+.orange .day1.day,
+.orange .day3.day,
+.orange .day5.day,
+.orange .day7.day,
+.orange .todo-edit {
+    background-color: #2B2927;
+}
+
+
+
+.orange .day2.day,
+.orange .day4.day,
+.orange .day6.day {
+    background-color: #34312E;
+
+}
+
+
+.orange #prev-week,
+.orange #next-week {
+    color: white;
+    background-color: #5B524B;
+}
+
+
+.orange .task.done .mark-done {
+    border: 0.0625rem solid #5B524B;
+
+}
+
+.orange .task.done .mark-done::after,
+.orange .task-list::-webkit-scrollbar-track,
+.orange .task-list::-webkit-scrollbar-thumb {
+    background-color: #5B524B;
+}
+
+
+.orange .task.done .task-content .title,
+.orange .task.done .task-content .notes,
+.orange .task.done .task-content .due {
+
+    color: #5B524B;
+}
+
+.orange .todo-edit {
+    background-image: url('../src/todo/todo-edit-orange.png');
+}
+
+
+.orange .arrow-l {
+    background-image: url('../src/todo/arrow-white-l.png');
+
+}
+
+.orange .arrow-r {
+    background-image: url('../src/todo/arrow-white-r.png');
+
+}
+
+
+.orange .task .mark-done {
+    border: 0.0625rem solid #FF6C00;
+
+}
+
+.orange .day-name {
+    color: #FF6C00;
+}
+
+
+.orange .line {
+    background-color: #FEA768;
+}
+
+
+
+
+
+
+.green .day1.day,
+.green .day3.day,
+.green .day5.day,
+.green .day7.day,
+.green .todo-edit {
+    background-color: #212523;
+}
+
+
+
+.green .day2.day,
+.green .day4.day,
+.green .day6.day {
+    background-color: #252C29;
+
+}
+
+
+.green #prev-week,
+.green #next-week {
+    color: white;
+    background-color: #475A4E;
+}
+
+
+.green .task.done .mark-done {
+    border: 0.0625rem solid #475A4E;
+
+}
+
+.green .task.done .mark-done::after,
+.green .task-list::-webkit-scrollbar-track,
+.green .task-list::-webkit-scrollbar-thumb {
+    background-color: #475A4E;
+}
+
+
+.green .task.done .task-content .title,
+.green .task.done .task-content .notes,
+.green .task.done .task-content .due {
+
+    color: #475A4E;
+}
+
+.green .todo-edit {
+    background-image: url('../src/todo/todo-edit-green.png');
+}
+
+
+.green .arrow-l {
+    background-image: url('../src/todo/arrow-white-l.png');
+
+}
+
+.green .arrow-r {
+    background-image: url('../src/todo/arrow-white-r.png');
+
+}
+
+
+.green .task .mark-done {
+    border: 0.0625rem solid #269C5C;
+
+}
+
+.green .day-name {
+    color: #269C5C;
+}
+
+
+.green .line {
+    background-color: #73C398;
+}
+
+
+
+
+
+
+
+.mint .day1.day,
+.mint .day3.day,
+.mint .day5.day,
+.mint .day7.day,
+.mint .todo-edit {
+    background-color: #232727;
+}
+
+
+
+.mint .day2.day,
+.mint .day4.day,
+.mint .day6.day {
+    background-color: #282E2E;
+
+}
+
+
+.mint #prev-week,
+.mint #next-week {
+    color: white;
+    background-color: #495A5A;
+}
+
+
+.mint .task.done .mark-done {
+    border: 0.0625rem solid #495A5A;
+
+}
+
+.mint .task.done .mark-done::after,
+.mint .task-list::-webkit-scrollbar-track,
+.mint .task-list::-webkit-scrollbar-thumb {
+    background-color: #495A5A;
+}
+
+
+.mint .task.done .task-content .title,
+.mint .task.done .task-content .notes,
+.mint .task.done .task-content .due {
+
+    color: #495A5A;
+}
+
+.mint .todo-edit {
+    background-image: url('../src/todo/todo-edit-mint.png');
+}
+
+
+.mint .arrow-l {
+    background-image: url('../src/todo/arrow-white-l.png');
+
+}
+
+.mint .arrow-r {
+    background-image: url('../src/todo/arrow-white-r.png');
+
+}
+
+
+.mint .task .mark-done {
+    border: 0.0625rem solid #22A5A5;
+
+}
+
+.mint .day-name {
+    color: #22A5A5;
+}
+
+
+.mint .line {
+    background-color: #BFFFFF;
+}
+
+
+
+
+
+
+
+
+.blue .day1.day,
+.blue .day3.day,
+.blue .day5.day,
+.blue .day7.day,
+.blue .todo-edit {
+    background-color: #24292E;
+}
+
+
+
+.blue .day2.day,
+.blue .day4.day,
+.blue .day6.day {
+    background-color: #2A3139;
+
+}
+
+
+.blue #prev-week,
+.blue #next-week {
+    color: white;
+    background-color: #515D69;
+}
+
+
+.blue .task.done .mark-done {
+    border: 0.0625rem solid #515D69;
+
+}
+
+.blue .task.done .mark-done::after,
+.blue .task-list::-webkit-scrollbar-track,
+.blue .task-list::-webkit-scrollbar-thumb {
+    background-color: #515D69;
+}
+
+
+.blue .task.done .task-content .title,
+.blue .task.done .task-content .notes,
+.blue .task.done .task-content .due {
+
+    color: #515D69;
+}
+
+.blue .todo-edit {
+    background-image: url('../src/todo/todo-edit-blue.png');
+}
+
+
+.blue .arrow-l {
+    background-image: url('../src/todo/arrow-white-l.png');
+
+}
+
+.blue .arrow-r {
+    background-image: url('../src/todo/arrow-white-r.png');
+
+}
+
+
+.blue .task .mark-done {
+    border: 0.0625rem solid #63B4FF;
+
+}
+
+.blue .day-name {
+    color: #63B4FF;
+}
+
+
+.blue .line {
+    background-color: #B8DDFF;
+}
+
+
+
+
+.purple  .day1.day,
+.purple  .day3.day,
+.purple  .day5.day,
+.purple  .day7.day,
+.purple  .todo-edit {
+    background-color: #252327;
+}
+
+
+
+.purple  .day2.day,
+.purple  .day4.day,
+.purple  .day6.day {
+    background-color: #2D2A30;
+
+}
+
+
+.purple  #prev-week,
+.purple  #next-week {
+    color: white;
+    background-color: #605265;
+}
+
+
+.purple  .task.done .mark-done {
+    border: 0.0625rem solid #605265;
+
+}
+
+.purple  .task.done .mark-done::after,
+.purple  .task-list::-webkit-scrollbar-track,
+.purple  .task-list::-webkit-scrollbar-thumb {
+    background-color: #605265;
+}
+
+
+.purple  .task.done .task-content .title,
+.purple  .task.done .task-content .notes,
+.purple  .task.done .task-content .due {
+
+    color: #605265;
+}
+
+.purple  .todo-edit {
+    background-image: url('../src/todo/todo-edit-purple-l.png');
+}
+
+
+.purple  .arrow-l {
+    background-image: url('../src/todo/arrow-white-l.png');
+
+}
+
+.purple  .arrow-r {
+    background-image: url('../src/todo/arrow-white-r.png');
+
+}
+
+
+.purple  .task .mark-done {
+    border: 0.0625rem solid #D67FFF;
+
+}
+
+.purple  .day-name {
+    color: #D67FFF;
+}
+
+
+.purple  .line {
+    background-color: #E7B3FF;
+}

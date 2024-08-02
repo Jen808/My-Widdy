@@ -11,26 +11,32 @@
 #iii {
   width: 100%;
   height: 100%;
+  border-radius: 0.44rem;
+  background-color: white;
+
 }
 
 
 body {
   font-family: "Inter", sans-serif;
-  background-color: white;
+  background-color: transparent;
   margin: 0;
   padding: 0;
   -webkit-app-region: drag;
   height: 100%;
   width: 100%;
+  border-radius: 0.44rem;
 }
 
 
 .tasks-container {
   display: flex;
   flex-direction: column;
-  background-color: yellow;
+  /* background-color: yellow; */
   width: 18.75rem;
-  height: 28.125rem;
+  border-radius: 0.44rem;
+
+
 
 
 }
@@ -38,11 +44,14 @@ body {
 .todoheader {
   width: 18.75rem;
   height: 4.25rem;
-  position:relative;
+  position: fixed;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  border-radius: 0.44rem;
+
+  /* background-color: pink; */
 
 
 
@@ -128,16 +137,23 @@ body {
 
 
 .todo-list-container {
-  height: 23.875rem;
+  height: 23.375rem;
+  width: 18.375rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: auto;
+  margin-top: 4.25rem;
+  -webkit-app-region: no-drag;
+
+  /* background-color: aqua; */
 
 }
 
 .task-list {
   width: 100%;
-  height: 100%;
+  height: 23.375rem;
+
 
 }
 
@@ -148,7 +164,7 @@ body {
 .task {
   width: 100%;
 
-  padding: 0.6875rem 1.81rem 0.6875rem 1.81rem;
+  padding: 0.6875rem 1rem 0.6875rem 1.625rem;
   box-sizing: border-box;
   -webkit-app-region: no-drag;
   word-wrap: break-word;
@@ -166,17 +182,17 @@ body {
 .task .mark-done {
   width: 0.875rem;
   height: 0.875rem;
-  border: 2px solid black;
+  border: 0.0625rem solid black;
   border-radius: 50%;
   cursor: pointer;
-  margin-right: 1rem;
+  margin-right: 0.875rem;
   position: relative;
 }
 
 .task.done .mark-done {
   width: 0.875rem;
   height: 0.875rem;
-  border: 2px solid #A0A0A0;
+  border: 0.0625rem solid #A0A0A0;
   border-radius: 50%;
   cursor: pointer;
   margin-right: 1rem;
@@ -228,12 +244,12 @@ body {
   background-size: cover;
   background-position: center;
   position: absolute;
-  right: 1rem;
+  right: 1.0625rem;
   bottom: 1rem;
   display: block;
   cursor: pointer;
   -webkit-app-region: no-drag;
-  transform: rotate(45deg);
+  transform: rotate(40deg);
 
 
 
@@ -304,3 +320,42 @@ body{
 
 
 } */
+
+
+.todo-list-container::-webkit-scrollbar {
+  width: 0.69rem;
+  margin-right: 3.125rem;
+  position: relative;
+  border-right: 0.25rem solid transparent;
+
+
+}
+
+.todo-list-container::-webkit-scrollbar-track {
+  background: #ebebeb;
+  /* Custom track background for this element */
+  border-radius: 1.44rem;
+  border-left: 0.25rem solid transparent;
+  border-right: 0.25rem solid transparent;
+  background-clip: padding-box;
+
+}
+
+.todo-list-container::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  /* Color of the thumb */
+  border-radius: 1.44rem;
+  border-right: 0.25rem solid transparent;
+
+
+
+
+}
+
+.todo-list-container::-webkit-scrollbar-thumb:hover {
+  background: #bdbdbd;
+  cursor: pointer;
+
+
+  /* Color when hovering */
+}

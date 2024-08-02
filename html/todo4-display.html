@@ -5,16 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Display Tasks</title>
-    <link rel="stylesheet" href="../css/todo_3.css">
-    <link rel="stylesheet" href="../css/todo3_color.css">
+    <link rel="stylesheet" href="../css/todo_4.css">
+    <link rel="stylesheet" href="../css/todo4_color.css">
 
 </head>
 
 <body>
     <div class="default-set"></div>
     <div id="iii">
+        <div class="todofloat">
+            <div class="week-control">
+                <button id="prev-week">
+                    <div class="arrow-l"></div>
+                    <div class="prev-week">LAST WEEK</div>
+                </button>
+                <button id="next-week">
+                    <div class="arrow-r"></div>
+                    <div class="next-week">NEXT WEEK</div>
+
+
+                </button>
+            </div>
+            <a href="https://tasksboard.com/app" class="todo-edit" target="_blank"></a>
+        </div>
         <div class="tasks-container">
-            <div class="line"></div>
+
+
+
             <div class="todo-list-container" id="tasks">
                 <div class="day1 day">
                     <div class="day-header-container">
@@ -66,21 +83,14 @@
                     <div class="task-list7 task-list"></div>
                 </div>
             </div>
-        </div>
-        <div class="todofloat">
-            <div class="week-control">
-                <button id="prev-week">
-                    <div class="arrow-l"></div>
-                    <div class="prev-week">LAST WEEK</div>
-                </button>
-                <button id="next-week">
-                    <div class="arrow-r"></div>
-                    <div class="next-week">NEXT WEEK</div>
 
-
-                </button>
-            </div>
-            <a href="https://tasksboard.com/app" class="todo-edit" target="_blank"></a>
+            <div class="line"></div>
+            <div class="vline1"></div>
+            <div class="vline2"></div>
+            <div class="vline3"></div>
+            <div class="vline4"></div>
+            <div class="vline5"></div>
+            <div class="vline6"></div>
         </div>
 
     </div>
@@ -172,7 +182,7 @@
             }
         }
 
-        ipcRenderer.on('resize-todo3', (event, { newWidth, newHeight }) => {
+        ipcRenderer.on('resize-todo4', (event, { newWidth, newHeight }) => {
             resizeTodo({ newWidth, newHeight });
         });
 
@@ -213,7 +223,7 @@
             });
         });
 
-        ipcRenderer.on('change-todo3-color', (event, colorSet) => {
+        ipcRenderer.on('change-todo4-color', (event, colorSet) => {
             document.body.className = colorSet;
         });
     </script>

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Pompiere&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=VT323&display=swap');
 
-html,body{
+html,
+body {
   background-color: #404040;
   font-family: Inter, sans-serif;
   width: 100%;
@@ -9,7 +10,7 @@ html,body{
   padding: 0;
   box-sizing: border-box;
   overflow: auto;
-  
+
 }
 
 .sidebar {
@@ -43,7 +44,7 @@ html,body{
   font-weight: 700;
   font-size: 1.25rem;
   color: #ffffff;
-  padding-left: 0.56rem; 
+  padding-left: 0.56rem;
 
 }
 
@@ -119,74 +120,94 @@ nav ul li a {
 
 
 .main-content {
-    position: fixed;
-    left: 232px;
-    top: 0px;
-    padding: 0px;
-    margin: 0px;
-    height: 100%;
-    width: 100%;
-    overflow-y: auto;
-     
-  }
-  
-  .content-header {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    padding: 0px;
-    margin: 0px;
-    height: 86px;
-    width: 1190px;
-  }
-  
-  
-  #content-title {
-    position: absolute;
-    left: 33px;
-    top: 37px;
-    font-size: 30px;
-    font-weight: bold;
-    color: #ff8d3a;
-    padding: 0px;
-    margin: 0px;
-  }
-  
-  .content-body{
-    position: absolute;
-    width: 74.375rem;
-    height: 42.75rem;
-    top: 7.25rem;
-    margin: 0px;
-    padding-left: 3.75rem;
-  }
-  
-
-.cal1button {
-  width: 31.25rem;
-  height: 18.75rem;
-  background-color: #5E5E5E;
-  border-radius: 0.9375rem;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-
-.cal1-image {
-  width: 26.6875rem;
-  height: 13.4375rem;
-  flex-shrink: 0;
-  filter: drop-shadow(0.6875rem 0.6875rem 1rem #404040);
+  position: fixed;
+  left: 232px;
+  top: 0px;
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
 
 }
 
-
-.cal2button {
+.content-header {
   position: absolute;
-  left: 37.6875rem;
-  width: 31.25rem;
-  height: 18.75rem;
+  top: 0px;
+  left: 0px;
+  padding: 0px;
+  margin: 0px;
+  height: 86px;
+  width: 1190px;
+}
+
+
+#content-title {
+  position: absolute;
+  left: 33px;
+  top: 37px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #ff8d3a;
+  padding: 0px;
+  margin: 0px;
+}
+
+.content-body {
+  position: absolute;
+  width: 74.375rem;
+  height: 42.75rem;
+  top: 7.25rem;
+  margin: 0px;
+  padding-left: 3.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.daily-view {
+  width: 66.5625rem;
+  height: 29.375rem;
+  background-color: yellow;
+  display: flex;
+}
+
+.daily-header {
+
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: white;
+  padding: 0px;
+  margin: 0px;
+  font-style: none;
+}
+
+.todo1button {
+  width: 19.625rem;
+  height: 19.625rem;
+  background-color: #5E5E5E;
+  border-radius: 0.9375rem;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+
+.todo1-image {
+  width: 11rem;
+  height: 16.3125rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0.6875rem 0.6875rem 1rem #404040);
+
+}
+
+
+.todo2button {
+  position: absolute;
+  left: 27.25rem;
+  width: 19.625rem;
+  height: 19.625rem;
   background-color: #5E5E5E;
   border-radius: 0.9375rem;
   border: none;
@@ -196,21 +217,21 @@ nav ul li a {
 }
 
 
-.cal2-image {
-  width: 24.25rem;
-  height: 14.1875rem;
+.todo2-image {
+  width: 11rem;
+  height: 16.3125rem;
   flex-shrink: 0;
   filter: drop-shadow(0.6875rem 0.6875rem 1rem #404040);
 
 }
 
 
-.cal3button {
+.todo3button {
   position: absolute;
   top: 21.4375rem;
   left: 3.75rem;
-  width: 31.25rem;
-  height: 18.75rem;
+  width: 31.5rem;
+  height: 18.5rem;
   background-color: #5E5E5E;
   border-radius: 0.9375rem;
   border: none;
@@ -220,21 +241,21 @@ nav ul li a {
 }
 
 
-.cal3-image {
-  width: 27.1875rem;
-  height: 12.4375rem;
+.todo3-image {
+  width: 27.3125rem;
+  height: 8.75rem;
   flex-shrink: 0;
   filter: drop-shadow(0.6875rem 0.6875rem 1rem #404040);
 
 }
 
 
-.cal4button {
+.todo4button {
   position: absolute;
-  top: 21.4375rem;
+  top: 38.87rem;
   left: 37.6875rem;
-  width: 31.25rem;
-  height: 18.75rem;
+  width: 31.5rem;
+  height: 18.5rem;
   background-color: #5E5E5E;
   border-radius: 0.9375rem;
   border: none;
@@ -244,12 +265,38 @@ nav ul li a {
 }
 
 
-.cal4-image {
-  width: 9.9375rem;
-  height: 15.4375rem;
+.todo4-image {
+  width: 27.3125rem;
+  height: 8.75rem;
   flex-shrink: 0;
   filter: drop-shadow(0.6875rem 0.6875rem 1rem #404040);
 }
+
+
+
+.todo5button {
+  position: absolute;
+  top: 21.88rem;
+  left: 3.75rem;
+  width: 31.5rem;
+  height: 18.5rem;
+  background-color: #5E5E5E;
+  border-radius: 0.9375rem;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+}
+
+
+.todo5-image {
+  width: 27.3125rem;
+  height: 8.75rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0.6875rem 0.6875rem 1rem #404040);
+}
+
+
 
 
 
@@ -257,7 +304,7 @@ nav ul li a {
   .cal2button {
     left: 3.75rem;
     top: 42.9375rem;
-  
+
   }
 
 
@@ -265,14 +312,13 @@ nav ul li a {
     left: 3.75rem;
     top: 64.4375rem;
     margin-bottom: 10rem;
-  
+
   }
 
 
   /* .main-content {
     overflow-y: auto;
   } */
-  
 
-  }
 
+}

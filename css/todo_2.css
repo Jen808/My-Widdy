@@ -121,6 +121,8 @@
     width: 100%;
     border-radius: 1.0625rem;
     background-color: white;
+    width: 18.75rem;
+
   
   
   }
@@ -140,6 +142,7 @@
 
 
     background-color: #D9D9D9;
+    position: fixed;
   
   
   
@@ -220,17 +223,22 @@
   
   
   .todo-list-container {
-    height: 23.875rem;
+    height: 23.375rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
+    margin-top: 3.75rem;
+    -webkit-app-region: no-drag;
+    width: 18.375rem;
+
   
   }
   
   .task-list {
     width: 100%;
     height: 100%;
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
   
   }
   
@@ -245,7 +253,7 @@
     border: 1px solid #ddd; */
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
     /* border-radius: 4px; */
-    padding: 0.6875rem 1.81rem 0.6875rem 1.81rem;
+    padding: 0.6875rem 1rem 0.6875rem 1.625rem;
     box-sizing: border-box;
     -webkit-app-region: no-drag;
     word-wrap: break-word;
@@ -335,14 +343,54 @@
     background-size: cover;
     background-position: center;
     position: absolute;
-    right: 1rem;
+    right: 1.0625rem;
     bottom: 1rem;
     display: block;
     cursor: pointer;
     -webkit-app-region: no-drag;
-    transform: rotate(45deg);
+    transform: rotate(40deg);
   
     
   
+  }
+  
+
+
+  .todo-list-container::-webkit-scrollbar {
+    width: 0.69rem;
+    margin-right: 3.125rem;
+    position: relative;
+    border-right: 0.25rem solid transparent;
+  
+  
+  }
+  
+  .todo-list-container::-webkit-scrollbar-track {
+    background: #ebebeb;
+    /* Custom track background for this element */
+    border-radius: 1.44rem;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    background-clip: padding-box;
+  
+  }
+  
+  .todo-list-container::-webkit-scrollbar-thumb {
+    background: #d9d9d9;
+    /* Color of the thumb */
+    border-radius: 1.44rem;
+    border-right: 0.25rem solid transparent;
+  
+  
+  
+  
+  }
+  
+  .todo-list-container::-webkit-scrollbar-thumb:hover {
+    background: #bdbdbd;
+    cursor: pointer;
+  
+  
+    /* Color when hovering */
   }
   

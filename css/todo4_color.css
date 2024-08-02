@@ -1,0 +1,829 @@
+.li-pink .line,
+.li-pink .vline1,
+.li-pink .vline2,
+.li-pink .vline3,
+.li-pink .vline4,
+.li-pink .vline5,
+.li-pink .vline6,
+.li-pink .task .mark-done {
+    background-color: #FF7E96;
+}
+
+
+.li-pink #prev-week,
+.li-pink #next-week,
+.li-pink .todo-edit {
+    border: 0.0625rem solid #FF7E96;
+
+}
+
+.li-pink .todo-edit {
+    background-image: url('../src/todo/todo-edit-pink.png');
+}
+
+.li-pink .task.done .mark-done,
+.li-pink .task-list::-webkit-scrollbar-track,
+.li-pink .task-list::-webkit-scrollbar-thumb {
+    background-color: #FFC7D1;
+
+}
+
+.li-pink .task.done .task-content .title,
+.li-pink .task.done .task-content .notes,
+.li-pink .task.done .task-content .due {
+    color: #FFC7D1;
+}
+
+
+
+
+
+
+
+.li-orange .line,
+.li-orange .vline1,
+.li-orange .vline2,
+.li-orange .vline3,
+.li-orange .vline4,
+.li-orange .vline5,
+.li-orange .vline6,
+.li-orange .task .mark-done {
+    background-color: #FF8D3A;
+}
+
+
+.li-orange #prev-week,
+.li-orange #next-week,
+.li-orange .todo-edit {
+    border: 0.0625rem solid #FF8D3A;
+
+}
+
+.li-orange .todo-edit {
+    background-image: url('../src/todo/todo-edit-orange.png');
+}
+
+.li-orange .task.done .mark-done,
+.li-orange .task-list::-webkit-scrollbar-track,
+.li-orange .task-list::-webkit-scrollbar-thumb {
+    background-color: #FBC096;
+
+}
+
+.li-orange .task.done .task-content .title,
+.li-orange .task.done .task-content .notes,
+.li-orange .task.done .task-content .due {
+    color: #FBC096;
+}
+
+
+
+
+
+
+
+
+.li-green .line,
+.li-green .vline1,
+.li-green .vline2,
+.li-green .vline3,
+.li-green .vline4,
+.li-green .vline5,
+.li-green .vline6,
+.li-green .task .mark-done {
+    background-color: #269C5C;
+}
+
+
+.li-green #prev-week,
+.li-green #next-week,
+.li-green .todo-edit {
+    border: 0.0625rem solid #269C5C;
+
+}
+
+.li-green .todo-edit {
+    background-image: url('../src/todo/todo-edit-green.png');
+}
+
+.li-green .task.done .mark-done,
+.li-green .task-list::-webkit-scrollbar-track,
+.li-green .task-list::-webkit-scrollbar-thumb {
+    background-color: #ACD9C1;
+
+}
+
+.li-green .task.done .task-content .title,
+.li-green .task.done .task-content .notes,
+.li-green .task.done .task-content .due {
+    color: #ACD9C1;
+}
+
+
+
+
+
+
+
+
+.li-mint .line,
+.li-mint .vline1,
+.li-mint .vline2,
+.li-mint .vline3,
+.li-mint .vline4,
+.li-mint .vline5,
+.li-mint .vline6,
+.li-mint .task .mark-done {
+    background-color: #22A5A5;
+}
+
+
+.li-mint #prev-week,
+.li-mint #next-week,
+.li-mint .todo-edit {
+    border: 0.0625rem solid #22A5A5;
+
+}
+
+.li-mint .todo-edit {
+    background-image: url('../src/todo/todo-edit-mint.png');
+}
+
+.li-mint .task.done .mark-done,
+.li-mint .task-list::-webkit-scrollbar-track,
+.li-mint .task-list::-webkit-scrollbar-thumb {
+    background-color: #A0D1D1 ;
+
+}
+
+.li-mint .task.done .task-content .title,
+.li-mint .task.done .task-content .notes,
+.li-mint .task.done .task-content .due {
+    color: #A0D1D1 ;
+}
+
+
+
+
+
+
+
+
+
+.li-blue .line,
+.li-blue .vline1,
+.li-blue .vline2,
+.li-blue .vline3,
+.li-blue .vline4,
+.li-blue .vline5,
+.li-blue .vline6,
+.li-blue .task .mark-done {
+    background-color: #63B4FF;
+} 
+
+
+.li-blue #prev-week,
+.li-blue #next-week,
+.li-blue .todo-edit {
+    border: 0.0625rem solid #63B4FF;
+
+}
+
+.li-blue .todo-edit {
+    background-image: url('../src/todo/todo-edit-blue.png');
+}
+
+.li-blue .task.done .mark-done,
+.li-blue .task-list::-webkit-scrollbar-track,
+.li-blue .task-list::-webkit-scrollbar-thumb {
+    background-color: #C0E1FF;
+
+}
+
+.li-blue .task.done .task-content .title,
+.li-blue .task.done .task-content .notes,
+.li-blue .task.done .task-content .due {
+    color: #C0E1FF;
+}
+
+
+
+
+
+
+
+
+
+
+.li-purple .line,
+.li-purple .vline1,
+.li-purple .vline2,
+.li-purple .vline3,
+.li-purple .vline4,
+.li-purple .vline5,
+.li-purple .vline6,
+.li-purple .task .mark-done {
+    background-color: #C257E8;
+}  
+
+
+.li-purple #prev-week,
+.li-purple #next-week,
+.li-purple .todo-edit {
+    border: 0.0625rem solid #C257E8;
+
+}
+
+.li-purple .todo-edit {
+    background-image: url('../src/todo/todo-edit-purple.png');
+}
+
+.li-purple .task.done .mark-done,
+.li-purple .task-list::-webkit-scrollbar-track,
+.li-purple .task-list::-webkit-scrollbar-thumb {
+    background-color: #F0C5FF;
+
+}
+
+.li-purple .task.done .task-content .title,
+.li-purple .task.done .task-content .notes,
+.li-purple .task.done .task-content .due {
+    color: #F0C5FF;
+}
+
+
+
+
+
+
+.cmyk .line,
+.cmyk .vline1,
+.cmyk .vline2,
+.cmyk .vline3,
+.cmyk .vline4,
+.cmyk .vline5,
+.cmyk .vline6,
+.cmyk .task .mark-done {
+    background-color: #0085FF;
+}  
+
+.cmyk .task.done .mark-done {
+    background-color: #D9D9D9;
+}
+
+
+
+
+
+
+
+
+.black #iii,
+.black .task-list,
+.grey #iii,
+.grey .task-list,
+.pink #iii,
+.pink .task-list,
+.orange #iii,
+.orange .task-list,
+.green #iii,
+.green .task-list,
+.mint #iii,
+.mint .task-list,
+.blue #iii,
+.blue .task-list,
+.purple #iii,
+.purple .task-list,
+.black #prev-week,
+.black #next-week,
+.grey #prev-week,
+.grey #next-week,
+.pink #prev-week,
+.pink #next-week,
+.orange #prev-week,
+.orange #next-week,
+.green #prev-week,
+.green #next-week,
+.mint #prev-week,
+.mint #next-week,
+.blue #prev-week,
+.blue #next-week,
+.purple #prev-week,
+.purple #next-week
+
+{
+    color: white;
+}
+
+
+.black .todo-edit,
+.grey .todo-edit ,
+.pink .todo-edit ,
+.orange .todo-edit ,
+.green .todo-edit ,
+.mint .todo-edit ,
+.blue .todo-edit ,
+.purple .todo-edit {
+    background-image: url('../src/todo/todo-edit-white.png');
+}
+
+.black .arrow-l,
+.grey .arrow-l,
+.pink .arrow-l,
+.orange .arrow-l,
+.green .arrow-l,
+.mint .arrow-l,
+.blue .arrow-l,
+.purple .arrow-l {
+    background-image: url('../src/todo/arrow-white-l.png');
+}
+
+
+.black .arrow-r,
+.grey .arrow-r,
+.pink .arrow-r,
+.orange .arrow-r,
+.green .arrow-r,
+.mint .arrow-r,
+.blue .arrow-r,
+.purple .arrow-r {
+    background-image: url('../src/todo/arrow-white-r.png');
+}
+
+.black .day1.day,
+.black .day3.day,
+.black .day5.day,
+.black .day7.day,
+.black .day2.day,
+.black .day4.day,
+.black .day6.day,
+.black .day-header-container,
+.black #prev-week,
+.black #next-week,
+.black .todo-edit  {
+    background-color: black;
+}
+
+
+.black #prev-week,
+.black #next-week,
+.black .todo-edit  {
+    border: 0.0625rem solid white;
+
+}
+
+
+
+.black .line,
+.black .vline1,
+.black .vline2,
+.black .vline3,
+.black .vline4,
+.black .vline5,
+.black .vline6,
+.black .task .mark-done {
+    background-color: white;
+}
+
+
+.black .task.done .mark-done,
+.black .task-list::-webkit-scrollbar-track,
+.black .task-list::-webkit-scrollbar-thumb {
+    background-color: #5A5A5A;
+}
+
+
+.black .task.done .task-content .title,
+.black .task.done .task-content .notes,
+.black .task.done .task-content .due {
+    color: #5A5A5A;
+}
+
+
+
+
+
+
+
+
+.grey .day1.day,
+.grey .day3.day,
+.grey .day5.day,
+.grey .day7.day,
+.grey .day2.day,
+.grey .day4.day,
+.grey .day6.day,
+.grey .day-header-container,
+.grey #prev-week,
+.grey #next-week,
+.grey .todo-edit  {
+    background-color: #505050;
+}
+
+
+.grey #prev-week,
+.grey #next-week,
+.grey .todo-edit  {
+    border: 0.0625rem solid white;
+
+}
+
+
+
+.grey .line,
+.grey .vline1,
+.grey .vline2,
+.grey .vline3,
+.grey .vline4,
+.grey .vline5,
+.grey .vline6,
+.grey .task .mark-done {
+    background-color: white;
+}
+
+
+.grey .task.done .mark-done,
+.grey .task-list::-webkit-scrollbar-track,
+.grey .task-list::-webkit-scrollbar-thumb  {
+    background-color: #A0A0A0;
+}
+
+
+.grey .task.done .task-content .title,
+.grey .task.done .task-content .notes,
+.grey .task.done .task-content .due {
+    color: #A0A0A0;
+}
+
+
+
+
+
+
+
+
+
+
+.grey .day1.day,
+.grey .day3.day,
+.grey .day5.day,
+.grey .day7.day,
+.grey .day2.day,
+.grey .day4.day,
+.grey .day6.day,
+.grey .day-header-container,
+.grey #prev-week,
+.grey #next-week,
+.grey .todo-edit  {
+    background-color: #505050;
+}
+
+
+.grey #prev-week,
+.grey #next-week,
+.grey .todo-edit  {
+    border: 0.0625rem solid white;
+
+}
+
+
+
+.grey .line,
+.grey .vline1,
+.grey .vline2,
+.grey .vline3,
+.grey .vline4,
+.grey .vline5,
+.grey .vline6,
+.grey .task .mark-done {
+    background-color: white;
+}
+
+
+.grey .task.done .mark-done,
+.grey .task-list::-webkit-scrollbar-track,
+.grey .task-list::-webkit-scrollbar-thumb  {
+    background-color: #A0A0A0;
+}
+
+
+.grey .task.done .task-content .title,
+.grey .task.done .task-content .notes,
+.grey .task.done .task-content .due {
+    color: #A0A0A0;
+}
+
+
+
+
+
+
+.pink .day1.day,
+.pink .day3.day,
+.pink .day5.day,
+.pink .day7.day,
+.pink .day2.day,
+.pink .day4.day,
+.pink .day6.day,
+.pink .day-header-container,
+.pink #prev-week,
+.pink #next-week,
+.pink .todo-edit,
+
+.orange .day1.day,
+.orange .day3.day,
+.orange .day5.day,
+.orange .day7.day,
+.orange .day2.day,
+.orange .day4.day,
+.orange .day6.day,
+.orange .day-header-container,
+.orange #prev-week,
+.orange #next-week,
+.orange .todo-edit,
+
+.green .day1.day,
+.green .day3.day,
+.green .day5.day,
+.green .day7.day,
+.green .day2.day,
+.green .day4.day,
+.green .day6.day,
+.green .day-header-container,
+.green #prev-week,
+.green #next-week,
+.green .todo-edit,
+
+.mint .day1.day,
+.mint .day3.day,
+.mint .day5.day,
+.mint .day7.day,
+.mint .day2.day,
+.mint .day4.day,
+.mint .day6.day,
+.mint .day-header-container,
+.mint #prev-week,
+.mint #next-week,
+.mint .todo-edit,
+
+.blue .day1.day,
+.blue .day3.day,
+.blue .day5.day,
+.blue .day7.day,
+.blue .day2.day,
+.blue .day4.day,
+.blue .day6.day,
+.blue .day-header-container,
+.blue #prev-week,
+.blue #next-week,
+.blue .todo-edit,
+
+.purple .day1.day,
+.purple .day3.day,
+.purple .day5.day,
+.purple .day7.day,
+.purple .day2.day,
+.purple .day4.day,
+.purple .day6.day,
+.purple .day-header-container,
+.purple #prev-week,
+.purple #next-week,
+.purple .todo-edit
+
+{
+    background-color: #1E1E1E;
+}
+
+
+.pink #prev-week,
+.pink #next-week,
+.pink .todo-edit  {
+    border: 0.0625rem solid #FFCBD4;
+
+}
+
+
+
+.pink .line,
+.pink .vline1,
+.pink .vline2,
+.pink .vline3,
+.pink .vline4,
+.pink .vline5,
+.pink .vline6,
+.pink .task .mark-done {
+    background-color: #FFCBD4;
+}
+
+
+.pink .task.done .mark-done,
+.pink .task-list::-webkit-scrollbar-track,
+.pink .task-list::-webkit-scrollbar-thumb  {
+    background-color: #6A585B;
+}
+
+
+.pink .task.done .task-content .title,
+.pink .task.done .task-content .notes,
+.pink .task.done .task-content .due {
+    color: #6A585B;
+}
+
+
+
+
+.orange #prev-week,
+.orange #next-week,
+.orange .todo-edit  {
+    border: 0.0625rem solid #FEA768;
+
+}
+
+
+
+.orange .line,
+.orange .vline1,
+.orange .vline2,
+.orange .vline3,
+.orange .vline4,
+.orange .vline5,
+.orange .vline6,
+.orange .task .mark-done {
+    background-color: #FEA768;
+}
+
+
+.orange .task.done .mark-done,
+.orange .task-list::-webkit-scrollbar-track,
+.orange .task-list::-webkit-scrollbar-thumb  {
+    background-color: #5B524B;
+}
+
+
+.orange .task.done .task-content .title,
+.orange .task.done .task-content .notes,
+.orange .task.done .task-content .due {
+    color: #5B524B;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.green #prev-week,
+.green #next-week,
+.green .todo-edit  {
+    border: 0.0625rem solid #73C398;
+}
+
+
+.green .line,
+.green .vline1,
+.green .vline2,
+.green .vline3,
+.green .vline4,
+.green .vline5,
+.green .vline6,
+.green .task .mark-done {
+    background-color: #73C398;
+}
+
+
+.green .task.done .mark-done,
+.green .task-list::-webkit-scrollbar-track,
+.green .task-list::-webkit-scrollbar-thumb  {
+    background-color: #475A4E;
+}
+
+
+.green .task.done .task-content .title,
+.green .task.done .task-content .notes,
+.green .task.done .task-content .due {
+    color: #475A4E;
+}
+
+
+
+
+
+
+
+
+
+.mint #prev-week,
+.mint #next-week,
+.mint .todo-edit  {
+    border: 0.0625rem solid #BFFFFF;
+}
+
+
+.mint .line,
+.mint .vline1,
+.mint .vline2,
+.mint .vline3,
+.mint .vline4,
+.mint .vline5,
+.mint .vline6,
+.mint .task .mark-done {
+    background-color: #BFFFFF;
+}
+
+
+.mint .task.done .mark-done,
+.mint .task-list::-webkit-scrollbar-track,
+.mint .task-list::-webkit-scrollbar-thumb  {
+    background-color: #495A5A;
+}
+
+
+.mint .task.done .task-content .title,
+.mint .task.done .task-content .notes,
+.mint .task.done .task-content .due {
+    color: #495A5A;
+}
+
+
+
+
+
+
+
+.blue #prev-week,
+.blue #next-week,
+.blue .todo-edit  {
+    border: 0.0625rem solid #B8DDFF;
+}
+
+
+.blue .line,
+.blue .vline1,
+.blue .vline2,
+.blue .vline3,
+.blue .vline4,
+.blue .vline5,
+.blue .vline6,
+.blue .task .mark-done {
+    background-color: #B8DDFF;
+}
+
+
+.blue .task.done .mark-done,
+.blue .task-list::-webkit-scrollbar-track,
+.blue .task-list::-webkit-scrollbar-thumb  {
+    background-color: #515D69;
+}
+
+
+.blue .task.done .task-content .title,
+.blue .task.done .task-content .notes,
+.blue .task.done .task-content .due {
+    color: #515D69;
+}
+
+
+
+
+
+
+
+
+
+.purple #prev-week,
+.purple #next-week,
+.purple .todo-edit  {
+    border: 0.0625rem solid #E7B3FF;
+}
+
+
+.purple .line,
+.purple .vline1,
+.purple .vline2,
+.purple .vline3,
+.purple .vline4,
+.purple .vline5,
+.purple .vline6,
+.purple .task .mark-done {
+    background-color: #E7B3FF;
+}
+
+
+.purple .task.done .mark-done,
+.purple .task-list::-webkit-scrollbar-track,
+.purple .task-list::-webkit-scrollbar-thumb  {
+    background-color: #605265;
+}
+
+
+.purple .task.done .task-content .title,
+.purple .task.done .task-content .notes,
+.purple .task.done .task-content .due {
+    color: #605265;
+}
