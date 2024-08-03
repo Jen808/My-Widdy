@@ -1,32 +1,79 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Weather Page</title>
-  <link rel="stylesheet" href="../css/my-widdy.css">
-</head>
-<body>
-  <h1>Weather Page</h1>
 
-  <!-- Go Back Button -->
-  <button id="back-button">Go Back</button>
-  <!-- Clock First Design Button -->
-  <button id="weather-first-design-button">Current and 24h</button>
-  <button id="weather-second-design-button">Current weather</button>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To Do List</title>
+  <link rel="stylesheet" href="../css/todo.css">
+
+  <style>
+    .wea1button {
+      width: 19.625rem;
+      height: 19.625rem;
+      background-color: #5E5E5E;
+      border-radius: 0.9375rem;
+      border: none;
+      margin-top: 1.125rem;
+      cursor: pointer;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <!-- <a href="#" target="_blank"> -->
+      <img src="../src/logo.png" alt="Logo Image" class="logo-image">
+      </a>
+      <a href="#" id="logo-word">Widdy</a>
+    </div>
+    <div class="sidebar-menu">
+      <nav>
+        <ul>
+          <li class="myWiddy-page"><a href="#" id="myWiddy-page">My Widdy</a></li>
+          <li class="clock-page"><a href="#" id="clock-page">Clock</a></li>
+          <li class="calendar-page"><a href="#" id="calendar-page">Calendar</a></li>
+          <li class="toDoList-page"><a href="#" id="toDoList-page">To Do List</a></li>
+          <li class="weather-page"><a href="#" id="weather-page">Weather</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="content-header">
+      <h2 id="content-title">To Do List</h2>
+    </div>
+    <div class="content-body">
+      <div class="daily-header">Daily View</div>
+      <div class="daily-view">
+        <button class="wea1button" onclick="window.location.href='#'">
+          <img src="../src/todo/todo1.png" alt="Calendar Image" class="wea1-image">
+      </div>
+    </div>
+  </div>
 
   <script>
-    document.getElementById('back-button').addEventListener('click', () => {
-      window.history.back();
+
+    const { ipcRenderer } = require('electron');
+
+
+
+    // document.getElementById('back-button').addEventListener('click', () => {
+    //   window.history.back();
+    // });
+
+    document.querySelector('.wea1-image').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'wea1.html';
+    });
+    document.querySelector('.wea1button').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'wea1.html';
     });
 
-    document.getElementById('weather-first-design-button').addEventListener('click', () => {
-      window.location.href = 'weather_first_design.html';
-    });
-
-    document.getElementById('weather-second-design-button').addEventListener('click', () => {
-      window.location.href = 'weather_second_design.html';
-    });
-
-    
   </script>
 </body>
+
 </html>

@@ -3,83 +3,74 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Pompiere&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Pompiere&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=VT323&display=swap');
-
-
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 
 html,
 body {
     background-color: #404040;
     font-family: 'Inter', sans-serif;
-    margin: 0;
-    height: 100%;
     width: 100%;
-
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: auto;
 
 }
 
 .sidebar {
     background-color: #272727;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+    position: fixed;
     width: 14.5rem;
-    height: 115%;
+    height: 100%;
     top: 0;
     left: 0;
 
 }
 
-
-.sidebar-menu {
-    position: relative;
-    /* width: 14.5rem;
-    height: 41.875rem; */
-    padding-top: 8.12rem;
-}
-
-.sidebar-header {
-    position: absolute;
-    width: 14.5rem;
-    height: 8.125rem;
-    top: 0;
-    left: 0;
-}
 
 .logo-image {
-    /* position: absolute; */
     height: 2.5rem;
     width: 2.5rem;
-    padding-left: 1.875rem;
-    padding-top: 1.875rem;
+    cursor: pointer;
+    position: fixed;
+    top: 1.94rem;
+    left: 1.88rem;
 }
 
 
 #logo-word {
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 1.25rem;
     color: #ffffff;
-    position: absolute;
-    left: 4.9375rem;
-    top: 2.375rem;
+    position: fixed;
+    top: 2.44rem;
+    left: 4.94rem;
 }
 
+
+.sidebar-menu {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 7.25rem;
+    left: 0;
+}
 
 
 nav {
     display: flex;
     flex-direction: column;
-
-
+    position: absolute;
+    left: 0;
 }
 
 nav ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-
-
 }
 
 nav ul li {
@@ -97,51 +88,26 @@ nav ul li a {
     font-size: 1.25rem;
     text-decoration: none;
     position: absolute;
-    padding-left: 2rem;
-}
-
-.hiw {
-    height: 23.125rem;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-}
-
-
-.how-it-works {
-    height: 3.75rem;
-    width: 14.5rem;
-    display: flex;
-    align-items: center;
-    padding-bottom: 1rem;
-
+    left: 2rem;
 }
 
 
 
-#how-it-works {
 
-    color: #BDBDBD;
-    font-weight: medium;
-    font-size: 1.25rem;
-    text-decoration: none;
-    /* position: absolute; */
-    padding-left: 2rem;
-
+.calendar-page :hover {
+    color: #ff8d3a;
 }
 
+.myWiddy-page :active {
+    background-color: #404040;
+}
 
 .myWiddy-page :hover {
     color: #ff8d3a;
 }
 
 
-
 .clock-page :hover {
-    color: #FF8D3A;
-}
-
-.calendar-page :hover {
     color: #FF8D3A;
 }
 
@@ -153,16 +119,8 @@ nav ul li a {
     color: #ff8d3a;
 }
 
-.how-it-works :hover {
-    color: #ff8d3a;
-}
 
-
-/* .myWiddy-individual-container {
-    height: 100%;
-} */
-
-.main-content {
+/* .main-content {
     position: absolute;
     top: 0;
     display: flex;
@@ -170,24 +128,44 @@ nav ul li a {
     left: 14.5rem;
     height: 100%;
     width: 74.37rem;
+} */
+
+
+.main-content {
+    position: fixed;
+    left: 14.5rem;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+
+}
+
+.head-container {
+    height: 7.25rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+
+
 }
 
 
-#content-title {
-    padding-left: 2.06rem;
+
+.name {
+    /* padding-left: 2.06rem; */
+    margin-top: 2.19rem;
     color: #FF8D3A;
     font-size: 1.875rem;
-
+    height: 7.25rem;
+    font-weight: 700;
 }
 
-.head-container,
-.content-header {
-    height: 6.875rem;
-    width: 47.38rem;
-    position: relative;
-    display: flex;
-    align-items: center;
-}
+
+
 
 
 /* .content-header {
@@ -201,18 +179,34 @@ nav ul li a {
     position: relative;
     padding-left: 2.0625rem;
     padding-right: 1rem;
+    margin-top: 2.5rem;
+
+    width: 0.875rem;
+    height: 1.4375rem;
     /* top: 2.625rem; */
+    cursor: pointer;
     -webkit-app-region: drag;
 }
 
-.name {
-    position: relative;
-    /* padding-left: 4.5625rem; */
-    /* top: 2.3125rem; */
+
+
+
+
+
+.content-header {
+    height: 7.25rem;
+    width: 100%;
+
+}
+
+
+
+#content-title {
+    padding-left: 2.06rem;
+    padding-top: 2.19rem;
+    color: #FF8D3A;
     font-size: 1.875rem;
-    font-weight: 700;
-    color: #ff8d3a;
-    padding: 0;
+    height: 7.25rem;
     margin: 0;
 }
 
@@ -224,7 +218,6 @@ nav ul li a {
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding-top: 1.25rem;
 
 }
 
@@ -244,12 +237,17 @@ nav ul li a {
 .cal1-component,
 .cal2-component,
 .cal3-component,
-.cal4-component {
+.cal4-component,
+.todo1-component,
+.todo2-component,
+.todo3-component,
+.todo4-component,
+.todo5-component {
     /* height: 30rem; */
-    width: 70.625rem;
+    width: 66.875rem;
     padding: 0;
-    margin-bottom: 1.88rem;
-    margin-left: 1.88rem;
+    margin-bottom: 3.75rem;
+    margin-left: 3.75rem;
     background-color: #272727;
     border-radius: 2.8125rem;
     display: flex;
@@ -268,7 +266,12 @@ nav ul li a {
 .home-header7,
 .home-header8,
 .home-header9,
-.home-header10 {
+.home-header10,
+.home-header11,
+.home-header12,
+.home-header13,
+.home-header14,
+.home-header15 {
 
     padding: 2.19rem 0 2.19rem 2.75rem;
     font-size: 1.625rem;
@@ -294,7 +297,12 @@ nav ul li a {
 .main-container7,
 .main-container8,
 .main-container9,
-.main-container10 {
+.main-container10,
+.main-container11,
+.main-container12,
+.main-container13,
+.main-container14,
+.main-container15 {
     /* padding-top: 2.25rem; */
     display: flex;
     flex-direction: row;
@@ -398,13 +406,18 @@ nav ul li a {
 .cal1-image,
 .cal2-image,
 .cal3-image,
-.cal4-image {
+.cal4-image,
+.todo1-image,
+.todo2-image,
+.todo3-image,
+.todo4-image,
+.todo5-image {
     margin-left: 3.75rem;
 
 }
 
 .setting {
-    margin-left: 1.88rem;
+    margin-left: 3rem;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -422,7 +435,12 @@ nav ul li a {
 .switch-container7,
 .switch-container8,
 .switch-container9,
-.switch-container10 {
+.switch-container10,
+.switch-container11,
+.switch-container12,
+.switch-container13,
+.switch-container14,
+.switch-container15 {
     width: 8.375rem;
     height: 1.6875rem;
     display: flex;
@@ -517,7 +535,12 @@ input:checked+.slider:before {
 #toggleSwitchCal1,
 #toggleSwitchCal2,
 #toggleSwitchCal3,
-#toggleSwitchCal4 {
+#toggleSwitchCal4,
+#toggleSwitchTodo1,
+#toggleSwitchTodo2,
+#toggleSwitchTodo3,
+#toggleSwitchTodo4,
+#toggleSwitchTodo5 {
     margin: 0;
     padding: 0;
 
@@ -728,7 +751,12 @@ input:checked+.slider:before {
 #sliderValueCal1,
 #sliderValueCal2,
 #sliderValueCal3,
-#sliderValueCal4 {
+#sliderValueCal4,
+#sliderValueTodo1,
+#sliderValueTodo2,
+#sliderValueTodo3,
+#sliderValueTodo4,
+#sliderValueTodo5 {
     font-size: 1rem;
     margin-left: 1.375rem;
     color: white;
@@ -745,7 +773,12 @@ input:checked+.slider:before {
 .cal1-color-button,
 .cal2-color-button,
 .cal3-color-button,
-.cal4-color-button {
+.cal4-color-button,
+.todo1-color-button,
+.todo2-color-button,
+.todo3-color-button,
+.todo4-color-button,
+.todo5-color-button {
     position: relative;
     display: inline-block;
     height: 1.875rem;
@@ -770,7 +803,12 @@ input:checked+.slider:before {
 .cal1-color-button.selected::after,
 .cal2-color-button.selected::after,
 .cal3-color-button.selected::after,
-.cal4-color-button.selected::after {
+.cal4-color-button.selected::after,
+.todo1-color-button.selected::after,
+.todo2-color-button.selected::after,
+.todo3-color-button.selected::after,
+.todo4-color-button.selected::after,
+.todo5-color-button.selected::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -794,11 +832,11 @@ input:checked+.slider:before {
 
 .empty-main-box {
     height: 21rem;
-    width: 70.625rem;
+    width: 66.875rem;
     background-color: #272727;
     padding: 0;
-    margin-bottom: 1.88rem;
-    margin-left: 1.88rem;
+    margin-bottom: 3.75rem;
+    margin-left: 3.75rem;
     background-color: #272727;
     border-radius: 2.8125rem;
     display: flex;
@@ -898,11 +936,12 @@ input:checked+.slider:before {
 }
 
 .cal4-image {
-    width: 11.875rem;
-    height: 18.4375rem;
-    padding: 0 4.9375rem 0 4.9375rem;
 
-    
+    width: 12.3125rem;
+    height: 19.0625rem;
+    padding: 0 4.6875rem 0 4.6875rem;
+
+
 }
 
 
@@ -941,6 +980,52 @@ input:checked+.slider:before {
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.todo1-image {
+    border-radius: 0.25rem;
+}
+
+
+.todo1-image,
+.todo2-image {
+    width: 12.75rem;
+    height: 19.0625rem;
+    padding: 0 4.5rem 0 4.5rem;
+}
+
+
+
+
+.todo3-image,
+.todo4-image,
+.todo5-image {
+    width: 21.75rem;
+    height: 6.9375rem;
+
+}
+
+
+
+
 @media (min-width: 646px) and (max-width: 1100px) {
 
     .main-container,
@@ -953,15 +1038,19 @@ input:checked+.slider:before {
     .main-container7,
     .main-container8,
     .main-container9,
-    .main-container10 {
+    .main-container10,
+    .main-container11,
+    .main-container12,
+    .main-container13,
+    .main-container14,
+    .main-container15 {
         width: 27.0625rem;
         flex-direction: column;
 
     }
 
     .setting {
-        padding-left: 2rem;
-        ;
+        padding-left: 1rem;
         padding-top: 2rem;
 
     }

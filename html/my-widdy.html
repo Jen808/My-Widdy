@@ -16,8 +16,6 @@
       background-color: #404040;
     }
 
-
-
     #myWiddy-page {
       color: #FF8D3A;
       font-weight: bold;
@@ -77,6 +75,13 @@
         <div class="myWiddy-individual-container" id="calendar2-container"></div>
         <div class="myWiddy-individual-container" id="calendar3-container"></div>
         <div class="myWiddy-individual-container" id="calendar4-container"></div>
+        <div class="myWiddy-individual-container" id="todo1-container"></div>
+        <div class="myWiddy-individual-container" id="todo2-container"></div>
+        <div class="myWiddy-individual-container" id="todo3-container"></div>
+        <div class="myWiddy-individual-container" id="todo4-container"></div>
+        <div class="myWiddy-individual-container" id="todo5-container"></div>
+
+
 
 
 
@@ -145,6 +150,12 @@
       const calendar2Container = document.getElementById('calendar2-container');
       const calendar3Container = document.getElementById('calendar3-container');
       const calendar4Container = document.getElementById('calendar4-container');
+      const todo1Container = document.getElementById('todo1-container');
+      const todo2Container = document.getElementById('todo2-container');
+      const todo3Container = document.getElementById('todo3-container');
+      const todo4Container = document.getElementById('todo4-container');
+      const todo5Container = document.getElementById('todo5-container');
+
 
       const emptyContainer = document.getElementById('empty-container');
 
@@ -158,6 +169,11 @@
       calendar2Container.innerHTML = '';
       calendar3Container.innerHTML = '';
       calendar4Container.innerHTML = '';
+      todo1Container.innerHTML = '';
+      todo2Container.innerHTML = '';
+      todo3Container.innerHTML = '';
+      todo4Container.innerHTML = '';
+      todo5Container.innerHTML = '';
 
 
       let isAnyItemVisible = false;
@@ -168,7 +184,7 @@
         const clockComponent1 = document.createElement('div');
         clockComponent1.classList.add('clock1-component');
         clockComponent1.innerHTML = `
-          <div class="home-header1">Clock: Default</div>
+          <div class="home-header1">Clock: Office</div>
           <div class="main-container1">
             <button id="clock-first-design-button">00:00</button>
             <div class="setting">
@@ -1258,7 +1274,7 @@
         const calComponent1 = document.createElement('div');
         calComponent1.classList.add('cal1-component');
         calComponent1.innerHTML = `
-          <div class="home-header7">Calendar: Default</div>
+          <div class="home-header7">Calendar: Half and Half</div>
           <div class="main-container7">
             <img src="../src/calendar/cal1.png" alt="Calendar Image" class="cal1-image">
             <div class="setting">
@@ -1429,7 +1445,7 @@
       }
 
 
-//Cal2
+      //Cal2
 
 
 
@@ -1608,14 +1624,14 @@
         markSelectedColor('cal2', currentColorSetCal2);
 
       }
-    
 
 
 
 
-      
 
-//CAl3
+
+
+      //CAl3
       if (localStorage.getItem('showCal3') === 'true') {
         isAnyItemVisible = true;
         const calComponent3 = document.createElement('div');
@@ -1789,7 +1805,7 @@
         markSelectedColor('cal3', currentColorSetCal3);
 
       }
-    
+
 
 
 
@@ -1970,7 +1986,939 @@
       }
 
 
-    updateEmptyContainerVisibility();
+
+
+      //TODO1
+
+      if (localStorage.getItem('showTodo1') === 'true') {
+        isAnyItemVisible = true;
+        const todoComponent1 = document.createElement('div');
+        todoComponent1.classList.add('todo1-component');
+        todoComponent1.innerHTML = `
+          <div class="home-header11">To Do List: Pure</div>
+          <div class="main-container11">
+            <img src="../src/todo/todo1.png" alt="Calendar Image" class="todo1-image">
+            <div class="setting">
+              <div class="switch-container11">
+                <a class="off">Off</a>
+                <label class="switch">
+                  <input type="checkbox" id="toggleSwitchTodo1">
+                  <span class="slider"></span>
+                </label>
+                <a class="on">On</a>
+              </div>
+              <div class="color-setting">
+                <div class="color-header">Colors</div>
+                <div class="color-tiles">
+                  <div class="color-buttons-white">
+                    <button class="todo1-color-button" data-color-set="white">
+                        <img src="../src/calendar/cal1-white.png" alt="white" width="30px" height="30px">
+                    </button>
+                    <button class="todo1-color-button" data-color-set="cmyk">
+                        <img src="../src/calendar/cal1-cmyk.png" alt="cmyk" width="30px" height="30px">
+                    </button>
+                    <button class="todo1-color-button" data-color-set="li-pink">
+                        <img src="../src/calendar/cal1-li-pink.png" alt="li-pink" width="30px" height="30px">
+                    </button>
+                    <button class="todo1-color-button" data-color-set="li-orange">
+                        <img src="../src/calendar/cal1-li-orange.png" alt="li-orange" width="30px"
+                            height="30px">
+                    </button>
+                    <button class="todo1-color-button" data-color-set="li-green">
+                        <img src="../src/calendar/cal1-li-green.png" alt="li-green" width="30px" height="30px">
+                    </button>
+                    <button class="todo1-color-button" data-color-set="li-mint">
+                        <img src="../src/calendar/cal1-li-mint.png" alt="li-mint" width="30px" height="30px">
+                    </button>
+                    <button class="todo1-color-button" data-color-set="li-blue">
+                        <img src="../src/calendar/cal1-li-blue.png" alt="li-blue" width="30px" height="30px">
+                    </button>
+                    <button class="todo1-color-button" data-color-set="li-purple">
+                        <img src="../src/calendar/cal1-li-purple.png" alt="li-purple" width="30px"
+                            height="30px">
+                    </button>
+                </div>
+                <div class="color-buttons-black">
+                    <button class="todo1-color-button" data-color-set="black">
+                        <img src="../src/calendar/cal1h-black.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="todo1-color-button" data-color-set="grey">
+                        <img src="../src/calendar/cal1h-grey.png" alt="grey" width="30px" height="30px">
+                    </button>
+                    <button class="todo1-color-button" data-color-set="pink">
+                        <img src="../src/calendar/cal1h-pink.png" alt="pink" width="30px" height="30px">
+                    </button>
+                    <button class="todo1-color-button" data-color-set="orange">
+                        <img src="../src/calendar/cal1h-orange.png" alt="orange" width="30px" height="30px">
+                    </button>
+                    <button class="todo1-color-button" data-color-set="green">
+                        <img src="../src/calendar/cal1h-green.png" alt="green" width="30px" height="30px">
+                    </button>
+                    <button class="todo1-color-button" data-color-set="mint">
+                        <img src="../src/calendar/cal1h-mint.png" alt="mint" width="30px" height="30px">
+                    </button>
+                    <button class="todo1-color-button" data-color-set="blue">
+                        <img src="../src/calendar/cal1h-blue.png" alt="blue" width="30px" height="30px">
+                    </button>
+                    <button class="todo1-color-button" data-color-set="purple">
+                        <img src="../src/calendar/cal1h-purple.png" alt="purple" width="30px" height="30px">
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="todo1-size-setting">
+                <div class="sizeheader">Size</div>
+                <div class="slider-container11">
+                  <input type="range" id="sizeSliderTodo1" min="1" max="100" value="50" class="custom-slider">
+                  <span id="sliderValueTodo1">50</span>
+                </div>
+              </div>
+              <button id="auth-button" class="link">Link to Google Account</button>
+              <div id="auth-status"></div>
+            </div>
+          </div>
+        `;
+        todo1Container.appendChild(todoComponent1);
+        checkContainers();
+
+
+        const toggleSwitchTodo1 = document.getElementById('toggleSwitchTodo1');
+        const isTodo1Open = localStorage.getItem('showTodo1') === 'true';
+        toggleSwitchTodo1.checked = isTodo1Open;
+
+        if (isTodo1Open) {
+          document.getElementById('sizeSliderTodo1').value = localStorage.getItem('todo1Size') || 50;
+          document.getElementById('sliderValueTodo1').innerText = localStorage.getItem('todo1Size') || 50;
+          checkContainers();
+
+        } else {
+          document.getElementById('sizeSliderTodo1').value = 50;
+          document.getElementById('sliderValueTodo1').innerText = 50;
+        }
+        checkContainers();
+
+
+        toggleSwitchTodo1.addEventListener('change', () => {
+          const isChecked = toggleSwitchTodo1.checked;
+          localStorage.setItem('showTodo1', isChecked);
+          ipcRenderer.send('todo1-status', { status: isChecked });
+          if (isChecked) {
+            document.getElementById('sizeSliderTodo1').value = 50;
+            document.getElementById('sliderValueTodo1').innerText = 50;
+            localStorage.setItem('todo1Size', 50);
+          } else {
+            document.getElementById('sizeSliderTodo1').value = 50;
+            document.getElementById('sliderValueTodo1').innerText = 50;
+            todo1Container.innerHTML = '';
+
+          }
+          checkContainers();
+
+          updateEmptyContainerVisibility();
+        });
+
+        document.querySelectorAll('.todo1-color-button').forEach(button => {
+          button.addEventListener('click', () => {
+            const colorSet = button.getAttribute('data-color-set');
+            localStorage.setItem('todo1ColorSet', colorSet);
+            ipcRenderer.send('change-todo1-color', colorSet);
+            markSelectedColor('todo1', colorSet);
+
+          });
+        });
+
+        document.getElementById('sizeSliderTodo1').addEventListener('input', () => {
+          const newSize = document.getElementById('sizeSliderTodo1').value;
+          document.getElementById('sliderValueTodo1').innerText = newSize;
+          ipcRenderer.send('adjust-todo1-size', { size: newSize });
+          localStorage.setItem('todo1Size', newSize);
+        });
+
+        document.getElementById('auth-button').addEventListener('click', () => {
+          const authButton = document.getElementById('auth-button');
+          const buttonText = authButton.innerText;
+          if (buttonText === 'Link to Google Account') {
+            ipcRenderer.send('auth-google');
+          } else {
+            ipcRenderer.send('logout-google');
+          }
+        });
+
+        ipcRenderer.on('auth-status', (event, status) => {
+          const authButton = document.getElementById('auth-button');
+          const authStatus = document.getElementById('auth-status');
+
+          if (status === 'linked') {
+            authButton.innerText = 'Log out';
+            authButton.classList.remove('link');
+            authButton.classList.add('logout');
+          } else {
+            authButton.innerText = 'Link to Google Account';
+            authButton.classList.remove('logout');
+            authButton.classList.add('link');
+          }
+        });
+
+        ipcRenderer.send('check-auth-status');
+
+        const currentColorSetTodo1 = localStorage.getItem('todo1ColorSet') || 'li-grey';
+        markSelectedColor('todo1', currentColorSetTodo1);
+
+      }
+
+
+
+
+
+      //TODO2
+
+
+      if (localStorage.getItem('showTodo2') === 'true') {
+        isAnyItemVisible = true;
+        const todoComponent2 = document.createElement('div');
+        todoComponent2.classList.add('todo2-component');
+        todoComponent2.innerHTML = `
+          <div class="home-header12">To Do List: Vibrant</div>
+          <div class="main-container12">
+            <img src="../src/todo/todo2.png" alt="Calendar Image" class="todo2-image">
+            <div class="setting">
+              <div class="switch-container12">
+                <a class="off">Off</a>
+                <label class="switch">
+                  <input type="checkbox" id="toggleSwitchTodo2">
+                  <span class="slider"></span>
+                </label>
+                <a class="on">On</a>
+              </div>
+              <div class="color-setting">
+                <div class="color-header">Colors</div>
+                <div class="color-tiles">
+                  <div class="color-buttons-white">
+                    <button class="todo2-color-button" data-color-set="white">
+                        <img src="../src/calendar/cal1-white.png" alt="white" width="30px" height="30px">
+                    </button>
+                    <button class="todo2-color-button" data-color-set="cmyk">
+                        <img src="../src/calendar/cal1-cmyk.png" alt="cmyk" width="30px" height="30px">
+                    </button>
+                    <button class="todo2-color-button" data-color-set="li-pink">
+                        <img src="../src/calendar/cal1-li-pink.png" alt="li-pink" width="30px" height="30px">
+                    </button>
+                    <button class="todo2-color-button" data-color-set="li-orange">
+                        <img src="../src/calendar/cal1-li-orange.png" alt="li-orange" width="30px"
+                            height="30px">
+                    </button>
+                    <button class="todo2-color-button" data-color-set="li-green">
+                        <img src="../src/calendar/cal1-li-green.png" alt="li-green" width="30px" height="30px">
+                    </button>
+                    <button class="todo2-color-button" data-color-set="li-mint">
+                        <img src="../src/calendar/cal1-li-mint.png" alt="li-mint" width="30px" height="30px">
+                    </button>
+                    <button class="todo2-color-button" data-color-set="li-blue">
+                        <img src="../src/calendar/cal1-li-blue.png" alt="li-blue" width="30px" height="30px">
+                    </button>
+                    <button class="todo2-color-button" data-color-set="li-purple">
+                        <img src="../src/calendar/cal1-li-purple.png" alt="li-purple" width="30px"
+                            height="30px">
+                    </button>
+                </div>
+                <div class="color-buttons-black">
+                    <button class="todo2-color-button" data-color-set="black">
+                        <img src="../src/calendar/cal1h-black.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="todo2-color-button" data-color-set="grey">
+                        <img src="../src/calendar/cal1h-grey.png" alt="grey" width="30px" height="30px">
+                    </button>
+                    <button class="todo2-color-button" data-color-set="pink">
+                        <img src="../src/calendar/cal1h-pink.png" alt="pink" width="30px" height="30px">
+                    </button>
+                    <button class="todo2-color-button" data-color-set="orange">
+                        <img src="../src/calendar/cal1h-orange.png" alt="orange" width="30px" height="30px">
+                    </button>
+                    <button class="todo2-color-button" data-color-set="green">
+                        <img src="../src/calendar/cal1h-green.png" alt="green" width="30px" height="30px">
+                    </button>
+                    <button class="todo2-color-button" data-color-set="mint">
+                        <img src="../src/calendar/cal1h-mint.png" alt="mint" width="30px" height="30px">
+                    </button>
+                    <button class="todo2-color-button" data-color-set="blue">
+                        <img src="../src/calendar/cal1h-blue.png" alt="blue" width="30px" height="30px">
+                    </button>
+                    <button class="todo2-color-button" data-color-set="purple">
+                        <img src="../src/calendar/cal1h-purple.png" alt="purple" width="30px" height="30px">
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="todo2-size-setting">
+                <div class="sizeheader">Size</div>
+                <div class="slider-container12">
+                  <input type="range" id="sizeSliderTodo2" min="1" max="100" value="50" class="custom-slider">
+                  <span id="sliderValueTodo2">50</span>
+                </div>
+              </div>
+              <button id="auth-button" class="link">Link to Google Account</button>
+              <div id="auth-status"></div>
+            </div>
+          </div>
+        `;
+        todo2Container.appendChild(todoComponent2);
+        checkContainers();
+
+
+        const toggleSwitchTodo2 = document.getElementById('toggleSwitchTodo2');
+        const isTodo2Open = localStorage.getItem('showTodo2') === 'true';
+        toggleSwitchTodo2.checked = isTodo2Open;
+
+        if (isTodo2Open) {
+          document.getElementById('sizeSliderTodo2').value = localStorage.getItem('todo2Size') || 50;
+          document.getElementById('sliderValueTodo2').innerText = localStorage.getItem('todo2Size') || 50;
+          checkContainers();
+
+        } else {
+          document.getElementById('sizeSliderTodo2').value = 50;
+          document.getElementById('sliderValueTodo2').innerText = 50;
+        }
+        checkContainers();
+
+
+        toggleSwitchTodo2.addEventListener('change', () => {
+          const isChecked = toggleSwitchTodo2.checked;
+          localStorage.setItem('showTodo2', isChecked);
+          ipcRenderer.send('todo2-status', { status: isChecked });
+          if (isChecked) {
+            document.getElementById('sizeSliderTodo2').value = 50;
+            document.getElementById('sliderValueTodo2').innerText = 50;
+            localStorage.setItem('todo2Size', 50);
+          } else {
+            document.getElementById('sizeSliderTodo2').value = 50;
+            document.getElementById('sliderValueTodo2').innerText = 50;
+            todo2Container.innerHTML = '';
+
+          }
+          checkContainers();
+
+          updateEmptyContainerVisibility();
+        });
+
+        document.querySelectorAll('.todo2-color-button').forEach(button => {
+          button.addEventListener('click', () => {
+            const colorSet = button.getAttribute('data-color-set');
+            localStorage.setItem('todo2ColorSet', colorSet);
+            ipcRenderer.send('change-todo2-color', colorSet);
+            markSelectedColor('todo2', colorSet);
+
+          });
+        });
+
+        document.getElementById('sizeSliderTodo2').addEventListener('input', () => {
+          const newSize = document.getElementById('sizeSliderTodo2').value;
+          document.getElementById('sliderValueTodo2').innerText = newSize;
+          ipcRenderer.send('adjust-todo2-size', { size: newSize });
+          localStorage.setItem('todo2Size', newSize);
+        });
+
+        document.getElementById('auth-button').addEventListener('click', () => {
+          const authButton = document.getElementById('auth-button');
+          const buttonText = authButton.innerText;
+          if (buttonText === 'Link to Google Account') {
+            ipcRenderer.send('auth-google');
+          } else {
+            ipcRenderer.send('logout-google');
+          }
+        });
+
+        ipcRenderer.on('auth-status', (event, status) => {
+          const authButton = document.getElementById('auth-button');
+          const authStatus = document.getElementById('auth-status');
+
+          if (status === 'linked') {
+            authButton.innerText = 'Log out';
+            authButton.classList.remove('link');
+            authButton.classList.add('logout');
+          } else {
+            authButton.innerText = 'Link to Google Account';
+            authButton.classList.remove('logout');
+            authButton.classList.add('link');
+          }
+        });
+
+        ipcRenderer.send('check-auth-status');
+
+        const currentColorSetTodo2 = localStorage.getItem('todo2ColorSet') || 'li-grey';
+        markSelectedColor('todo2', currentColorSetTodo2);
+
+      }
+
+
+
+
+
+      //TODO3
+
+
+
+
+      if (localStorage.getItem('showTodo3') === 'true') {
+        isAnyItemVisible = true;
+        const todoComponent3 = document.createElement('div');
+        todoComponent3.classList.add('todo3-component');
+        todoComponent3.innerHTML = `
+          <div class="home-header13">To Do List: Tone on Tone</div>
+          <div class="main-container13">
+            <img src="../src/todo/todo3.png" alt="Calendar Image" class="todo3-image">
+            <div class="setting">
+              <div class="switch-container13">
+                <a class="off">Off</a>
+                <label class="switch">
+                  <input type="checkbox" id="toggleSwitchTodo3">
+                  <span class="slider"></span>
+                </label>
+                <a class="on">On</a>
+              </div>
+              <div class="color-setting">
+                <div class="color-header">Colors</div>
+                <div class="color-tiles">
+                  <div class="color-buttons-white">
+                    <button class="todo3-color-button" data-color-set="white">
+                        <img src="../src/calendar/cal1-white.png" alt="white" width="30px" height="30px">
+                    </button>
+                    <button class="todo3-color-button" data-color-set="cmyk">
+                        <img src="../src/calendar/cal1-cmyk.png" alt="cmyk" width="30px" height="30px">
+                    </button>
+                    <button class="todo3-color-button" data-color-set="li-pink">
+                        <img src="../src/calendar/cal1-li-pink.png" alt="li-pink" width="30px" height="30px">
+                    </button>
+                    <button class="todo3-color-button" data-color-set="li-orange">
+                        <img src="../src/calendar/cal1-li-orange.png" alt="li-orange" width="30px"
+                            height="30px">
+                    </button>
+                    <button class="todo3-color-button" data-color-set="li-green">
+                        <img src="../src/calendar/cal1-li-green.png" alt="li-green" width="30px" height="30px">
+                    </button>
+                    <button class="todo3-color-button" data-color-set="li-mint">
+                        <img src="../src/calendar/cal1-li-mint.png" alt="li-mint" width="30px" height="30px">
+                    </button>
+                    <button class="todo3-color-button" data-color-set="li-blue">
+                        <img src="../src/calendar/cal1-li-blue.png" alt="li-blue" width="30px" height="30px">
+                    </button>
+                    <button class="todo3-color-button" data-color-set="li-purple">
+                        <img src="../src/calendar/cal1-li-purple.png" alt="li-purple" width="30px"
+                            height="30px">
+                    </button>
+                </div>
+                <div class="color-buttons-black">
+                    <button class="todo3-color-button" data-color-set="black">
+                        <img src="../src/calendar/cal1h-black.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="todo3-color-button" data-color-set="grey">
+                        <img src="../src/calendar/cal1h-grey.png" alt="grey" width="30px" height="30px">
+                    </button>
+                    <button class="todo3-color-button" data-color-set="pink">
+                        <img src="../src/calendar/cal1h-pink.png" alt="pink" width="30px" height="30px">
+                    </button>
+                    <button class="todo3-color-button" data-color-set="orange">
+                        <img src="../src/calendar/cal1h-orange.png" alt="orange" width="30px" height="30px">
+                    </button>
+                    <button class="todo3-color-button" data-color-set="green">
+                        <img src="../src/calendar/cal1h-green.png" alt="green" width="30px" height="30px">
+                    </button>
+                    <button class="todo3-color-button" data-color-set="mint">
+                        <img src="../src/calendar/cal1h-mint.png" alt="mint" width="30px" height="30px">
+                    </button>
+                    <button class="todo3-color-button" data-color-set="blue">
+                        <img src="../src/calendar/cal1h-blue.png" alt="blue" width="30px" height="30px">
+                    </button>
+                    <button class="todo3-color-button" data-color-set="purple">
+                        <img src="../src/calendar/cal1h-purple.png" alt="purple" width="30px" height="30px">
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="todo3-size-setting">
+                <div class="sizeheader">Size</div>
+                <div class="slider-container13">
+                  <input type="range" id="sizeSliderTodo3" min="1" max="100" value="50" class="custom-slider">
+                  <span id="sliderValueTodo3">50</span>
+                </div>
+              </div>
+              <button id="auth-button" class="link">Link to Google Account</button>
+              <div id="auth-status"></div>
+            </div>
+          </div>
+        `;
+        todo3Container.appendChild(todoComponent3);
+        checkContainers();
+
+
+        const toggleSwitchTodo3 = document.getElementById('toggleSwitchTodo3');
+        const isTodo3Open = localStorage.getItem('showTodo3') === 'true';
+        toggleSwitchTodo3.checked = isTodo3Open;
+
+        if (isTodo3Open) {
+          document.getElementById('sizeSliderTodo3').value = localStorage.getItem('todo3Size') || 50;
+          document.getElementById('sliderValueTodo3').innerText = localStorage.getItem('todo3Size') || 50;
+          checkContainers();
+
+        } else {
+          document.getElementById('sizeSliderTodo3').value = 50;
+          document.getElementById('sliderValueTodo3').innerText = 50;
+        }
+        checkContainers();
+
+
+        toggleSwitchTodo3.addEventListener('change', () => {
+          const isChecked = toggleSwitchTodo3.checked;
+          localStorage.setItem('showTodo3', isChecked);
+          ipcRenderer.send('todo3-status', { status: isChecked });
+          if (isChecked) {
+            document.getElementById('sizeSliderTodo3').value = 50;
+            document.getElementById('sliderValueTodo3').innerText = 50;
+            localStorage.setItem('todo3Size', 50);
+          } else {
+            document.getElementById('sizeSliderTodo3').value = 50;
+            document.getElementById('sliderValueTodo3').innerText = 50;
+            todo3Container.innerHTML = '';
+
+          }
+          checkContainers();
+
+          updateEmptyContainerVisibility();
+        });
+
+        document.querySelectorAll('.todo3-color-button').forEach(button => {
+          button.addEventListener('click', () => {
+            const colorSet = button.getAttribute('data-color-set');
+            localStorage.setItem('todo3ColorSet', colorSet);
+            ipcRenderer.send('change-todo3-color', colorSet);
+            markSelectedColor('todo3', colorSet);
+
+          });
+        });
+
+        document.getElementById('sizeSliderTodo3').addEventListener('input', () => {
+          const newSize = document.getElementById('sizeSliderTodo3').value;
+          document.getElementById('sliderValueTodo3').innerText = newSize;
+          ipcRenderer.send('adjust-todo3-size', { size: newSize });
+          localStorage.setItem('todo3Size', newSize);
+        });
+
+        document.getElementById('auth-button').addEventListener('click', () => {
+          const authButton = document.getElementById('auth-button');
+          const buttonText = authButton.innerText;
+          if (buttonText === 'Link to Google Account') {
+            ipcRenderer.send('auth-google');
+          } else {
+            ipcRenderer.send('logout-google');
+          }
+        });
+
+        ipcRenderer.on('auth-status', (event, status) => {
+          const authButton = document.getElementById('auth-button');
+          const authStatus = document.getElementById('auth-status');
+
+          if (status === 'linked') {
+            authButton.innerText = 'Log out';
+            authButton.classList.remove('link');
+            authButton.classList.add('logout');
+          } else {
+            authButton.innerText = 'Link to Google Account';
+            authButton.classList.remove('logout');
+            authButton.classList.add('link');
+          }
+        });
+
+        ipcRenderer.send('check-auth-status');
+
+        const currentColorSetTodo3 = localStorage.getItem('todo3ColorSet') || 'li-grey';
+        markSelectedColor('todo3', currentColorSetTodo3);
+
+      }
+
+
+
+      //TODO4
+
+      if (localStorage.getItem('showTodo4') === 'true') {
+        isAnyItemVisible = true;
+        const todoComponent4 = document.createElement('div');
+        todoComponent4.classList.add('todo4-component');
+        todoComponent4.innerHTML = `
+          <div class="home-header14">To Do List: Grid</div>
+          <div class="main-container14">
+            <img src="../src/todo/todo4.png" alt="Calendar Image" class="todo4-image">
+            <div class="setting">
+              <div class="switch-container14">
+                <a class="off">Off</a>
+                <label class="switch">
+                  <input type="checkbox" id="toggleSwitchTodo4">
+                  <span class="slider"></span>
+                </label>
+                <a class="on">On</a>
+              </div>
+              <div class="color-setting">
+                <div class="color-header">Colors</div>
+                <div class="color-tiles">
+                  <div class="color-buttons-white">
+                    <button class="todo4-color-button" data-color-set="white">
+                        <img src="../src/calendar/cal1-white.png" alt="white" width="30px" height="30px">
+                    </button>
+                    <button class="todo4-color-button" data-color-set="cmyk">
+                        <img src="../src/calendar/cal1-cmyk.png" alt="cmyk" width="30px" height="30px">
+                    </button>
+                    <button class="todo4-color-button" data-color-set="li-pink">
+                        <img src="../src/calendar/cal1-li-pink.png" alt="li-pink" width="30px" height="30px">
+                    </button>
+                    <button class="todo4-color-button" data-color-set="li-orange">
+                        <img src="../src/calendar/cal1-li-orange.png" alt="li-orange" width="30px"
+                            height="30px">
+                    </button>
+                    <button class="todo4-color-button" data-color-set="li-green">
+                        <img src="../src/calendar/cal1-li-green.png" alt="li-green" width="30px" height="30px">
+                    </button>
+                    <button class="todo4-color-button" data-color-set="li-mint">
+                        <img src="../src/calendar/cal1-li-mint.png" alt="li-mint" width="30px" height="30px">
+                    </button>
+                    <button class="todo4-color-button" data-color-set="li-blue">
+                        <img src="../src/calendar/cal1-li-blue.png" alt="li-blue" width="30px" height="30px">
+                    </button>
+                    <button class="todo4-color-button" data-color-set="li-purple">
+                        <img src="../src/calendar/cal1-li-purple.png" alt="li-purple" width="30px"
+                            height="30px">
+                    </button>
+                </div>
+                <div class="color-buttons-black">
+                    <button class="todo4-color-button" data-color-set="black">
+                        <img src="../src/calendar/cal1h-black.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="todo4-color-button" data-color-set="grey">
+                        <img src="../src/calendar/cal1h-grey.png" alt="grey" width="30px" height="30px">
+                    </button>
+                    <button class="todo4-color-button" data-color-set="pink">
+                        <img src="../src/calendar/cal1h-pink.png" alt="pink" width="30px" height="30px">
+                    </button>
+                    <button class="todo4-color-button" data-color-set="orange">
+                        <img src="../src/calendar/cal1h-orange.png" alt="orange" width="30px" height="30px">
+                    </button>
+                    <button class="todo4-color-button" data-color-set="green">
+                        <img src="../src/calendar/cal1h-green.png" alt="green" width="30px" height="30px">
+                    </button>
+                    <button class="todo4-color-button" data-color-set="mint">
+                        <img src="../src/calendar/cal1h-mint.png" alt="mint" width="30px" height="30px">
+                    </button>
+                    <button class="todo4-color-button" data-color-set="blue">
+                        <img src="../src/calendar/cal1h-blue.png" alt="blue" width="30px" height="30px">
+                    </button>
+                    <button class="todo4-color-button" data-color-set="purple">
+                        <img src="../src/calendar/cal1h-purple.png" alt="purple" width="30px" height="30px">
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="todo4-size-setting">
+                <div class="sizeheader">Size</div>
+                <div class="slider-container14">
+                  <input type="range" id="sizeSliderTodo4" min="1" max="100" value="50" class="custom-slider">
+                  <span id="sliderValueTodo4">50</span>
+                </div>
+              </div>
+              <button id="auth-button" class="link">Link to Google Account</button>
+              <div id="auth-status"></div>
+            </div>
+          </div>
+        `;
+        todo4Container.appendChild(todoComponent4);
+        checkContainers();
+
+
+        const toggleSwitchTodo4 = document.getElementById('toggleSwitchTodo4');
+        const isTodo4Open = localStorage.getItem('showTodo4') === 'true';
+        toggleSwitchTodo4.checked = isTodo4Open;
+
+        if (isTodo4Open) {
+          document.getElementById('sizeSliderTodo4').value = localStorage.getItem('todo4Size') || 50;
+          document.getElementById('sliderValueTodo4').innerText = localStorage.getItem('todo4Size') || 50;
+          checkContainers();
+
+        } else {
+          document.getElementById('sizeSliderTodo4').value = 50;
+          document.getElementById('sliderValueTodo4').innerText = 50;
+        }
+        checkContainers();
+
+
+        toggleSwitchTodo4.addEventListener('change', () => {
+          const isChecked = toggleSwitchTodo4.checked;
+          localStorage.setItem('showTodo4', isChecked);
+          ipcRenderer.send('todo4-status', { status: isChecked });
+          if (isChecked) {
+            document.getElementById('sizeSliderTodo4').value = 50;
+            document.getElementById('sliderValueTodo4').innerText = 50;
+            localStorage.setItem('todo4Size', 50);
+          } else {
+            document.getElementById('sizeSliderTodo4').value = 50;
+            document.getElementById('sliderValueTodo4').innerText = 50;
+            todo4Container.innerHTML = '';
+
+          }
+          checkContainers();
+
+          updateEmptyContainerVisibility();
+        });
+
+        document.querySelectorAll('.todo4-color-button').forEach(button => {
+          button.addEventListener('click', () => {
+            const colorSet = button.getAttribute('data-color-set');
+            localStorage.setItem('todo4ColorSet', colorSet);
+            ipcRenderer.send('change-todo4-color', colorSet);
+            markSelectedColor('todo4', colorSet);
+
+          });
+        });
+
+        document.getElementById('sizeSliderTodo4').addEventListener('input', () => {
+          const newSize = document.getElementById('sizeSliderTodo4').value;
+          document.getElementById('sliderValueTodo4').innerText = newSize;
+          ipcRenderer.send('adjust-todo4-size', { size: newSize });
+          localStorage.setItem('todo4Size', newSize);
+        });
+
+        document.getElementById('auth-button').addEventListener('click', () => {
+          const authButton = document.getElementById('auth-button');
+          const buttonText = authButton.innerText;
+          if (buttonText === 'Link to Google Account') {
+            ipcRenderer.send('auth-google');
+          } else {
+            ipcRenderer.send('logout-google');
+          }
+        });
+
+        ipcRenderer.on('auth-status', (event, status) => {
+          const authButton = document.getElementById('auth-button');
+          const authStatus = document.getElementById('auth-status');
+
+          if (status === 'linked') {
+            authButton.innerText = 'Log out';
+            authButton.classList.remove('link');
+            authButton.classList.add('logout');
+          } else {
+            authButton.innerText = 'Link to Google Account';
+            authButton.classList.remove('logout');
+            authButton.classList.add('link');
+          }
+        });
+
+        ipcRenderer.send('check-auth-status');
+
+        const currentColorSetTodo4 = localStorage.getItem('todo4ColorSet') || 'li-grey';
+        markSelectedColor('todo4', currentColorSetTodo4);
+
+      }
+
+
+
+
+
+      //TODO5
+
+
+
+
+      if (localStorage.getItem('showTodo5') === 'true') {
+        isAnyItemVisible = true;
+        const todoComponent5 = document.createElement('div');
+        todoComponent5.classList.add('todo5-component');
+        todoComponent5.innerHTML = `
+          <div class="home-header15">To Do List: Tone and Grid</div>
+          <div class="main-container15">
+            <img src="../src/todo/todo5.png" alt="Calendar Image" class="todo5-image">
+            <div class="setting">
+              <div class="switch-container15">
+                <a class="off">Off</a>
+                <label class="switch">
+                  <input type="checkbox" id="toggleSwitchTodo5">
+                  <span class="slider"></span>
+                </label>
+                <a class="on">On</a>
+              </div>
+              <div class="color-setting">
+                <div class="color-header">Colors</div>
+                <div class="color-tiles">
+                  <div class="color-buttons-white">
+                    <button class="todo5-color-button" data-color-set="white">
+                        <img src="../src/calendar/cal1-white.png" alt="white" width="30px" height="30px">
+                    </button>
+                    <button class="todo5-color-button" data-color-set="cmyk">
+                        <img src="../src/calendar/cal1-cmyk.png" alt="cmyk" width="30px" height="30px">
+                    </button>
+                    <button class="todo5-color-button" data-color-set="li-pink">
+                        <img src="../src/calendar/cal1-li-pink.png" alt="li-pink" width="30px" height="30px">
+                    </button>
+                    <button class="todo5-color-button" data-color-set="li-orange">
+                        <img src="../src/calendar/cal1-li-orange.png" alt="li-orange" width="30px"
+                            height="30px">
+                    </button>
+                    <button class="todo5-color-button" data-color-set="li-green">
+                        <img src="../src/calendar/cal1-li-green.png" alt="li-green" width="30px" height="30px">
+                    </button>
+                    <button class="todo5-color-button" data-color-set="li-mint">
+                        <img src="../src/calendar/cal1-li-mint.png" alt="li-mint" width="30px" height="30px">
+                    </button>
+                    <button class="todo5-color-button" data-color-set="li-blue">
+                        <img src="../src/calendar/cal1-li-blue.png" alt="li-blue" width="30px" height="30px">
+                    </button>
+                    <button class="todo5-color-button" data-color-set="li-purple">
+                        <img src="../src/calendar/cal1-li-purple.png" alt="li-purple" width="30px"
+                            height="30px">
+                    </button>
+                </div>
+                <div class="color-buttons-black">
+                    <button class="todo5-color-button" data-color-set="black">
+                        <img src="../src/calendar/cal1h-black.png" alt="Black" width="30px" height="30px">
+                    </button>
+                    <button class="todo5-color-button" data-color-set="grey">
+                        <img src="../src/calendar/cal1h-grey.png" alt="grey" width="30px" height="30px">
+                    </button>
+                    <button class="todo5-color-button" data-color-set="pink">
+                        <img src="../src/calendar/cal1h-pink.png" alt="pink" width="30px" height="30px">
+                    </button>
+                    <button class="todo5-color-button" data-color-set="orange">
+                        <img src="../src/calendar/cal1h-orange.png" alt="orange" width="30px" height="30px">
+                    </button>
+                    <button class="todo5-color-button" data-color-set="green">
+                        <img src="../src/calendar/cal1h-green.png" alt="green" width="30px" height="30px">
+                    </button>
+                    <button class="todo5-color-button" data-color-set="mint">
+                        <img src="../src/calendar/cal1h-mint.png" alt="mint" width="30px" height="30px">
+                    </button>
+                    <button class="todo5-color-button" data-color-set="blue">
+                        <img src="../src/calendar/cal1h-blue.png" alt="blue" width="30px" height="30px">
+                    </button>
+                    <button class="todo5-color-button" data-color-set="purple">
+                        <img src="../src/calendar/cal1h-purple.png" alt="purple" width="30px" height="30px">
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="todo5-size-setting">
+                <div class="sizeheader">Size</div>
+                <div class="slider-container15">
+                  <input type="range" id="sizeSliderTodo5" min="1" max="100" value="50" class="custom-slider">
+                  <span id="sliderValueTodo5">50</span>
+                </div>
+              </div>
+              <button id="auth-button" class="link">Link to Google Account</button>
+              <div id="auth-status"></div>
+            </div>
+          </div>
+        `;
+        todo5Container.appendChild(todoComponent5);
+        checkContainers();
+
+
+        const toggleSwitchTodo5 = document.getElementById('toggleSwitchTodo5');
+        const isTodo5Open = localStorage.getItem('showTodo5') === 'true';
+        toggleSwitchTodo5.checked = isTodo5Open;
+
+        if (isTodo5Open) {
+          document.getElementById('sizeSliderTodo5').value = localStorage.getItem('todo5Size') || 50;
+          document.getElementById('sliderValueTodo5').innerText = localStorage.getItem('todo5Size') || 50;
+          checkContainers();
+
+        } else {
+          document.getElementById('sizeSliderTodo5').value = 50;
+          document.getElementById('sliderValueTodo5').innerText = 50;
+        }
+        checkContainers();
+
+
+        toggleSwitchTodo5.addEventListener('change', () => {
+          const isChecked = toggleSwitchTodo5.checked;
+          localStorage.setItem('showTodo5', isChecked);
+          ipcRenderer.send('todo5-status', { status: isChecked });
+          if (isChecked) {
+            document.getElementById('sizeSliderTodo5').value = 50;
+            document.getElementById('sliderValueTodo5').innerText = 50;
+            localStorage.setItem('todo5Size', 50);
+          } else {
+            document.getElementById('sizeSliderTodo5').value = 50;
+            document.getElementById('sliderValueTodo5').innerText = 50;
+            todo5Container.innerHTML = '';
+
+          }
+          checkContainers();
+
+          updateEmptyContainerVisibility();
+        });
+
+        document.querySelectorAll('.todo5-color-button').forEach(button => {
+          button.addEventListener('click', () => {
+            const colorSet = button.getAttribute('data-color-set');
+            localStorage.setItem('todo5ColorSet', colorSet);
+            ipcRenderer.send('change-todo5-color', colorSet);
+            markSelectedColor('todo5', colorSet);
+
+          });
+        });
+
+        document.getElementById('sizeSliderTodo5').addEventListener('input', () => {
+          const newSize = document.getElementById('sizeSliderTodo5').value;
+          document.getElementById('sliderValueTodo5').innerText = newSize;
+          ipcRenderer.send('adjust-todo5-size', { size: newSize });
+          localStorage.setItem('todo5Size', newSize);
+        });
+
+        document.getElementById('auth-button').addEventListener('click', () => {
+          const authButton = document.getElementById('auth-button');
+          const buttonText = authButton.innerText;
+          if (buttonText === 'Link to Google Account') {
+            ipcRenderer.send('auth-google');
+          } else {
+            ipcRenderer.send('logout-google');
+          }
+        });
+
+        ipcRenderer.on('auth-status', (event, status) => {
+          const authButton = document.getElementById('auth-button');
+          const authStatus = document.getElementById('auth-status');
+
+          if (status === 'linked') {
+            authButton.innerText = 'Log out';
+            authButton.classList.remove('link');
+            authButton.classList.add('logout');
+          } else {
+            authButton.innerText = 'Link to Google Account';
+            authButton.classList.remove('logout');
+            authButton.classList.add('link');
+          }
+        });
+
+        ipcRenderer.send('check-auth-status');
+
+        const currentColorSetTodo5 = localStorage.getItem('todo5ColorSet') || 'li-grey';
+        markSelectedColor('todo5', currentColorSetTodo5);
+
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      updateEmptyContainerVisibility();
     }
 
 
@@ -1986,6 +2934,12 @@
       const calendar2Container = document.getElementById('calendar2-container');
       const calendar3Container = document.getElementById('calendar3-container');
       const calendar4Container = document.getElementById('calendar4-container');
+      const todo1Container = document.getElementById('todo1-container');
+      const todo2Container = document.getElementById('todo2-container');
+      const todo3Container = document.getElementById('todo3-container');
+      const todo4Container = document.getElementById('todo4-container');
+      const todo5Container = document.getElementById('todo5-container');
+
       const emptyContainer = document.getElementById('empty-container');
 
       const isAnyItemVisible =
@@ -1995,10 +2949,15 @@
         clock4Container.innerHTML !== '' ||
         clock5Container.innerHTML !== '' ||
         clock6Container.innerHTML !== '' ||
-        calendar1Container.innerHTML !== ''||
-        calendar2Container.innerHTML !== ''||
-        calendar3Container.innerHTML !== ''||
-        calendar4Container.innerHTML !== '';
+        calendar1Container.innerHTML !== '' ||
+        calendar2Container.innerHTML !== '' ||
+        calendar3Container.innerHTML !== '' ||
+        calendar4Container.innerHTML !== '' ||
+        todo1Container.innerHTML !== '' ||
+        todo2Container.innerHTML !== '' ||
+        todo3Container.innerHTML !== '' ||
+        todo4Container.innerHTML !== '' ||
+        todo5Container.innerHTML !== '';
 
 
 

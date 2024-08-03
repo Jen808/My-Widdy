@@ -313,10 +313,10 @@ ipcMain.on('request-weekly-tasks', async (event, startDate) => {
 
 const createMainWindow = () => {
   mainWindow = new BrowserWindow({
-    width: 1422,
-    height: 800,
-    minWidth: 646,
-    minHeight: 363,
+    width: 1422 + 16,
+    height: 800 + 65,
+    minWidth: 646 + 16,
+    minHeight: 363 + 65,
     useContentSize: true,
     webPreferences: {
       nodeIntegration: true,
@@ -327,6 +327,34 @@ const createMainWindow = () => {
   mainWindow.loadFile('html/my-widdy.html');
   // Menu.setApplicationMenu(null);
 
+
+  mainWindow.once('ready-to-show', () => {
+    const contentWidth = 1422;
+    const contentHeight = 800;
+
+    const frameSize = mainWindow.getSize();
+    const contentSize = mainWindow.getContentSize();
+
+    console.log('Initial frame size:', frameSize);
+    console.log('Initial content size:', contentSize);
+
+    const widthAdjustment = frameSize[0] - contentSize[0];
+    const heightAdjustment = frameSize[1] - contentSize[1];
+
+    console.log('Width adjustment:', widthAdjustment);
+    console.log('Height adjustment:', heightAdjustment);
+
+    // Adjust window size only if needed
+    if (widthAdjustment !== 0 || heightAdjustment !== 0) {
+      mainWindow.setSize(contentWidth + widthAdjustment, contentHeight + heightAdjustment);
+    }
+
+    const newFrameSize = mainWindow.getSize();
+    const newContentSize = mainWindow.getContentSize();
+
+    console.log('New frame size:', newFrameSize);
+    console.log('New content size:', newContentSize);
+  });
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith('https://mail.google.com/')) {
@@ -341,6 +369,12 @@ const createMainWindow = () => {
     return { action: 'deny' };
   });
 };
+
+
+
+
+
+
 
 // const createDisplayWindow = (id, title, width, height) => {
 //   console.log(`Toggling window: ${id}`);
@@ -888,13 +922,20 @@ app.on('ready', () => {
 });
 
 
-
-
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
+
+
+// app.on('ready', createMainWindow);
+// app.on('window-all-closed', () => {
+//   if (process.platform !== 'darwin') {
+//     app.quit();
+//   }
+// });
+
 
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
@@ -1422,6 +1463,21 @@ function closeTodo5Display() {
 
 
 
+function openWea1Display() {
+  if (!displayWindows['wea1-display']) {
+    createDisplayWindow('wea1-display', 'Wea1 Display', 1400, 450);
+  }
+}
+
+function closeWea1Display() {
+  if (displayWindows['wea1-display']) {
+    displayWindows['wea1-display'].close();
+  }
+}
+
+
+
+
 
 
 
@@ -1510,6 +1566,18 @@ ipcMain.on('close-todo5-display', () => {
 
 
 
+ipcMain.on('open-wea1-display', () => {
+  openWea1Display();
+});
+
+ipcMain.on('close-wea1-display', () => {
+  closeWea1Display();
+});
+
+
+
+
+
 ipcMain.on('cal1-status', (event, arg) => {
   if (arg.status) {
     openCal1Display();
@@ -1585,6 +1653,17 @@ ipcMain.on('todo5-status', (event, arg) => {
     closeTodo5Display();
   }
 });
+
+
+
+ipcMain.on('wea1-status', (event, arg) => {
+  if (arg.status) {
+    openWea1Display();
+  } else {
+    closeWea1Display();
+  }
+});
+
 
 
 

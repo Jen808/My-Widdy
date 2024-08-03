@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>wea1</title>
+  <link rel="stylesheet" href="../css/my-widdy.css">
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <!-- <a href="#" target="_blank"> -->
+      <img src="../src/logo.png" alt="Logo Image" class="logo-image">
+      </a>
+      <a href="#" id="logo-word">Widdy</a>
+    </div>
+    <div class="sidebar-menu">
+      <nav>
+        <ul>
+          <li class="myWiddy-page"><a href="#" id="myWiddy-page">My Widdy</a></li>
+          <li class="clock-page"><a href="#" id="clock-page">Clock</a></li>
+          <li class="calendar-page"><a href="#" id="calendar-page">Calendar</a></li>
+          <li class="toDoList-page"><a href="#" id="toDoList-page">To Do List</a></li>
+          <li class="weather-page"><a href="#" id="weather-page">Weather</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="head-container">
+      <img src="../src/go-back-button.png" alt="Go Back" class="back-button">
+      <div class="name">
+        <a>To Do List: Pure</a>
+      </div>
+    </div>
+    <div class="main-container">
+
+      <img src="../src/todo/todo1.png" alt="Todo1 Image" class="wea1-image">
+
+      <div class="setting">
+
+        <div class="switch-container">
+          <a class="off">Off</a>
+          <label class="switch">
+            <input type="checkbox" id="toggleSwitchWea1">
+            <span class="slider"></span>
+          </label>
+          <a class="on">On</a>
+        </div>
+
+        <div class="color-setting">
+          <div class="color-header">Colors</div>
+          <div class="color-tiles">
+            <div class="color-buttons-white">
+              <button class="wea1-color-button" data-color-set="white">
+                <img src="../src/calendar/cal1-white.png" alt="white" width="30px" height="30px">
+              </button>
+              <button class="wea1-color-button" data-color-set="cmyk">
+                <img src="../src/calendar/cal1-cmyk.png" alt="cmyk" width="30px" height="30px">
+              </button>
+              <button class="wea1-color-button" data-color-set="li-pink">
+                <img src="../src/calendar/cal1-li-pink.png" alt="li-pink" width="30px" height="30px">
+              </button>
+              <button class="wea1-color-button" data-color-set="li-orange">
+                <img src="../src/calendar/cal1-li-orange.png" alt="li-orange" width="30px" height="30px">
+              </button>
+              <button class="wea1-color-button" data-color-set="li-green">
+                <img src="../src/calendar/cal1-li-green.png" alt="li-green" width="30px" height="30px">
+              </button>
+              <button class="wea1-color-button" data-color-set="li-mint">
+                <img src="../src/calendar/cal1-li-mint.png" alt="li-mint" width="30px" height="30px">
+              </button>
+              <button class="wea1-color-button" data-color-set="li-blue">
+                <img src="../src/calendar/cal1-li-blue.png" alt="li-blue" width="30px" height="30px">
+              </button>
+              <button class="wea1-color-button" data-color-set="li-purple">
+                <img src="../src/calendar/cal1-li-purple.png" alt="li-purple" width="30px" height="30px">
+              </button>
+            </div>
+            <div class="color-buttons-black">
+              <button class="wea1-color-button" data-color-set="black">
+                <img src="../src/calendar/cal1-black.png" alt="Black" width="30px" height="30px">
+              </button>
+              <button class="wea1-color-button" data-color-set="grey">
+                <img src="../src/calendar/cal1-grey.png" alt="grey" width="30px" height="30px">
+              </button>
+              <button class="wea1-color-button" data-color-set="pink">
+                <img src="../src/calendar/cal1-pink.png" alt="pink" width="30px" height="30px">
+              </button>
+              <button class="wea1-color-button" data-color-set="orange">
+                <img src="../src/calendar/cal1-orange.png" alt="orange" width="30px" height="30px">
+              </button>
+              <button class="wea1-color-button" data-color-set="green">
+                <img src="../src/calendar/cal1-green.png" alt="green" width="30px" height="30px">
+              </button>
+              <button class="wea1-color-button" data-color-set="mint">
+                <img src="../src/calendar/cal1-mint.png" alt="mint" width="30px" height="30px">
+              </button>
+              <button class="wea1-color-button" data-color-set="blue">
+                <img src="../src/calendar/cal1-blue.png" alt="blue" width="30px" height="30px">
+              </button>
+              <button class="wea1-color-button" data-color-set="purple">
+                <img src="../src/calendar/cal1-purple.png" alt="purple" width="30px" height="30px">
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="wea1-size-setting">
+          <div class="sizeheader">Size</div>
+          <div class="slider-container11">
+            <input type="range" id="sizeSliderWea1" min="1" max="100" value="50" class="custom-slider">
+            <span id="sliderValueWea1">50</span>
+          </div>
+        </div>
+        <button id="auth-button" class="link">Link to Google Account</button>
+        <div id="auth-status"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+
+
+    document.getElementById('myWiddy-page').addEventListener('click', () => {
+      window.location.href = 'my-widdy.html';
+    });
+
+    document.getElementById('logo-word').addEventListener('click', () => {
+      window.location.href = 'my-widdy.html';
+    });
+
+    document.querySelector('.logo-image').addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'my-widdy.html';
+    });
+
+    document.querySelector('.back-button').addEventListener('click', () => {
+      window.history.back();
+    });
+
+    document.getElementById('clock-page').addEventListener('click', () => {
+      window.location.href = 'clock.html';
+    });
+
+    document.getElementById('calendar-page').addEventListener('click', () => {
+      window.location.href = 'calendar.html';
+    });
+
+    document.getElementById('toDoList-page').addEventListener('click', () => {
+      window.location.href = 'toDoList.html';
+    });
+
+    document.getElementById('weather-page').addEventListener('click', () => {
+      window.location.href = 'weather.html';
+    });
+
+
+
+    // document.getElementById('display5-button').addEventListener('click', () => {
+    //   ipcRenderer.send('toggle-display', { id: 'display5', height: 300, width: 800 });
+    // });
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const toggleSwitchWea1 = document.getElementById('toggleSwitchWea1');
+      const isWea1Open = localStorage.getItem('showWea1') === 'true';
+
+
+      toggleSwitchWea1.checked = isWea1Open;
+
+
+      toggleSwitchWea1.addEventListener('change', () => {
+        const isChecked = toggleSwitchWea1.checked;
+        localStorage.setItem('showWea1', isChecked);
+        ipcRenderer.send('wea1-status', { status: isChecked });
+
+        // if (isChecked) {
+        //   localStorage.setItem('wea1ColorSet', 'li-grey');
+        //   markSelectedColor('wea1', 'li-grey'); 
+        //   sizeSliderWea1.value = 50;
+        //   sliderValueWea1.innerText = 50;
+        //   localStorage.setItem('wea1Size', 50);
+        //   ipcRenderer.send('adjust-wea1-size', { size: 50 });
+        // } else {
+        //   clearSelectedColor('wea1');
+        //   sizeSliderWea1.value = 50;
+        //   sliderValueWea1.innerText = 50;
+        //   ipcRenderer.send('adjust-wea1-size', { size: 50 });
+        // }
+      });
+
+
+
+
+      document.querySelectorAll('.wea-color-button').forEach(button => {
+        button.addEventListener('click', () => {
+          const colorSet = button.getAttribute('data-color-set');
+          ipcRenderer.send('change-weather-color', colorSet);
+        });
+      });
+    });
+
+  </script>
+</body>
+
+</html>
