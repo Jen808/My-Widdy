@@ -38,6 +38,17 @@
       <img src="../src/todo/todo1.png" alt="Todo1 Image" class="wea1-image">
 
       <div class="setting">
+        <div class="hhh" id="input-section">
+          <input type="text" id="city" placeholder="Enter city name">
+          <button onclick="getWeather()">Get Weather</button>
+          <button id="toggle-unit" onclick="toggleUnit()">Toggle to °F</button>
+          <div class="city-display" id="city-display"></div>
+        </div>
+
+
+
+
+
 
         <div class="switch-container">
           <a class="off">Off</a>
@@ -155,51 +166,135 @@
       window.location.href = 'weather.html';
     });
 
+    let currentUnit = 'metric';
+
+    async function getWeather() {
+      const city = document.getElementById('city').value;
+      try {
+        console.log(`Requesting weather data for ${city} with unit ${currentUnit}`);
+        const weatherData = await ipcRenderer.invoke('get-weather', city, currentUnit);
+        if (weatherData.error) {
+          alert(`Error: ${weatherData.error}`);
+        } else {
+          console.log("Weather data received", weatherData);
+          ipcRenderer.send('weather-data', weatherData); // 이 부분 확인
+          const cityDisplay = document.getElementById('city-display');
+          if (cityDisplay) {
+            cityDisplay.innerText = `City: ${city}`;
+          }
+        }
+      } catch (error) {
+        console.error("Error requesting weather data", error);
+      }
+    }
+
+    function toggleUnit() {
+      currentUnit = currentUnit === 'metric' ? 'imperial' : 'metric';
+      const toggleButton = document.getElementById('toggle-unit');
+      toggleButton.innerText = currentUnit === 'metric' ? 'Toggle to °F' : 'Toggle to °C';
+      getWeather();
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleSwitchWea1 = document.getElementById('toggleSwitchWea1');
+      const inputSection = document.getElementById('input-section');
+      const cityDisplay = document.getElementById('city-display');
+      const toggleButton = document.getElementById('toggle-unit');
+
+
+
+
+      const isWea1Open = localStorage.getItem('showWea1') === 'true';
+      toggleSwitchWea1.checked = isWea1Open;
+      inputSection.style.display = isWea1Open ? 'block' : 'none';
+      toggleButton.innerText = currentUnit === 'metric' ? 'Toggle to °F' : 'Toggle to °C';
+
+      toggleSwitchWea1.addEventListener('change', () => {
+        const isChecked = toggleSwitchWea1.checked;
+        localStorage.setItem('showWea1', isChecked);
+        inputSection.style.display = isChecked ? 'block' : 'none';
+        if (isChecked) {
+          console.log("Switch is ON, opening display window");
+
+          ipcRenderer.send('open-wea1-display');
+        } else {
+          console.log("Switch is OFF, closing display window");
+
+          ipcRenderer.send('close-wea1-display');
+          if (cityDisplay) {
+            cityDisplay.innerText = '';
+          }
+        }
+      });
+    });
+
+    // function displayWeather(weatherData) {
+    //   const unitSymbol = currentUnit === 'metric' ? '°C' : '°F';
+    //   let forecastHtml = `
+    //     <h2>Current Weather in ${weatherData.weather.name}</h2>
+    //     <p>Temperature: ${weatherData.weather.main.temp} ${unitSymbol}</p>
+    //     <p>Weather: ${weatherData.weather.weather[0].description}</p>
+    //     <p>Air Quality Index: ${weatherData.air.list[0].main.aqi}</p>
+    //     <h2>Next 24-hour Forecast</h2>`;
+
+    //   weatherData.forecast.forEach(forecast => {
+    //     const date = new Date(forecast.dt * 1000);
+    //     forecastHtml += `
+    //       <div>
+    //         <p><strong>${date.toLocaleString()}</strong></p>
+    //         <p>Temperature: ${forecast.main.temp} ${unitSymbol}</p>
+    //         <p>Weather: ${forecast.weather[0].description}</p>
+    //       </div>`;
+    //   });
+
+    //   document.getElementById('weather-result').innerHTML = forecastHtml;
+    // }
 
 
     // document.getElementById('display5-button').addEventListener('click', () => {
     //   ipcRenderer.send('toggle-display', { id: 'display5', height: 300, width: 800 });
     // });
 
-    document.addEventListener('DOMContentLoaded', () => {
+    // document.addEventListener('DOMContentLoaded', () => {
 
-      const toggleSwitchWea1 = document.getElementById('toggleSwitchWea1');
-      const isWea1Open = localStorage.getItem('showWea1') === 'true';
-
-
-      toggleSwitchWea1.checked = isWea1Open;
+    //   const toggleSwitchWea1 = document.getElementById('toggleSwitchWea1');
+    //   const isWea1Open = localStorage.getItem('showWea1') === 'true';
 
 
-      toggleSwitchWea1.addEventListener('change', () => {
-        const isChecked = toggleSwitchWea1.checked;
-        localStorage.setItem('showWea1', isChecked);
-        ipcRenderer.send('wea1-status', { status: isChecked });
-
-        // if (isChecked) {
-        //   localStorage.setItem('wea1ColorSet', 'li-grey');
-        //   markSelectedColor('wea1', 'li-grey'); 
-        //   sizeSliderWea1.value = 50;
-        //   sliderValueWea1.innerText = 50;
-        //   localStorage.setItem('wea1Size', 50);
-        //   ipcRenderer.send('adjust-wea1-size', { size: 50 });
-        // } else {
-        //   clearSelectedColor('wea1');
-        //   sizeSliderWea1.value = 50;
-        //   sliderValueWea1.innerText = 50;
-        //   ipcRenderer.send('adjust-wea1-size', { size: 50 });
-        // }
-      });
+    //   toggleSwitchWea1.checked = isWea1Open;
 
 
+    //   toggleSwitchWea1.addEventListener('change', () => {
+    //     const isChecked = toggleSwitchWea1.checked;
+    //     localStorage.setItem('showWea1', isChecked);
+    //     ipcRenderer.send('wea1-status', { status: isChecked });
+
+    // if (isChecked) {
+    //   localStorage.setItem('wea1ColorSet', 'li-grey');
+    //   markSelectedColor('wea1', 'li-grey'); 
+    //   sizeSliderWea1.value = 50;
+    //   sliderValueWea1.innerText = 50;
+    //   localStorage.setItem('wea1Size', 50);
+    //   ipcRenderer.send('adjust-wea1-size', { size: 50 });
+    // } else {
+    //   clearSelectedColor('wea1');
+    //   sizeSliderWea1.value = 50;
+    //   sliderValueWea1.innerText = 50;
+    //   ipcRenderer.send('adjust-wea1-size', { size: 50 });
+    // }
+    // });
 
 
-      document.querySelectorAll('.wea-color-button').forEach(button => {
-        button.addEventListener('click', () => {
-          const colorSet = button.getAttribute('data-color-set');
-          ipcRenderer.send('change-weather-color', colorSet);
-        });
+
+
+    document.querySelectorAll('.wea-color-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const colorSet = button.getAttribute('data-color-set');
+        ipcRenderer.send('change-weather-color', colorSet);
       });
     });
+    // });
 
   </script>
 </body>

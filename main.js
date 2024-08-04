@@ -20,7 +20,7 @@ const client_secret = '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';
 const redirect_uri = 'http://localhost:8000/oauth2callback';
 
 let mainWindow;
-let displayWindows = {};
+let displayWindow;
 let server;
 let oAuth2Client;
 let isLoggedIn;
@@ -28,6 +28,13 @@ let cachedEvents = [];
 let availableCalendars = [];
 let selectedCalendars = [];
 let cachedTasks = [];
+let globalWeatherData = null;
+let currentUnit = 'metric';
+
+const displayWindows = {};
+
+
+
 
 
 
@@ -310,6 +317,40 @@ ipcMain.on('request-weekly-tasks', async (event, startDate) => {
 });
 
 
+ipcMain.on('request-weather-data', async (event) => {
+  console.log("Received request for weather data");
+  if (globalWeatherData) {
+    const city = globalWeatherData.weather.name;
+    try {
+      const apiKey = '6461774d1ed46f31edb9cf271eb2477b';
+      console.log(`Fetching weather data for ${city} with unit ${currentUnit}`);
+      const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${currentUnit}`);
+      console.log("Weather data fetched successfully", response.data);
+      const { coord } = response.data;
+
+      const response_air = await axios.get(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${coord.lat}&lon=${coord.lon}&appid=${apiKey}`);
+      const response_fivedays = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${currentUnit}`);
+
+      const now = new Date();
+      const next24h = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+      const filteredForecast = response_fivedays.data.list.filter(forecast => {
+        const forecastTime = new Date(forecast.dt * 1000);
+        return forecastTime >= now && forecastTime <= next24h;
+      });
+
+      globalWeatherData = { weather: response.data, air: response_air.data, forecast: filteredForecast, unit: currentUnit };
+      console.log("Global weather data updated", globalWeatherData);
+
+      event.sender.send('weather-data', globalWeatherData);
+    } catch (error) {
+      console.error("Error fetching weather data", error);
+      event.sender.send('weather-data', { error: error.message });
+    }
+  } else {
+    console.log("No globalWeatherData available");
+    event.sender.send('weather-data', { error: 'Enter city name in app setting' });
+  }
+});
 
 const createMainWindow = () => {
   mainWindow = new BrowserWindow({
@@ -419,11 +460,48 @@ const createMainWindow = () => {
 // };
 
 
+// const createDisplayWindow = (id, title, width, height) => {
+//   console.log(`Toggling window: ${id}`);
+//   if (displayWindows[id]) {
+//     displayWindows[id].close();
+//     delete displayWindows[id];
+//   } else {
+//     displayWindows[id] = new BrowserWindow({
+//       width: parseInt(width),
+//       height: parseInt(height),
+//       title: title,
+//       frame: false,
+//       transparent: true,
+//       resizable: true,
+//       webPreferences: {
+//         nodeIntegration: true,
+//         contextIsolation: false,
+//         // autoplayPolicy: 'no-user-gesture-required'
+//       },
+//       icon: path.join(__dirname, 'src/logo.png'),
+//     });
+
+//     displayWindows[id].loadFile(path.join(__dirname, `html/${id}.html`)).then(() => {
+//       console.log(`${id} window loaded`);
+//       // Add additional initialization logic here if needed
+//     }).catch((err) => {
+//       console.error(`Failed to load ${id} window:`, err);
+//     });
+
+//     displayWindows[id].on('closed', () => {
+//       delete displayWindows[id];
+//     });
+//   }
+// };
+
+
 const createDisplayWindow = (id, title, width, height) => {
   console.log(`Toggling window: ${id}`);
   if (displayWindows[id]) {
-    displayWindows[id].close();
-    delete displayWindows[id];
+    displayWindows[id].show(); // 창이 열려 있는 경우 다시 표시
+    if (globalWeatherData) {
+      displayWindows[id].webContents.send('weather-data', globalWeatherData); // 필요할 경우 데이터 전송
+    }
   } else {
     displayWindows[id] = new BrowserWindow({
       width: parseInt(width),
@@ -443,6 +521,9 @@ const createDisplayWindow = (id, title, width, height) => {
     displayWindows[id].loadFile(path.join(__dirname, `html/${id}.html`)).then(() => {
       console.log(`${id} window loaded`);
       // Add additional initialization logic here if needed
+      if (globalWeatherData) {
+        displayWindows[id].webContents.send('weather-data', globalWeatherData); // 새 창을 열 때 데이터 전송
+      }
     }).catch((err) => {
       console.error(`Failed to load ${id} window:`, err);
     });
@@ -452,6 +533,7 @@ const createDisplayWindow = (id, title, width, height) => {
     });
   }
 };
+
 
 
 function openClock1Display() {
@@ -1342,6 +1424,16 @@ ipcMain.on('change-weather-color', (event, colorSet) => {
 
 
 
+ipcMain.on('toggle-unit', () => {
+  currentUnit = currentUnit === 'metric' ? 'imperial' : 'metric';
+  if (displayWindows['wea1-display']) {
+    displayWindows['wea1-display'].webContents.send('request-weather-data');
+  }
+});
+
+
+
+
 function openCal1Display() {
   if (!displayWindows['cal1-display']) {
     createDisplayWindow('cal1-display', 'Cal1 Display', 900, 453);
@@ -1462,10 +1554,21 @@ function closeTodo5Display() {
 }
 
 
-
 function openWea1Display() {
   if (!displayWindows['wea1-display']) {
-    createDisplayWindow('wea1-display', 'Wea1 Display', 1400, 450);
+    createDisplayWindow('wea1-display', 'Wea1 Display', 400, 190);
+    displayWindows['wea1-display'].webContents.once('did-finish-load', () => {
+      console.log("wea1-display loaded");
+      displayWindows['wea1-display'].webContents.send('request-weather-data'); // 데이터 요청
+    });
+  } else {
+    displayWindows['wea1-display'].show();
+    if (globalWeatherData) {
+      console.log("Sending weather data to display window", globalWeatherData);
+      displayWindows['wea1-display'].webContents.send('weather-data', globalWeatherData);
+    } else {
+      console.log("No globalWeatherData to send");
+    }
   }
 }
 
@@ -1474,6 +1577,7 @@ function closeWea1Display() {
     displayWindows['wea1-display'].close();
   }
 }
+
 
 
 
@@ -1571,7 +1675,9 @@ ipcMain.on('open-wea1-display', () => {
 });
 
 ipcMain.on('close-wea1-display', () => {
-  closeWea1Display();
+  if (displayWindows['wea1-display']) {
+    displayWindows['wea1-display'].close();
+  }
 });
 
 
@@ -1668,6 +1774,7 @@ ipcMain.on('wea1-status', (event, arg) => {
 
 
 
+
 // let clock1Window;
 
 // function openClock1Display() {
@@ -1720,7 +1827,12 @@ ipcMain.on('wea1-status', (event, arg) => {
 ipcMain.handle('get-weather', async (event, city, unit) => {
   const apiKey = '6461774d1ed46f31edb9cf271eb2477b'; // Replace with your OpenWeather API key
   try {
+    if (!city) {
+      throw new Error('City name is required');
+    }
+    console.log(`Fetching weather data for ${city} with unit ${unit}`);
     const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`);
+    console.log("Weather data fetched successfully", response.data);
     const { coord } = response.data;
 
     const response_air = await axios.get(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${coord.lat}&lon=${coord.lon}&appid=${apiKey}`);
@@ -1733,13 +1845,31 @@ ipcMain.handle('get-weather', async (event, city, unit) => {
       return forecastTime >= now && forecastTime <= next24h;
     });
 
-    const weatherData = { weather: response.data, air: response_air.data, forecast: filteredForecast };
+    const weatherData = { weather: response.data, air: response_air.data, forecast: filteredForecast, unit: unit };
+    globalWeatherData = weatherData;
+    console.log("Global weather data set", globalWeatherData);
+
+    // 데이터 요청 이벤트 다시 트리거
+    if (displayWindows['wea1-display']) {
+      displayWindows['wea1-display'].webContents.send('weather-data', globalWeatherData);
+    }
 
     return weatherData;
   } catch (error) {
+    console.error("Error fetching weather data", error);
     return { error: error.message };
   }
 });
+
+// ipcMain.on('weather-data', (event, weatherData) => {
+//   displayWindow.webContents.send('weather-data', weatherData);
+//   displayWindow.show();
+// });
+
+// ipcMain.on('get-weather-data', (event) => {
+//   displayWindow.webContents.send('weather-data', globalWeatherData);
+// });
+
 
 
 app.on('activate', () => {

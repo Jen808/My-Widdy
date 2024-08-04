@@ -1,76 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather App - Current and 24-hour Forecast</title>
-  <link rel="stylesheet" href="../css/style5.css">
+  <!-- <link rel="stylesheet" href="../css/style5.css"> -->
   <link rel="stylesheet" href="../css/wea_1.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
   <div class="default-set"></div>
 
   <div class="weather-container">
-    <div class="weather-search">
-
-      <h1>Current Weather and 24-hour Forecast</h1>
-      <input type="text" id="city" placeholder="Enter city name">
-      <button onclick="getWeather()">Get Weather</button>
-      <button id="toggle-unit" onclick="toggleUnit()">Toggle to °F</button>
-    </div>
     <div class="result-container" id="weather-result">
-      <!-- Weather results will be displayed here -->
+      <p>Enter city name in app setting</p>
     </div>
+    <!-- Weather results will be displayed here -->
+  </div>
 
   <script>
     const { ipcRenderer } = require('electron');
-    let currentUnit = 'metric'; // 'metric' for Celsius, 'imperial' for Fahrenheit
 
-    async function getWeather() {
-      const city = document.getElementById('city').value;
-      const weatherData = await ipcRenderer.invoke('get-weather', city, currentUnit);
-      if (weatherData.error) {
-        document.getElementById('weather-result').innerHTML = `<p>Error: ${weatherData.error}</p>`;
+    let currentUnit = 'metric';
+    let airQualityChart = null;
+
+
+
+
+    ipcRenderer.on('weather-data', (event, weatherData) => {
+      console.log("weather-data event triggered");
+      if (weatherData) {
+        if (weatherData.error) {
+          console.error(weatherData.error);
+          document.getElementById('weather-result').innerHTML = `<p>Error: ${weatherData.error}</p>`;
+        } else {
+          console.log("Received weather data", weatherData);
+          displayWeather(weatherData);
+        }
       } else {
-        displayWeather(weatherData);
+        console.log("No weather data received");
       }
+    });
+
+    function celsiusToFahrenheit(celsius) {
+      return (celsius * 9 / 5) + 32;
+    }
+
+    function fahrenheitToCelsius(fahrenheit) {
+      return (fahrenheit - 32) * 5 / 9;
+    }
+
+
+
+    // <h2>Current Weather in ${weatherData.weather.name}</h2>
+    //     <p>Temperature: ${weatherData.weather.main.temp} ${unitSymbol}</p>
+    //     <p>Weather: ${weatherData.weather.weather[0].description}</p>
+    //     <p>Air Quality Index: ${weatherData.air.list[0].main.aqi}</p>
+    //     <h2>Next 24-hour Forecast</h2>`;
+
+    function displayWeather(weatherData) {
+      // const unitSymbol = weatherData.unit === 'metric' ? 'c' : 'f';
+
+      const temperatureC = Math.round(weatherData.weather.main.temp);
+      const temperatureF = Math.round(celsiusToFahrenheit(temperatureC));
+      const description = weatherData.weather.weather[0].description.toLowerCase();
+      // const temperature = Math.round(weatherData.weather.main.temp);
+
+
+      let weatherImage = '';
+      if (description.includes('clear')) {
+        weatherImage = '../src/logo.png';
+      } else if (description.includes('cloud')) {
+        weatherImage = 'cloudy.png';
+      } else if (description.includes('rain')) {
+        weatherImage = 'rainy.png';
+      } else if (description.includes('snow')) {
+        weatherImage = 'snowy.png';
+      } else {
+        weatherImage = 'default.png';
+      }
+
+
+      const mainTemperature = currentUnit === 'metric' ? `${temperatureC}` : `${temperatureF}`;
+      const mainUnitSymbol = currentUnit === 'metric' ? 'C' : 'F';
+      const secondaryTemperature = currentUnit === 'metric' ? `${temperatureF}` : `${temperatureC}`;
+      const secondaryUnitSymbol = currentUnit === 'metric' ? 'F' : 'C';
+
+
+
+
+      let forecastHtml = `
+          <div class="current-weather">
+            <img src="../images/${weatherImage}" alt="${description}" class="weather-image">
+            <div class="inner-contents">
+              <p class="temperature">${mainTemperature}</p>
+              <p class="circle">°</p>
+              <span class="unit-symbol">${mainUnitSymbol}</span>
+              <p class="wea-des">${weatherData.weather.weather[0].description}</p>
+              <p class="temperature2">${secondaryTemperature}</p>
+              <p class="circle2">°</p>
+              <span class="unit-symbol2">${secondaryUnitSymbol}</span>
+              <div class="back-bar"></div>
+              <canvas id="airQualityChart"></canvas>
+            </div>
+          </div>`;
+
+
+      // weatherData.forecast.forEach(forecast => {
+      //   const date = new Date(forecast.dt * 1000);
+      //   forecastHtml += `
+      //     <div>
+      //       <p><strong>${date.toLocaleString()}</strong></p>
+      //       <p>Temperature: ${forecast.main.temp} ${unitSymbol}</p>
+      //       <p>Weather: ${forecast.weather[0].description}</p>
+      //     </div>`;
+      // });
+
+      document.getElementById('weather-result').innerHTML = forecastHtml;
+      console.log("Weather data displayed");
+
+
+      displayAirQualityChart(weatherData.air.list[0].main.aqi);
+    }
+
+
+    function displayAirQualityChart(aqi) {
+      const ctx = document.getElementById('airQualityChart').getContext('2d');
+
+      if (airQualityChart) {
+        airQualityChart.destroy(); // 기존 차트를 제거합니다.
+      }
+
+      const inverseAqi = 100 - (aqi - 1) * 20;
+
+      airQualityChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Air Quality Index'],
+          datasets: [{
+            label: 'AQI',
+            data: [inverseAqi],
+            backgroundColor: "blue",
+            
+
+
+
+            // aqi === 1 ? 'green' :
+            //   aqi === 2 ? 'yellow' :
+            //     aqi === 3 ? 'orange' :
+            //       aqi === 4 ? 'red' : 'purple'
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          maintainAspectRatio: false, 
+          responsive: true, 
+          barPercentage: 1.00,
+          categoryPercentage: 1.00, 
+          scales: {
+            x: {
+              beginAtZero: true,
+              max: 100,
+              offset: false, // 축의 오프셋 제거
+              ticks: {
+                display: false // x축 눈금 제거
+              },
+              grid: {
+                display: false // x축 그리드 제거
+              }
+            },
+            y: {
+              ticks: {
+                display: false // y축 눈금 제거
+              },
+              grid: {
+                display: false // y축 그리드 제거
+              }
+            }
+          },
+          layout: {
+            padding: -10,
+            border: 0,
+            magin: 0
+          },
+          plugins: {
+            legend: {
+              display: false // 범례 제거
+            },
+            tooltip: {
+              enabled: false // 툴팁 제거
+            }
+          }
+        }
+      });
     }
 
     function toggleUnit() {
       currentUnit = currentUnit === 'metric' ? 'imperial' : 'metric';
       const toggleButton = document.getElementById('toggle-unit');
       toggleButton.innerText = currentUnit === 'metric' ? 'Toggle to °F' : 'Toggle to °C';
-      getWeather();
+      ipcRenderer.send('request-weather-data');
     }
 
-    function displayWeather(weatherData) {
-      const unitSymbol = currentUnit === 'metric' ? '°C' : '°F';
-      let forecastHtml = `
-        <h2>Current Weather in ${weatherData.weather.name}</h2>
-        <p>Temperature: ${weatherData.weather.main.temp} ${unitSymbol}</p>
-        <p>Weather: ${weatherData.weather.weather[0].description}</p>
-        <p>Air Quality Index: ${weatherData.air.list[0].main.aqi}</p>
-        <h2>Next 24-hour Forecast</h2>`;
-
-      weatherData.forecast.forEach(forecast => {
-        const date = new Date(forecast.dt * 1000);
-        forecastHtml += `
-          <div>
-            <p><strong>${date.toLocaleString()}</strong></p>
-            <p>Temperature: ${forecast.main.temp} ${unitSymbol}</p>
-            <p>Weather: ${forecast.weather[0].description}</p>
-          </div>`;
-      });
-
-      document.getElementById('weather-result').innerHTML = forecastHtml;
-    }
-
-    ipcRenderer.on('change-weather-color', (event, colorSet) => {
-      document.body.className = colorSet;
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log("wea1-display.html loaded and waiting for weather data");
+      ipcRenderer.send('request-weather-data');
     });
+
 
 
   </script>
 </body>
+
 </html>
