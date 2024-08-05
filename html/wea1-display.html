@@ -7,6 +7,8 @@
   <title>Weather App - Current and 24-hour Forecast</title>
   <!-- <link rel="stylesheet" href="../css/style5.css"> -->
   <link rel="stylesheet" href="../css/wea_1.css">
+  <link rel="stylesheet" href="../css/wea1-color.css">
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -14,7 +16,7 @@
 
   <div class="default-set"></div>
 
-  <div class="weather-container">
+  <div class="weather-container" id="iii">
     <div class="result-container" id="weather-result">
       <p>Enter city name in app setting</p>
     </div>
@@ -65,30 +67,54 @@
       // const unitSymbol = weatherData.unit === 'metric' ? 'c' : 'f';
 
       const temperatureC = Math.round(weatherData.weather.main.temp);
-      const temperatureF = Math.round(celsiusToFahrenheit(temperatureC));
+      const temperatureF = Math.round(fahrenheitToCelsius(temperatureC));
+      const temperatureFonC = Math.round(celsiusToFahrenheit(temperatureC));
+      const temperatureConF = Math.round(weatherData.weather.main.temp);
+
+
       const description = weatherData.weather.weather[0].description.toLowerCase();
       // const temperature = Math.round(weatherData.weather.main.temp);
 
 
       let weatherImage = '';
       if (description.includes('clear')) {
-        weatherImage = '../src/logo.png';
-      } else if (description.includes('cloud')) {
-        weatherImage = 'cloudy.png';
+        weatherImage = '../src/weather/clear.png';
+      } else if (description.includes('few')) {
+        weatherImage = '../src/weather/few.png';
+      } else if (description.includes('scattered')) {
+        weatherImage = '../src/weather/scattered.png';
+      } else if (description.includes('broken')) {
+        weatherImage = '../src/weather/broken.png';
+      } else if (description.includes('overcast')) {
+        weatherImage = '../src/weather/broken.png';
+      } else if (description.includes('shower')) {
+        weatherImage = '../src/weather/shower.png';
+      } else if (description.includes('thunderstorm')) {
+        weatherImage = '../src/weather/thunder.png';
+      } else if (description.includes('drizzle')) {
+        weatherImage = '../src/weather/shower.png';
       } else if (description.includes('rain')) {
-        weatherImage = 'rainy.png';
+        weatherImage = '../src/weather/rain.png';
       } else if (description.includes('snow')) {
-        weatherImage = 'snowy.png';
+        weatherImage = '../src/weather/snow.png';
+      } else if (description.includes('sleet')) {
+        weatherImage = '../src/weather/snow.png';
       } else {
-        weatherImage = 'default.png';
+        weatherImage = '../src/weather/mist.png';
       }
 
 
-      const mainTemperature = currentUnit === 'metric' ? `${temperatureC}` : `${temperatureF}`;
-      const mainUnitSymbol = currentUnit === 'metric' ? 'C' : 'F';
-      const secondaryTemperature = currentUnit === 'metric' ? `${temperatureF}` : `${temperatureC}`;
-      const secondaryUnitSymbol = currentUnit === 'metric' ? 'F' : 'C';
+      const mainTemperature = currentUnit === 'metric' ? `${temperatureC}` : `${temperatureFonC}`;
+      const mainUnitSymbol = weatherData.unit === 'metric' ? 'C' : 'F';
+      const secondaryTemperature = weatherData.unit === 'metric' ? `${temperatureFonC}` : `${temperatureF}`;
+      const secondaryUnitSymbol = weatherData.unit === 'metric' ? 'F' : 'C';
 
+
+      // console.log('TemperatureC', temperatureC);
+      // console.log('TemperatureF', temperatureF);
+      // console.log('TemperatureConF:', temperatureConF);
+      // console.log('TemperatureFonC:', temperatureFonC);
+      // console.log('lalalla', weatherData.weather.main.temp)
 
 
 
@@ -143,8 +169,8 @@
           datasets: [{
             label: 'AQI',
             data: [inverseAqi],
-            backgroundColor: "blue",
-            
+            backgroundColor: "black",
+
 
 
 
@@ -156,10 +182,10 @@
         },
         options: {
           indexAxis: 'y',
-          maintainAspectRatio: false, 
-          responsive: true, 
+          maintainAspectRatio: false,
+          responsive: true,
           barPercentage: 1.00,
-          categoryPercentage: 1.00, 
+          categoryPercentage: 1.00,
           scales: {
             x: {
               beginAtZero: true,
@@ -198,17 +224,44 @@
       });
     }
 
-    function toggleUnit() {
-      currentUnit = currentUnit === 'metric' ? 'imperial' : 'metric';
-      const toggleButton = document.getElementById('toggle-unit');
-      toggleButton.innerText = currentUnit === 'metric' ? 'Toggle to °F' : 'Toggle to °C';
-      ipcRenderer.send('request-weather-data');
-    }
+    // function toggleUnit() {
+    //   currentUnit = currentUnit === 'metric' ? 'imperial' : 'metric';
+    //   const toggleButton = document.getElementById('toggle-unit');
+    //   toggleButton.innerText = currentUnit === 'metric' ? 'Toggle to °F' : 'Toggle to °C';
+    //   ipcRenderer.send('request-weather-data');
+    // }
 
     document.addEventListener('DOMContentLoaded', () => {
       console.log("wea1-display.html loaded and waiting for weather data");
       ipcRenderer.send('request-weather-data');
+
+      ipcRenderer.on('toggle-unit', (event, newUnit) => {
+        currentUnit = newUnit;
+        updateUnitSymbols();
+      });
     });
+
+    function resizeWea({ newWidth, newHeight }) {
+            const calElement = document.getElementById('iii');
+            if (calElement) {
+                const scaleFactor = newWidth / 405; 
+                document.documentElement.style.fontSize = `${scaleFactor * 16}px`; // Adjust root font size
+                calElement.style.width = `${newWidth}px`;
+                calElement.style.height = `${newHeight}px`;
+
+            }
+        }
+
+
+    ipcRenderer.on('resize-wea1', (event, { newWidth, newHeight }) => {
+            resizeWea({ newWidth, newHeight });
+        });
+
+    ipcRenderer.on('change-wea1-color', (event, colorSet) => {
+      document.body.className = colorSet;
+    });
+
+
 
 
 

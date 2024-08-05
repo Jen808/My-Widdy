@@ -1226,6 +1226,54 @@ ipcMain.on('adjust-todo5-size', (event, { size }) => {
 });
 
 
+ipcMain.on('adjust-wea1-size', (event, { size }) => {
+  if (displayWindows['wea1-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 405;
+    const newHeight = (newSize / 50) * 195;
+    displayWindows['wea1-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['wea1-display'].webContents.send('resize-wea1', { newWidth, newHeight });
+    console.log(`Resized wea1-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
+
+ipcMain.on('adjust-wea2-size', (event, { size }) => {
+  if (displayWindows['wea2-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 405;
+    const newHeight = (newSize / 50) * 195;
+    displayWindows['wea2-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['wea2-display'].webContents.send('resize-wea2', { newWidth, newHeight });
+    console.log(`Resized wea2-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
+
+ipcMain.on('adjust-wea3-size', (event, { size }) => {
+  if (displayWindows['wea3-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 405;
+    const newHeight = (newSize / 50) * 195;
+    displayWindows['wea3-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['wea3-display'].webContents.send('resize-wea3', { newWidth, newHeight });
+    console.log(`Resized wea3-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
+
+ipcMain.on('adjust-wea4-size', (event, { size }) => {
+  if (displayWindows['wea4-display']) {
+    const newSize = parseInt(size);
+    const newWidth = (newSize / 50) * 405;
+    const newHeight = (newSize / 50) * 195;
+    displayWindows['wea4-display'].setSize(Math.round(newWidth), Math.round(newHeight));
+    displayWindows['wea4-display'].webContents.send('resize-wea4', { newWidth, newHeight });
+    console.log(`Resized wea4-display to width: ${newWidth}, height: ${newHeight}`);
+  }
+});
+
+
 
 
 
@@ -1414,13 +1462,39 @@ ipcMain.on('change-todo5-color', (event, colorSet) => {
 
 
 
-ipcMain.on('change-weather-color', (event, colorSet) => {
-  if (displayWindows['display5']) {
-    displayWindows['display5'].webContents.send('change-weather-color', colorSet);
-  } else if (displayWindows['display6']) {
-    displayWindows['display6'].webContents.send('change-weather-color', colorSet);
+ipcMain.on('change-wea1-color', (event, colorSet) => {
+  if (displayWindows['wea1-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['wea1-display'].webContents.send('change-wea1-color', colorSet);
   }
 });
+
+
+
+
+ipcMain.on('change-wea2-color', (event, colorSet) => {
+  if (displayWindows['wea2-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['wea2-display'].webContents.send('change-wea2-color', colorSet);
+  }
+});
+
+
+ipcMain.on('change-wea3-color', (event, colorSet) => {
+  if (displayWindows['wea3-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['wea3-display'].webContents.send('change-wea3-color', colorSet);
+  }
+});
+
+
+ipcMain.on('change-wea4-color', (event, colorSet) => {
+  if (displayWindows['wea4-display']) {
+    console.log(`Changing clock color to: ${colorSet}`);
+    displayWindows['wea4-display'].webContents.send('change-wea4-color', colorSet);
+  }
+});
+
 
 
 
@@ -1428,7 +1502,13 @@ ipcMain.on('toggle-unit', () => {
   currentUnit = currentUnit === 'metric' ? 'imperial' : 'metric';
   if (displayWindows['wea1-display']) {
     displayWindows['wea1-display'].webContents.send('request-weather-data');
-  }
+  } else if (displayWindows['wea2-display']) {
+    displayWindows['wea2-display'].webContents.send('request-weather-data');
+  } else if (displayWindows['wea3-display']) {
+    displayWindows['wea3-display'].webContents.send('request-weather-data');
+  } else if (displayWindows['wea4-display']) {
+    displayWindows['wea4-display'].webContents.send('request-weather-data');
+  } 
 });
 
 
@@ -1556,7 +1636,7 @@ function closeTodo5Display() {
 
 function openWea1Display() {
   if (!displayWindows['wea1-display']) {
-    createDisplayWindow('wea1-display', 'Wea1 Display', 400, 190);
+    createDisplayWindow('wea1-display', 'Wea1 Display', 405, 195);
     displayWindows['wea1-display'].webContents.once('did-finish-load', () => {
       console.log("wea1-display loaded");
       displayWindows['wea1-display'].webContents.send('request-weather-data'); // 데이터 요청
@@ -1572,11 +1652,85 @@ function openWea1Display() {
   }
 }
 
+
+function openWea2Display() {
+  if (!displayWindows['wea2-display']) {
+    createDisplayWindow('wea2-display', 'Wea2 Display', 405, 195);
+    displayWindows['wea2-display'].webContents.once('did-finish-load', () => {
+      console.log("wea2-display loaded");
+      displayWindows['wea2-display'].webContents.send('request-weather-data'); // 데이터 요청
+    });
+  } else {
+    displayWindows['wea2-display'].show();
+    if (globalWeatherData) {
+      console.log("Sending weather data to display window", globalWeatherData);
+      displayWindows['wea2-display'].webContents.send('weather-data', globalWeatherData);
+    } else {
+      console.log("No globalWeatherData to send");
+    }
+  }
+}
+
+function openWea3Display() {
+  if (!displayWindows['wea3-display']) {
+    createDisplayWindow('wea3-display', 'Wea3 Display', 405, 195);
+    displayWindows['wea3-display'].webContents.once('did-finish-load', () => {
+      console.log("wea3-display loaded");
+      displayWindows['wea3-display'].webContents.send('request-weather-data'); // 데이터 요청
+    });
+  } else {
+    displayWindows['wea3-display'].show();
+    if (globalWeatherData) {
+      console.log("Sending weather data to display window", globalWeatherData);
+      displayWindows['wea3-display'].webContents.send('weather-data', globalWeatherData);
+    } else {
+      console.log("No globalWeatherData to send");
+    }
+  }
+}
+
+function openWea4Display() {
+  if (!displayWindows['wea4-display']) {
+    createDisplayWindow('wea4-display', 'Wea4 Display', 405, 195);
+    displayWindows['wea4-display'].webContents.once('did-finish-load', () => {
+      console.log("wea4-display loaded");
+      displayWindows['wea4-display'].webContents.send('request-weather-data'); // 데이터 요청
+    });
+  } else {
+    displayWindows['wea4-display'].show();
+    if (globalWeatherData) {
+      console.log("Sending weather data to display window", globalWeatherData);
+      displayWindows['wea4-display'].webContents.send('weather-data', globalWeatherData);
+    } else {
+      console.log("No globalWeatherData to send");
+    }
+  }
+}
+
 function closeWea1Display() {
   if (displayWindows['wea1-display']) {
     displayWindows['wea1-display'].close();
   }
 }
+
+function closeWea2Display() {
+  if (displayWindows['wea2-display']) {
+    displayWindows['wea2-display'].close();
+  }
+}
+
+function closeWea3Display() {
+  if (displayWindows['wea3-display']) {
+    displayWindows['wea3-display'].close();
+  }
+}
+
+function closeWea4Display() {
+  if (displayWindows['wea4-display']) {
+    displayWindows['wea4-display'].close();
+  }
+}
+
 
 
 
@@ -1681,6 +1835,40 @@ ipcMain.on('close-wea1-display', () => {
 });
 
 
+ipcMain.on('open-wea2-display', () => {
+  openWea2Display();
+});
+
+ipcMain.on('close-wea2-display', () => {
+  if (displayWindows['wea2-display']) {
+    displayWindows['wea2-display'].close();
+  }
+});
+
+
+ipcMain.on('open-wea3-display', () => {
+  openWea3Display();
+});
+
+ipcMain.on('close-wea3-display', () => {
+  if (displayWindows['wea3-display']) {
+    displayWindows['wea3-display'].close();
+  }
+});
+
+
+ipcMain.on('open-wea4-display', () => {
+  openWea4Display();
+});
+
+ipcMain.on('close-wea4-display', () => {
+  if (displayWindows['wea4-display']) {
+    displayWindows['wea4-display'].close();
+  }
+});
+
+
+
 
 
 
@@ -1771,6 +1959,33 @@ ipcMain.on('wea1-status', (event, arg) => {
 });
 
 
+ipcMain.on('wea2-status', (event, arg) => {
+  if (arg.status) {
+    openWea2Display();
+  } else {
+    closeWea2Display();
+  }
+});
+
+ipcMain.on('wea3-status', (event, arg) => {
+  if (arg.status) {
+    openWea3Display();
+  } else {
+    closeWea3Display();
+  }
+});
+
+ipcMain.on('wea4-status', (event, arg) => {
+  if (arg.status) {
+    openWea4Display();
+  } else {
+    closeWea4Display();
+  }
+});
+
+
+
+
 
 
 
@@ -1852,6 +2067,12 @@ ipcMain.handle('get-weather', async (event, city, unit) => {
     // 데이터 요청 이벤트 다시 트리거
     if (displayWindows['wea1-display']) {
       displayWindows['wea1-display'].webContents.send('weather-data', globalWeatherData);
+    } else if (displayWindows['wea2-display']) {
+      displayWindows['wea2-display'].webContents.send('weather-data', globalWeatherData);
+    } else if (displayWindows['wea3-display']) {
+      displayWindows['wea3-display'].webContents.send('weather-data', globalWeatherData);
+    } else if (displayWindows['wea4-display']) {
+      displayWindows['wea4-display'].webContents.send('weather-data', globalWeatherData);
     }
 
     return weatherData;
