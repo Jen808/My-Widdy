@@ -153,6 +153,14 @@
     }
 
 
+
+    function barColors(colorSet) {
+      
+
+    }
+
+
+
     function displayAirQualityChart(aqi) {
       const ctx = document.getElementById('airQualityChart').getContext('2d');
 
@@ -162,6 +170,27 @@
 
       const inverseAqi = 100 - (aqi - 1) * 20;
 
+      const barco = barColors
+
+      // const colorTheme = localStorage.getItem('wea1ColorSet', colorTheme);
+
+      // const colorSet = button.getAttribute('data-color-set');
+      // localStorage.setItem('wea1ColorSet', colorSet);
+      // ipcRenderer.on('change-wea1-color', colorSet);
+
+
+      // Remove existing color theme classes
+      // chartContainer.classList.remove('grey', 'pink', 'blue', 'green', 'red');
+
+      // Add the selected color theme class
+      // if (colorTheme) {
+      //   chartContainer.classList.add(colorTheme);
+      // }
+
+      // Retrieve the background color from the applied CSS class
+
+
+
       airQualityChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -169,7 +198,7 @@
           datasets: [{
             label: 'AQI',
             data: [inverseAqi],
-            backgroundColor: "black",
+            backgroundColor: barco
 
 
 
@@ -242,20 +271,20 @@
     });
 
     function resizeWea({ newWidth, newHeight }) {
-            const calElement = document.getElementById('iii');
-            if (calElement) {
-                const scaleFactor = newWidth / 405; 
-                document.documentElement.style.fontSize = `${scaleFactor * 16}px`; // Adjust root font size
-                calElement.style.width = `${newWidth}px`;
-                calElement.style.height = `${newHeight}px`;
+      const calElement = document.getElementById('iii');
+      if (calElement) {
+        const scaleFactor = newWidth / 405;
+        document.documentElement.style.fontSize = `${scaleFactor * 16}px`; // Adjust root font size
+        calElement.style.width = `${newWidth}px`;
+        calElement.style.height = `${newHeight}px`;
 
-            }
-        }
+      }
+    }
 
 
     ipcRenderer.on('resize-wea1', (event, { newWidth, newHeight }) => {
-            resizeWea({ newWidth, newHeight });
-        });
+      resizeWea({ newWidth, newHeight });
+    });
 
     ipcRenderer.on('change-wea1-color', (event, colorSet) => {
       document.body.className = colorSet;

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@electron/remote": "^2.1.2",
+    "auto-launch": "^5.0.6",
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "electron-store": "^9.0.0",

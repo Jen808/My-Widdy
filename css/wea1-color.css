@@ -1,3 +1,280 @@
-.li-pink .current-weather {
+.li-pink .wea1Colorset {
     background-color: yellow;
 }
+
+
+
+.grey .temperature,
+.grey .circle,
+.grey .unit-symbol,
+.grey .wea-des,
+.grey .temperature2,
+.grey .circle2,
+.grey .unit-symbol2 {
+    color: #5E5E5E;
+}
+
+.grey #airQualityChart {
+    background-color: #5E5E5E;
+}
+
+.grey .back-bar {
+    border: 0.0625rem solid black;  
+}
+
+
+
+.white .temperature,
+.white .circle,
+.white .unit-symbol,
+.white .wea-des,
+.white .temperature2,
+.white .circle2,
+.white .unit-symbol2 {
+    color: white;
+}
+
+.white #airQualityChart {
+    background-color: white;
+}
+
+.white .back-bar {
+    border: 0.0625rem solid white;  
+}
+
+
+
+.li-grey .temperature,
+.li-grey .circle,
+.li-grey .unit-symbol,
+.li-grey .wea-des,
+.li-grey .temperature2,
+.li-grey .circle2,
+.li-grey .unit-symbol2 {
+    color: #B6B6B6;
+}
+
+.li-grey #airQualityChart {
+    background-color: #B6B6B6;
+}
+
+.li-grey .back-bar {
+    border: 0.0625rem solid #B6B6B6;
+}
+
+
+
+
+.li-pink .temperature,
+.li-pink .circle,
+.li-pink .unit-symbol,
+.li-pink .wea-des,
+.li-pink .temperature2,
+.li-pink .circle2,
+.li-pink .unit-symbol2,
+.li-pink #airQualityChart  {
+    color: #FFC8D2;
+}
+
+.li-pink #airQualityChart .backgroundColor {
+    background-color: #FFC8D2;
+}
+
+
+
+
+.li-pink .back-bar {
+    border: 0.0625rem solid #FFC8D2;
+}
+
+
+
+.li-orange .temperature,
+.li-orange .circle,
+.li-orange .unit-symbol,
+.li-orange .wea-des,
+.li-orange .temperature2,
+.li-orange .circle2,
+.li-orange .unit-symbol2 {
+    color: #FFD7BB;
+}
+
+.li-orange #airQualityChart {
+    background-color: #FFD7BB;
+}
+
+
+.li-green .temperature,
+.li-green .circle,
+.li-green .unit-symbol,
+.li-green .wea-des,
+.li-green .temperature2,
+.li-green .circle2,
+.li-green .unit-symbol2 {
+    color: #A1E9C2;
+}
+
+.li-green #airQualityChart {
+    background-color: #A1E9C2;
+}
+
+
+
+
+.li-mint .temperature,
+.li-mint .circle,
+.li-mint .unit-symbol,
+.li-mint .wea-des,
+.li-mint .temperature2,
+.li-mint .circle2,
+.li-mint .unit-symbol2 {
+    color: #A6FFFF;
+}
+
+.li-mint #airQualityChart {
+    background-color: #A6FFFF;
+}
+
+
+
+.li-blue .temperature,
+.li-blue .circle,
+.li-blue .unit-symbol,
+.li-blue .wea-des,
+.li-blue .temperature2,
+.li-blue .circle2,
+.li-blue .unit-symbol2 {
+    color: #B8DDFF;
+}
+
+.li-blue #airQualityChart {
+    background-color: #B8DDFF;
+}
+
+
+
+.li-purple .temperature,
+.li-purple .circle,
+.li-purple .unit-symbol,
+.li-purple .wea-des,
+.li-purple .temperature2,
+.li-purple .circle2,
+.li-purple .unit-symbol2 {
+    color: #E7B3FF;
+}
+
+.li-purple #airQualityChart {
+    background-color: #E7B3FF;
+}
+
+
+
+.pink .temperature,
+.pink .circle,
+.pink .unit-symbol,
+.pink .wea-des,
+.pink .temperature2,
+.pink .circle2,
+.pink .unit-symbol2 {
+    color: #FF7E96;
+}
+
+.pink #airQualityChart {
+    background-color: #FF7E96;
+}
+
+
+
+
+.orange .temperature,
+.orange .circle,
+.orange .unit-symbol,
+.orange .wea-des,
+.orange .temperature2,
+.orange .circle2,
+.orange .unit-symbol2 {
+    color: #FF8D3A;
+}
+
+.orange #airQualityChart {
+    background-color: #FF8D3A;
+}
+
+
+.green .temperature,
+.green .circle,
+.green .unit-symbol,
+.green .wea-des,
+.green .temperature2,
+.green .circle2,
+.green .unit-symbol2 {
+    color: #328357;
+}
+
+.green #airQualityChart {
+    background-color: #328357;
+}
+
+
+
+
+.mint .temperature,
+.mint .circle,
+.mint .unit-symbol,
+.mint .wea-des,
+.mint .temperature2,
+.mint .circle2,
+.mint .unit-symbol2 {
+    color: #22A5A5;
+}
+
+.mint #airQualityChart {
+    background-color: #22A5A5;
+}
+
+
+
+.blue .temperature,
+.blue .circle,
+.blue .unit-symbol,
+.blue .wea-des,
+.blue .temperature2,
+.blue .circle2,
+.blue .unit-symbol2 {
+    color: #63B4FF;
+}
+
+.blue #airQualityChart {
+    background-color: #63B4FF;
+}
+
+.purple .temperature,
+.purple .circle,
+.purple .unit-symbol,
+.purple .wea-des,
+.purple .temperature2,
+.purple .circle2,
+.purple .unit-symbol2 {
+    color: #8A39B0;
+}
+
+.purple #airQualityChart {
+    background-color: #8A39B0;
+}
+
+
+/* .black .temperature,
+.black .circle,
+.black .unit-symbol,
+.black .wea-des,
+.black .temperature2,
+.black .circle2,
+.black .unit-symbol2 {
+    color: black;
+}
+
+.black #airQualityChart {
+    background-color: black;
+} */
+
+

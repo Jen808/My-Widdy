@@ -42,7 +42,7 @@
                     <li class="clock-page"><a href="#" id="clock-page">Clock</a></li>
                     <li class="calendar-page"><a href="#" id="calendar-page">Calendar</a></li>
                     <li class="toDoList-page"><a href="#" id="toDoList-page">To Do List</a></li>
-                    <li class="weather-page"><a href="#" id="weather-page">Weather</a></li>
+                    <!-- <li class="weather-page"><a href="#" id="weather-page">Weather</a></li> -->
                 </ul>
             </nav>
         </div>
@@ -175,9 +175,9 @@
             window.location.href = 'toDoList.html';
         });
 
-        document.getElementById('weather-page').addEventListener('click', () => {
-            window.location.href = 'weather.html';
-        });
+        // document.getElementById('weather-page').addEventListener('click', () => {
+        //     window.location.href = 'weather.html';
+        // });
 
 
 
@@ -306,15 +306,13 @@
                 ipcRenderer.send('todo1-status', { status: isChecked });
 
                 if (isChecked) {
-                    // Set default settings when turned on
                     localStorage.setItem('todo1ColorSet', 'li-grey');
-                    markSelectedColor('todo1', 'li-grey'); // Place color-check on li-grey
+                    markSelectedColor('todo1', 'li-grey');
                     sizeSliderTodo1.value = 50;
                     sliderValueTodo1.innerText = 50;
                     localStorage.setItem('todo1Size', 50);
                     ipcRenderer.send('adjust-todo1-size', { size: 50 });
                 } else {
-                    // Reset settings when turned off
                     clearSelectedColor('todo1');
                     sizeSliderTodo1.value = 50;
                     sliderValueTodo1.innerText = 50;
@@ -322,7 +320,6 @@
                 }
             });
 
-            // Handle color button click
             document.querySelectorAll('.todo1-color-button').forEach(button => {
                 button.addEventListener('click', () => {
                     const colorSet = button.getAttribute('data-color-set');
@@ -332,7 +329,6 @@
                 });
             });
 
-            // Handle size slider input
             sizeSliderTodo1.addEventListener('input', () => {
                 const newSize = sizeSliderTodo1.value;
                 sliderValueTodo1.innerText = newSize;
@@ -340,7 +336,6 @@
                 localStorage.setItem('todo1Size', newSize);
             });
 
-            // Handle authentication button click
             document.getElementById('auth-button').addEventListener('click', () => {
                 const authButton = document.getElementById('auth-button');
                 const buttonText = authButton.innerText;
@@ -351,7 +346,6 @@
                 }
             });
 
-            // Update authentication status
             ipcRenderer.on('auth-status', (event, status) => {
                 const authButton = document.getElementById('auth-button');
                 const authStatus = document.getElementById('auth-status');

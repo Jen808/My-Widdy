@@ -366,7 +366,7 @@ const createMainWindow = () => {
     icon: path.join(__dirname, 'src/logo.png'),
   });
   mainWindow.loadFile('html/my-widdy.html');
-  // Menu.setApplicationMenu(null);
+  Menu.setApplicationMenu(null);
 
 
   mainWindow.once('ready-to-show', () => {
